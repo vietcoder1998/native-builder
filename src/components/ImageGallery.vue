@@ -1,10 +1,12 @@
 <script lang="ts">
 import { defineComponent, ref } from 'vue'
 import Modal from './Modal.vue'
+import LightBox from './LightBox.vue'
 
 export default defineComponent({
   components: {
-    Modal
+    Modal,
+    LightBox
   },
   data() {
     return {
@@ -42,7 +44,8 @@ export default defineComponent({
       fixingItem: { src: '', title: '', thumbnail: '', index: 0 },
       showModal: false,
       isAdd: false,
-      lastIndex: 0
+      lastIndex: 0,
+      showLightBox: false
     }
   },
   methods: {
@@ -65,9 +68,16 @@ export default defineComponent({
       lastIndex: number
     ) {
       const temp = this.$data.items[fixingItem.index]
-      this.$data.items[fixingItem.index] = { src: fixingItem.src, title: fixingItem.title, thumbnail: fixingItem.thumbnail}
+      this.$data.items[fixingItem.index] = {
+        src: fixingItem.src,
+        title: fixingItem.title,
+        thumbnail: fixingItem.thumbnail
+      }
       this.$data.items[lastIndex] = temp
       this.$data.showModal = false
+    },
+    onShowLightBox() {
+      this.$data.showLightBox = true
     }
   }
 })
@@ -129,7 +139,7 @@ export default defineComponent({
   <!--modal-->
   <modal
     :show="showModal"
-    @close="showModal = false, lastIndex= fixingItem.index"
+    @close=";(showModal = false), (lastIndex = fixingItem.index)"
     :data="fixingItem"
     @update="onUpdateImage(fixingItem, lastIndex)"
   >
@@ -158,9 +168,27 @@ export default defineComponent({
   <!-- Image gallery -->
   <div v-bind:class="cls">
     <div v-for="(item, index) in items" :key="index">
-      <img :src="item.src" :aria-label="item.thumbnail" class="ri" />
+      <img
+        :src="item.thumbnail"
+        :aria-label="item.thumbnail"
+        class="ri"
+        @click="onShowLightBox"
+      />
+      <light-box
+        :show="showLightBox"
+        @close="showLightBox = false"
+        :src="item.src"
+      >
+        <template #header>
+          <h3>Fix item {{ fixingItem.index }}</h3>
+        </template>
+      </light-box>
     </div>
   </div>
+
+  <!--modal-->
+
+  <!--modal-->
 </template>
 
 <style scoped>
