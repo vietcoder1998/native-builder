@@ -8,6 +8,8 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@headlessui/vue": "^1.5.0",
+    "@heroicons/vue": "^1.0.5",
     "node-sass": "^7.0.1",
     "prettier": "^2.5.1",
     "sass-loader": "^12.6.0",
