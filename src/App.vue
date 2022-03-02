@@ -1,9 +1,7 @@
 <script setup lang="ts">
 // This starter template is using Vue 3 <script setup> SFCs
 // Check out https://v3.vuejs.org/api/sfc-script-setup.html#sfc-script-setup
-import SwiperTest from './components/SwiperTest.vue'
-import ImageList from './components/ImageList.vue'
-import './index.css'
+import ImageList from './components/ImageGallery.vue'
 
 
 // Import Swiper styles
@@ -15,13 +13,15 @@ import 'swiper/css/scrollbar'
 </script>
 
 <template>
-  <img alt="Vue logo" src="./assets/logo.png" />
+  <h1 class="text-3xl font-bold underline">
+    Hello world!
+  </h1>
   <HelloWorld msg="Hello Vue 3 + TypeScript + Vite" />
-  <SwiperTest />
   <ImageList />
 </template>
 
 <style>
+
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
