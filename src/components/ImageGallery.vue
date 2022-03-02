@@ -28,7 +28,7 @@ export default defineComponent({
       ],
       columns: 1,
       gap: 0,
-      cls: 'grid grid-cols-1 gap-0'
+      cls: 'grid grid-cols-3 gap-2'
     }
   },
   methods: {
@@ -60,7 +60,7 @@ export default defineComponent({
     </div>
   </div>
   <!-- Image gallery -->
-  <div :class="cls">
+  <div v-bind:class="cls">
     <div v-for="(item, index) in items" :key="index">
       <img :src="item.src" :aria-label="item.thumbnail" class="ri" />
       <label>
