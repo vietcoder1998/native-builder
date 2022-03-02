@@ -19,6 +19,7 @@ import 'swiper/css/scrollbar'
   <router-link to="/beae-element">beae-element</router-link>
 
   <!--router-view-->
+  <hr class="m-6" />
   <router-view></router-view>
 </template>
 

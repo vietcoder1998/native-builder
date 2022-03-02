@@ -1,6 +1,7 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import Home from './views/Home.vue'
 import Gallery from './views/Gallery.vue'
+import FormContact from './views/FormContact.vue'
 
 const routes = [
   {
@@ -12,6 +13,11 @@ const routes = [
     path: '/gallery',
     name: 'Gallery',
     component: Gallery
+  },
+  {
+    path: '/form-contact',
+    name: 'FormContact',
+    component: FormContact
   }
 ]
 
