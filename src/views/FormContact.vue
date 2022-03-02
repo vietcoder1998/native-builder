@@ -1,16 +1,25 @@
 <script lang="ts">
 import { defineComponent, defineProps } from 'vue'
 
-type FieldName = 'text' | 'textarea' | 'checkbox' | 'dropdown' | 'button'
+type FieldName =
+  | 'text'
+  | 'textarea'
+  | 'checkbox'
+  | 'dropdown'
+  | 'button'
+  | 'date'
+  | 'radio'
+  | 'textarea'
 type Field = {
   title?: string
   type?: FieldName
   value?: unknown
-  options?: unknown[]
+  options?: string[]
   width?: number
   required?: boolean
   placeholder?: string
   description?: string
+  name?: string
 }
 
 defineProps({
@@ -41,7 +50,7 @@ export default defineComponent({
         },
         {
           title: 'Time',
-          type: 'text',
+          type: 'date',
           width: 120,
           required: true,
           placeholder: 'must longer than 8',
@@ -49,39 +58,36 @@ export default defineComponent({
         },
         {
           title: 'Select',
-          type: 'text',
+          type: 'dropdown',
           width: 120,
           required: true,
           placeholder: 'must longer than 8',
-          description: 'please add your name'
+          description: 'please add your name',
+          name: 'Select',
+          options: ['The title 1', 'The title 2']
         },
         {
           title: 'Checkbox',
-          type: 'text',
+          type: 'checkbox',
           width: 120,
           required: true,
           placeholder: 'must longer than 8',
-          description: 'please add your name'
+          description: 'please add your name',
+          options: ['The title 1', 'The title 2']
         },
         {
           title: 'Radio',
-          type: 'text',
+          type: 'radio',
           width: 120,
           required: true,
           placeholder: 'must longer than 8',
-          description: 'please add your name'
+          description: 'please add your name',
+          options: ['The title 1', 'The title 2'],
+          name: 'radio'
         },
         {
           title: 'Your message',
-          type: 'text',
-          width: 120,
-          required: true,
-          placeholder: 'must longer than 8',
-          description: 'please add your name'
-        },
-        {
-          title: 'YourName',
-          type: 'text',
+          type: 'textarea',
           width: 120,
           required: true,
           placeholder: 'must longer than 8',
@@ -96,7 +102,7 @@ export default defineComponent({
 <template>
   <form class="grid grid-cols-2 gap-4 mx-3">
     <div v-for="(field, id) in fields" :key="id" class="relative">
-      <label for="id" class="w-full relative">
+      <label :for="field.name" class="w-full relative">
         {{ field.title }}
         <span
           v-show="field.required"
@@ -105,17 +111,65 @@ export default defineComponent({
         >
       </label>
       <input
-        class="w-full"
+        class="w-full text-left"
+        v-if="
+          field.type !== 'checkbox' &&
+          field.type !== 'radio' &&
+          field.type !== 'dropdown' &&
+          field.type !== 'textarea'
+        "
         :type="field.type"
         v-model="field.value"
         :key="type + '_' + id"
         v-bind:required="required"
         :placeholder="field.placeholder"
         :id="id"
+        :name="field.name"
       />
-      <span> </span>
+      <select
+        v-else-if="field.type === 'dropdown'"
+        v-bind:value="field.value"
+        class="w-full p-3 border"
+        :name="field.name"
+      >
+        <option
+          v-for="(option, oid) in field"
+          :key="oid"
+          v-bind:value="option"
+          :for="field.name"
+        >
+          {{ option }}
+        </option>
+      </select>
+      <div
+        v-else-if="field.type === 'checkbox'"
+        v-for="(options, oid) in field.options"
+        :key="options + oid"
+      >
+        <input :type="field.type" :id="options + oid" :name="option" />
+        <label :id="options + oid">
+          {{ options }}
+        </label>
+      </div>
+      <div
+        v-show="field.type === 'radio'"
+        v-for="(options, oid) in field.options"
+        :key="options + oid"
+      >
+        <input :type="field.type" :id="options + oid" :name="field.name" />
+        <label :id="options + oid" :for="field.name">
+          {{ options }}
+        </label>
+      </div>
+
+      <textarea
+        v-show="field.type === 'textarea'"
+        rows="3"
+        class="border rounded w-full"
+        :placeholder="field.placeholder"
+      ></textarea>
     </div>
-    <label> </label>
+    <button type="submit" class="border w-20 h-14">Submit</button>
   </form>
 </template>
 
