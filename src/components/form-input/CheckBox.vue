@@ -7,19 +7,22 @@ export default defineComponent({
   props: {
     field: {} as PropType<Field>
   },
-  data() {}
+  data() {
+    check: this.$props.field?.required
+  },
 })
 </script>
 <template>
-  <div>
+  <div class="form-group" required>
     <div v-for="(option, oid) in field?.options" :key="oid">
       <input
         type="checkbox"
         @change="$emit('change', option, name)"
-        :name="String(oid)"
+        :name="field?.name"
         :value="option"
+        :id="field?.name + option"
       />
-      <label :for="option">
+      <label :for="field?.name + option">
         {{ option }}
       </label>
     </div>

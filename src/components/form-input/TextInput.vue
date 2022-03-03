@@ -18,6 +18,7 @@ export default defineComponent({
     :placeholder="field?.placeholder"
     :id="field?.id"
     :name="field?.name"
+    :aria-describedby="field?.description"
     @change="$emit('change')"
   />
 </template>

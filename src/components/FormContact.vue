@@ -106,6 +106,7 @@ export default defineComponent({
   methods: {
     validateFormat() {
       console.log(this.$refs.form1)
+      alert('submit')
     }
   }
 })

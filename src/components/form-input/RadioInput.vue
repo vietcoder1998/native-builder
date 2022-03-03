@@ -14,12 +14,12 @@ export default defineComponent({
   <div v-for="(option, oid) in field?.options" :key="option + oid">
     <input
       type="radio"
-      :id="String(option + oid)"
+      :id="field?.name + option"
       :name="field?.name"
-      @change="$emit('change')"
       :required="field?.required"
+      @change="$emit('change')"
     />
-    <label :id="String(option + oid)" :for="field?.name">
+    <label :for="field?.name + option">
       {{ option }}
     </label>
   </div>
