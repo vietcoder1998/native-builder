@@ -1,11 +1,10 @@
-
 <script lang="ts">
 import { defineComponent } from 'vue';
 
 export default defineComponent({
-    name: 'number-input',
+    name: 'text-input',
     props: {
-        value: Number,
+        value: String,
         key: String,
         required: Boolean,
         placeholder: String,
@@ -17,7 +16,7 @@ export default defineComponent({
 <template>
     <input
         class="w-full text-left"
-        type="number"
+        type="date"
         v-model="value"
         :key="key"
         :required="required"

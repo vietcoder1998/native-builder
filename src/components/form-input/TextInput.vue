@@ -23,6 +23,7 @@ export default defineComponent({
         :placeholder="placeholder"
         :id="id"
         :name="name"
+        v-on:change="$emit('change')"
       />
 </template>
 
