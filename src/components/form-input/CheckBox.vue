@@ -17,10 +17,10 @@ export default defineComponent({
     <div v-for="(option, oid) in field?.options" :key="oid">
       <input
         type="checkbox"
-        @change="$emit('change', option, name)"
         :name="field?.name"
         :value="option"
         :id="field?.name + option"
+        @change="$emit('change', option, name)"
       />
       <label :for="field?.name + option">
         {{ option }}
