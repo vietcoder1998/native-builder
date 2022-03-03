@@ -4,6 +4,7 @@ import Modal from './Modal.vue'
 import LightBox from './LightBox.vue'
 
 export default defineComponent({
+  name: 'image-gallery',
   components: {
     Modal,
     LightBox
@@ -84,111 +85,110 @@ export default defineComponent({
 </script>
 
 <template>
-  <div>
+  <main>
     <div>
-      <label> Columns </label>
-      <input
-        type="number"
-        v-model="columns"
-        @change="onChangeParams(columns, gap)"
-      />
+      <div>
+        <label> Columns </label>
+        <input
+          type="number"
+          v-model="columns"
+          @change="onChangeParams(columns, gap)"
+        />
+      </div>
+      <div>
+        <label> Gap </label>
+        <input
+          type="number"
+          v-model="gap"
+          @change="onChangeParams(columns, gap)"
+        />
+      </div>
     </div>
-    <div>
-      <label> Gap </label>
-      <input
-        type="number"
-        v-model="gap"
-        @change="onChangeParams(columns, gap)"
-      />
+
+    <!-- Image Info -->
+    <table class="table-auto border-collapse border-slate-400">
+      <thead>
+        <tr>
+          <th class="border border-slate-300">stt</th>
+          <th class="border border-slate-300">src</th>
+          <th class="border border-slate-300">title</th>
+          <th class="border border-slate-300">thumbnail</th>
+          <th class="border border-slate-300">action</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr v-for="({ src, title, thumbnail }, index) in items" :key="index">
+          <td class="border border-slate-300">{{ index }}</td>
+          <td class="border border-slate-300">
+            {{ src }}
+          </td>
+          <td class="border border-slate-300">{{ title }}</td>
+          <td class="border border-slate-300">{{ thumbnail }}</td>
+          <td class="border border-slate-300">
+            <button
+              id="show-modal"
+              @click="
+                ;(showModal = true),
+                  (fixingItem = { src, title, thumbnail, index })
+              "
+            >
+              Fix
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <!--modal-->
+    <modal
+      :show="showModal"
+      @close=";(showModal = false), (lastIndex = fixingItem.index)"
+      @update="onUpdateImage(fixingItem, lastIndex)"
+      :title="fixingItem.title"
+      :src="fixingItem.src"
+      :thumbnail="fixingItem.thumbnail"
+      :index="fixingItem.index"
+    >
+      <template>
+        <h3>Fix item {{ fixingItem.index }}</h3>
+      </template>
+    </modal>
+    <!--modal-->
+
+    <button class="btn border btn-primary m-1 p-1" @click="onChangAddState">
+      + Add more
+    </button>
+
+    <div class="p-2 m-2" v-show="isAdd">
+      <form @submit.prevent="onAddNewItem">
+        <input v-model="newItem.src" type="string" placeholder="src" />
+        <input v-model="newItem.title" type="string" placeholder="title" />
+        <input
+          v-model="newItem.thumbnail"
+          type="string"
+          placeholder="thumbnail"
+        />
+        <button id="show-modal" @click="showModal = true">Fix</button>
+      </form>
     </div>
-  </div>
+    <!-- Image gallery -->
+    <div v-bind:class="cls">
+      <div v-for="(item, index) in items" :key="index">
+        <img
+          :src="item.thumbnail"
+          :aria-label="item.thumbnail"
+          class="ri"
+          @click="onShowLightBox"
+        />
 
-  <!-- Image Info -->
-  <table class="table-auto border-collapse border-slate-400">
-    <thead>
-      <tr>
-        <th class="border border-slate-300">stt</th>
-        <th class="border border-slate-300">src</th>
-        <th class="border border-slate-300">title</th>
-        <th class="border border-slate-300">thumbnail</th>
-        <th class="border border-slate-300">action</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr v-for="({ src, title, thumbnail }, index) in items" :key="index">
-        <td class="border border-slate-300">{{ index }}</td>
-        <td class="border border-slate-300">
-          {{ src }}
-        </td>
-        <td class="border border-slate-300">{{ title }}</td>
-        <td class="border border-slate-300">{{ thumbnail }}</td>
-        <td class="border border-slate-300">
-          <button
-            id="show-modal"
-            @click="
-              ;(showModal = true),
-                (fixingItem = { src, title, thumbnail, index })
-            "
-          >
-            Fix
-          </button>
-        </td>
-      </tr>
-    </tbody>
-  </table>
-  <!--modal-->
-  <modal
-    :show="showModal"
-    @close=";(showModal = false), (lastIndex = fixingItem.index)"
-    :data="fixingItem"
-    @update="onUpdateImage(fixingItem, lastIndex)"
-  >
-    <template #header>
-      <h3>Fix item {{ fixingItem.index }}</h3>
-    </template>
-  </modal>
-  <!--modal-->
-
-  <button class="btn border btn-primary m-1 p-1" @click="onChangAddState">
-    + Add more
-  </button>
-
-  <div class="p-2 m-2" v-show="isAdd">
-    <form @submit.prevent="onAddNewItem">
-      <input v-model="newItem.src" type="string" placeholder="src" />
-      <input v-model="newItem.title" type="string" placeholder="title" />
-      <input
-        v-model="newItem.thumbnail"
-        type="string"
-        placeholder="thumbnail"
-      />
-      <button id="show-modal" @click="showModal = true">Fix</button>
-    </form>
-  </div>
-  <!-- Image gallery -->
-  <div v-bind:class="cls">
-    <div v-for="(item, index) in items" :key="index">
-      <img
-        :src="item.thumbnail"
-        :aria-label="item.thumbnail"
-        class="ri"
-        @click="onShowLightBox"
-      />
-      <light-box
-        :show="showLightBox"
-        @close="showLightBox = false"
-        :src="item.src"
-      >
-        <template #header>
-          <h3>Fix item {{ fixingItem.index }}</h3>
-        </template>
-      </light-box>
+        <!--light-box for image -->
+        <light-box
+          :show="showLightBox"
+          @close="showLightBox = false"
+          :src="item.src"
+        />
+      </div>
     </div>
-  </div>
-
-  <!--modal-->
-
-  <!--modal-->
+  </main>
 </template>
 
 <style scoped>

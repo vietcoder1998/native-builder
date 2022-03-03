@@ -1,21 +1,18 @@
-<script>
+<script lang="ts">
 import { defineComponent, defineProps } from '@vue/runtime-core'
-export default {
+export default defineComponent({
+  name: 'light-box',
   props: {
     show: Boolean,
     src: String,
   }
-}
+})
 
-defineComponent({})
 </script>
 
 <template>
   <Transition name="modal">
     <div v-if="show" class="modal-mask">
-      <h5>
-        đổi thông tin ảnh
-      </h5>
       <div class="modal-wrapper">
         <div class="modal-container">
           <img :src="src" />

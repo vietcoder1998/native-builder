@@ -1,39 +1,37 @@
-<script>
-import { defineComponent, defineProps } from '@vue/runtime-core'
-export default {
-  props: {
-    show: Boolean,
-    data: {
-      title: String,
-      index: Number,
-      src: String,
-      thumbnail: String
-    }
-  }
+<script lang="ts">
+import { defineComponent } from '@vue/runtime-core'
+
+type ImgInfo = {
+  index: Number
+  src: String
+  title: String
+  thumbnail: String
 }
 
-defineComponent({})
+export default defineComponent({
+  name: 'modal',
+  components: {},
+  props: {
+    title: String,
+    index: Number,
+    src: String,
+    thumbnail: String,
+    show: Boolean,
+  }
+})
+
 </script>
 
 <template>
   <Transition name="modal">
     <div v-if="show" class="modal-mask">
-      <h5>
-        đổi thông tin ảnh
-      </h5>
+      <h5>Đổi thông tin ảnh</h5>
       <div class="modal-wrapper">
         <div class="modal-container">
-          <form @submit.prevent="onAdddata">
-            <input v-model="data.index" type="number" placeholder="src" />
-            <input v-model="data.src" type="text" placeholder="src" />
-            <input v-model="data.title" type="text" placeholder="title" />
-            <input
-              v-model="data.thumbnail"
-              type="text"
-              placeholder="thumbnail"
-            />
-          </form>
-
+          <input v-model="index" type="number" placeholder="src" />
+          <input v-model="src" type="text" placeholder="src" />
+          <input v-model="title" type="text" placeholder="title" />
+          <input v-model="thumbnail" type="text" placeholder="thumbnail" />
           <div class="modal-footer">
             <slot name="footer">
               <button class="modal-default-button p-2" @click="$emit('update')">
