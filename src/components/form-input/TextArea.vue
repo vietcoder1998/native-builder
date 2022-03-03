@@ -15,7 +15,7 @@ export default defineComponent({
 </script>
 <template>
     <textarea
-        class="w-full text-left"
+        class="w-full text-left border"
         type="text"
         v-model="value"
         :key="key"
@@ -23,6 +23,7 @@ export default defineComponent({
         :placeholder="placeholder"
         :id="id"
         :name="name"
+        rows="3"
         v-on:change="$emit('change')"
       >
       </textarea>

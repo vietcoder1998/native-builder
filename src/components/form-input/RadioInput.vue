@@ -17,9 +17,9 @@ export default defineComponent({
 <template>
   <div>
     <div v-for="(option, oid) in options" :key="option + oid">
-      <input type="radio" :id="String(option + oid)" :name="name" v-on:change="$emit('change')" />
+      <input type="radio" :id="String(option + oid)" :name="name" @change="$emit('change')" />
       <label :id="String(option + oid)" :for="name">
-        {{ options }}
+        {{ option }}
       </label>
     </div>
   </div>

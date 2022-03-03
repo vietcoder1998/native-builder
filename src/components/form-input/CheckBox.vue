@@ -4,7 +4,7 @@ import { defineComponent } from 'vue'
 export default defineComponent({
   name: 'checkbox-input',
   props: {
-    value: Number,
+    value: String,
     key: String,
     required: Boolean,
     name: String,
@@ -15,10 +15,14 @@ export default defineComponent({
 </script>
 <template>
   <div>
-    <div v-for="(option, oid) in options" v-bind:key="oid" v-on:change="$emit('change')">
-      <input type="checkbox" :name="option" />
-      <label :for="option">
-        {{ options }}
+    <div
+      v-for="(option, oid) in options"
+      :key="oid"
+      
+    >
+      <input v-model="value" type="checkbox" :name="name" @change="$emit('change', option, name)" />
+      <label :for="name">
+        {{ option }}
       </label>
     </div>
   </div>

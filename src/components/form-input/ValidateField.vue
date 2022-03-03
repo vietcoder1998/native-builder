@@ -29,7 +29,7 @@ export default defineComponent({
     showError: Boolean,
     errorMessage: String,
     name: String,
-    options: [] 
+    options: []
   },
   data() {
     return {
@@ -43,7 +43,6 @@ export default defineComponent({
   },
 
   // called on init
-  //
   activated() {
     console.log('hello world')
   },
@@ -51,11 +50,6 @@ export default defineComponent({
   // switch component
   mounted() {
     switch (this.$props.type) {
-      case FieldName.text:
-        this.$data.current = TextInputVue
-
-        break
-
       case FieldName.textarea:
         this.$data.current = TextAreaVue
         break
@@ -71,25 +65,49 @@ export default defineComponent({
         this.$data.current = RadioInputVue
         break
 
+      case FieldName.date:
+        this.$data.current = DateInputVue
+        break
+        
+      case FieldName.checkbox:
+        this.$data.current = CheckBoxVue
+        break
+
       default:
+        this.$data.current = TextInputVue
         break
     }
-  }
+  },
 })
+
+
 </script>
 
 <template>
-  <div class="validate form">
-     <label :for="name" class="w-full relative">
-        {{ title }}
-        <span v-show="required" class="text-red-500 absolute top-0 -right-2"
-          >*</span
-        >
-      </label>
-    <keep-alive v-on:change="change">
-      <component :is="current" @change="change"></component>
+  <div class="validate form mb-5">
+    <label :for="name" class="w-full relative">
+      {{ title }}
+      <span v-show="required" class="text-red-500 absolute top-0 -right-2"
+        >*</span
+      >
+    </label>
+    <keep-alive
+      include="title,name,title,description, required, placeholder,value"
+      max="10"
+    >
+      <component
+        v-bind:is="current"
+        v-bind:value="value"
+        v-bind:description="description"
+        v-bind:placeholder="placeholder"
+        v-bind:options="options"
+        v-bind:name="name"
+        @change="change"
+      ></component>
     </keep-alive>
-    <p class="text-red-400 text-sm">Lỗi ở đây</p>
+    <p v-show="showError" class="text-red-400 text-sm absolute bottom-0 left-0">
+      Lỗi ở đây
+    </p>
   </div>
 </template>
 
@@ -99,6 +117,5 @@ export default defineComponent({
 }
 
 .err-detail {
-
 }
 </style>

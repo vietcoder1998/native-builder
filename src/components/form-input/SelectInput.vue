@@ -17,7 +17,7 @@ export default defineComponent({
 
 <template>
   <select
-    :value="value"
+    v-model="value"
     class="w-full p-3 border"
     :name="name"
     v-on:change="$emit('change')"
@@ -25,8 +25,10 @@ export default defineComponent({
     <option
       v-for="(option, oid) in options"
       :key="oid"
-      v-bind:value="option"
+      :value="option"
       :for="name"
+      :placeholder="placeholder"
+      @change="$emit('change')"
     >
       {{ option }}
     </option>

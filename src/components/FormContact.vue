@@ -1,8 +1,9 @@
 <script lang="ts">
-import { defineComponent, defineProps } from "vue";
+import { defineComponent, defineProps, ref } from "vue";
 import { Field } from "../typing/fields";
 import ValidateField from "./form-input/ValidateField.vue";
 
+const form1 = ref("#form-1")
 export default defineComponent({
   name: "form-contact-view",
   components: { ValidateField },
@@ -16,6 +17,8 @@ export default defineComponent({
           required: true,
           placeholder: "must longer than 8",
           description: "please add your name",
+          name: "name",
+          value: null,
         },
         {
           title: "Your Email",
@@ -24,6 +27,8 @@ export default defineComponent({
           required: true,
           placeholder: "must longer than 8",
           description: "please add your name",
+          name: "mail",
+          value: null,
         },
         {
           title: "Time",
@@ -32,6 +37,8 @@ export default defineComponent({
           required: true,
           placeholder: "must longer than 8",
           description: "please add your name",
+          name: "select",
+          value: null,
         },
         {
           title: "Select",
@@ -40,8 +47,9 @@ export default defineComponent({
           required: true,
           placeholder: "must longer than 8",
           description: "please add your name",
-          name: "Select",
+          name: "select",
           options: ["The title 1", "The title 2"] as String[],
+          value: null,
         },
         {
           title: "Checkbox",
@@ -51,6 +59,8 @@ export default defineComponent({
           placeholder: "must longer than 8",
           description: "please add your name",
           options: ["The title 1", "The title 2"],
+          name: "check-box",
+          value: null,
         },
         {
           title: "Radio",
@@ -61,6 +71,7 @@ export default defineComponent({
           description: "please add your name",
           options: ["The title 1", "The title 2"],
           name: "radio",
+          value: null,
         },
         {
           title: "Your message",
@@ -69,29 +80,33 @@ export default defineComponent({
           required: true,
           placeholder: "must longer than 8",
           description: "please add your name",
+          name: "msg",
+          value: null,
         },
-      ],
-      validates: {} as { [key: string]: boolean },
+      ] as Field[],
+      validates: {}
     };
   },
   methods: {
     validateFormat: function() {
-
+      console.log(form1)
     }
   },
 });
+
 </script>
 <template>
-  <form class="grid grid-cols-2 gap-4 mx-3">
+  <form id="form-1" class="grid grid-cols-2 gap-4 mx-3" @submit.prevent="validateFormat">
     <div v-for="(field, id) in fields" :key="id" class="relative">
       <validate-field
+        v-bind:key="id"
         v-bind:description="field.description"
         v-bind:name="field.name"
         v-bind:options="field.options"
         v-bind:required="field.required"
         v-bind:error-message="'Lỗi không xác định'"
         v-bind:title="field.title"
-        v-bind:key="id"
+        v-bind:type="field.type"
         v-bind:placeholder="field.placeholder"
       ></validate-field>
     </div>

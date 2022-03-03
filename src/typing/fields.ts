@@ -19,13 +19,13 @@ export enum FieldName {
   number = 'number'
 }
 export type Field = {
-  title: string;
-  type: FieldType;
-  value?: unknown;
-  options: string[] | undefined;
-  width: number | undefined;
-  required: boolean | undefined;
-  placeholder: string | undefined;
-  description: string | undefined;
-  name: string | undefined;
-};
+  title: string
+  type: FieldName
+  value?: unknown
+  options: string[] | undefined
+  width: number | undefined
+  required: boolean | undefined
+  placeholder: string | undefined
+  description: string | undefined
+  name: string | undefined
+}
