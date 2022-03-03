@@ -1,5 +1,5 @@
 <script lang="ts">
-import { defineComponent, defineProps, ref } from 'vue'
+import { defineComponent, defineProps, onMounted, ref } from 'vue'
 import { Field } from '../typing/fields'
 import ValidateField from './form-input/ValidateField.vue'
 
@@ -49,7 +49,7 @@ export default defineComponent({
           type: 'dropdown',
           width: 120,
           required: true,
-          placeholder: 'must longer than 8',
+          placeholder: 'please chose 1',
           description: 'please add your name',
           name: 'select',
           options: ['The title 1', 'The title 2'] as String[],
@@ -95,9 +95,17 @@ export default defineComponent({
       validates: {}
     }
   },
+  setup() {
+    const form1 = ref(null)
+
+    onMounted(() => {
+      // the DOM element will be assigned to the ref after initial render
+      console.log(form1.value) // <div>This is a root element</div>
+    })
+  },
   methods: {
-    validateFormat: function () {
-      console.log(form1)
+    validateFormat() {
+      console.log(this.$refs.form1)
     }
   }
 })
@@ -105,13 +113,12 @@ export default defineComponent({
 <template>
   <form
     id="form-1"
+    ref="form1"
     class="grid grid-cols-2 gap-4 mx-3"
     @submit.prevent="validateFormat"
   >
     <div v-for="(field, id) in fields" :key="id" class="relative">
-      <ValidateField
-        v-bind:field="field"
-      />
+      <ValidateField v-bind:field="field" />
     </div>
     <button type="submit" class="border w-20 h-14 bg-blue-500 text-blue-50">
       Submit

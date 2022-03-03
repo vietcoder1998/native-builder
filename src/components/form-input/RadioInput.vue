@@ -17,6 +17,7 @@ export default defineComponent({
       :id="String(option + oid)"
       :name="field?.name"
       @change="$emit('change')"
+      :required="field?.required"
     />
     <label :id="String(option + oid)" :for="field?.name">
       {{ option }}

@@ -1,15 +1,11 @@
 <script lang="ts">
-import { defineComponent } from 'vue';
+import { defineComponent, PropType } from 'vue';
+import { Field } from '../../typing/fields';
 
 export default defineComponent({
     name: 'text-input',
     props: {
-        value: String,
-        key: String,
-        required: Boolean,
-        placeholder: String,
-        name: String,
-        id: String,
+       field: {} as PropType<Field>
     }
 })
 </script>
@@ -17,14 +13,14 @@ export default defineComponent({
     <textarea
         class="w-full text-left border"
         type="text"
-        v-model="value"
-        :key="key"
-        :required="required"
-        :placeholder="placeholder"
-        :id="id"
-        :name="name"
+        :value="field?.value"
+        :key="field?.key"
+        :placeholder="field?.placeholder"
+        :id="field?.id"
+        :name="field?.name"
         rows="3"
         v-on:change="$emit('change')"
+        :required="field?.required"
       >
       </textarea>
 </template>

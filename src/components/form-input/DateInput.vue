@@ -1,28 +1,24 @@
 <script lang="ts">
-import { defineComponent } from 'vue';
+import { defineComponent, PropType } from 'vue';
+import { Field } from '../../typing/fields';
 
 export default defineComponent({
     name: 'date-input',
     props: {
-        value: String,
-        key: String,
-        required: Boolean,
-        placeholder: String,
-        name: String,
-        id: String,
+        field: {} as PropType<Field>
     },
 })
 </script>
 <template>
     <input
+        :key="field?.key"
         class="w-full text-left"
         type="date"
-        v-model="value"
-        :key="key"
-        :required="required"
-        :placeholder="placeholder"
-        :id="id"
-        :name="name"
+        :value="field?.value"
+        :required="field?.required"
+        :placeholder="field?.placeholder"
+        :id="field?.id"
+        :name="field?.name"
         @change="$emit('change')"
       />
 </template>
