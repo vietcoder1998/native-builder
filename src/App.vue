@@ -15,7 +15,7 @@ import 'swiper/css/scrollbar'
   <router-link to="/gallery">gallery</router-link>
   <router-link to="/form-contact">form-contact</router-link>
   <router-link to="/slider">slider</router-link>
-  <router-link to="/change-data-form">slider</router-link>
+  <router-link to="/change-data-form">change-data-form</router-link>
   <router-link to="/beae-element">beae-element</router-link>
 
   <!--router-view-->
