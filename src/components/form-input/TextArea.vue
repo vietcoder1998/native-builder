@@ -2,7 +2,7 @@
 import { defineComponent } from 'vue';
 
 export default defineComponent({
-    name: 'date-input',
+    name: 'text-input',
     props: {
         value: String,
         key: String,
@@ -14,9 +14,9 @@ export default defineComponent({
 })
 </script>
 <template>
-    <input
+    <textarea
         class="w-full text-left"
-        type="date"
+        type="text"
         v-model="value"
         :key="key"
         :required="required"
@@ -24,7 +24,8 @@ export default defineComponent({
         :id="id"
         :name="name"
         v-on:change="$emit('change')"
-      />
+      >
+      </textarea>
 </template>
 
 <style>

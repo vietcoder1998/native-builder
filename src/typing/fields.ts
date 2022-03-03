@@ -7,15 +7,25 @@ export type FieldType =
   | "date"
   | "radio"
   | "textarea";
-  
+
+export enum FieldName {
+  text = 'text',
+  textarea = 'textarea',
+  checkbox = 'checkbox',
+  dropdown = 'dropdown',
+  button = 'button',
+  date = 'date',
+  radio = 'radio',
+  number = 'number'
+}
 export type Field = {
-  title?: string;
-  type?: FieldType;
+  title: string;
+  type: FieldType;
   value?: unknown;
-  options?: string[];
-  width?: number;
-  required?: boolean;
-  placeholder?: string;
-  description?: string;
-  name?: string;
+  options: string[] | undefined;
+  width: number | undefined;
+  required: boolean | undefined;
+  placeholder: string | undefined;
+  description: string | undefined;
+  name: string | undefined;
 };

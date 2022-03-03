@@ -2,9 +2,9 @@
 import { defineComponent } from 'vue'
 
 export default defineComponent({
-  name: 'number-input',
+  name: 'radio-input',
   props: {
-    value: Number,
+    value: String,
     key: String,
     required: Boolean,
     placeholder: String,

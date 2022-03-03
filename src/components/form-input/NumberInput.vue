@@ -5,7 +5,7 @@ import { defineComponent } from 'vue';
 export default defineComponent({
     name: 'number-input',
     props: {
-        value: Number,
+        value: String,
         key: String,
         required: Boolean,
         placeholder: String,

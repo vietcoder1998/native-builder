@@ -7,7 +7,6 @@ export default defineComponent({
     value: Number,
     key: String,
     required: Boolean,
-    placeholder: String,
     name: String,
     id: String,
     options: []
