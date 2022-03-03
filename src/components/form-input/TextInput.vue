@@ -1,35 +1,29 @@
 <script lang="ts">
-import { defineComponent } from 'vue';
+import { defineComponent, PropType } from 'vue'
+import { Field } from '../../typing/fields'
 
 export default defineComponent({
-    name: 'text-input',
-    props: {
-        value: String,
-        key: String,
-        required: Boolean,
-        placeholder: String,
-        name: String,
-        id: String,
-    }
+  name: 'text-input',
+  props: {
+    field: {} as PropType<Field>
+  }
 })
 </script>
 <template>
-    <input
-        class="w-full text-left"
-        type="text"
-        v-model="value"
-        :key="key"
-        :required="required"
-        :placeholder="placeholder"
-        :id="id"
-        :name="name"
-        @change="$emit('change')"
-      />
+  <input
+    class="w-full text-left"
+    type="text"
+    :value="field?.value"
+    :required="field?.required"
+    :placeholder="field?.placeholder"
+    :id="field?.id"
+    :name="field?.name"
+    @change="$emit('change')"
+  />
 </template>
 
 <style>
 .err-container {
-    margin-bottom: 20px;
-
+  margin-bottom: 20px;
 }
 </style>

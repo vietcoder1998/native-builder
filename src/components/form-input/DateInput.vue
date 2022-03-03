@@ -10,7 +10,7 @@ export default defineComponent({
         placeholder: String,
         name: String,
         id: String,
-    }
+    },
 })
 </script>
 <template>

@@ -1,27 +1,25 @@
 <script lang="ts">
-import { defineComponent } from 'vue'
+import { defineComponent, PropType } from 'vue'
+import { Field, FieldType } from '../../typing/fields';
 
 export default defineComponent({
   name: 'checkbox-input',
   props: {
-    value: String,
-    key: String,
-    required: Boolean,
-    name: String,
-    id: String,
-    options: []
-  }
+    field: {} as PropType<Field>
+  },
+  data() {}
 })
 </script>
 <template>
   <div>
-    <div
-      v-for="(option, oid) in options"
-      :key="oid"
-      
-    >
-      <input v-model="value" type="checkbox" :name="name" @change="$emit('change', option, name)" />
-      <label :for="name">
+    <div v-for="(option, oid) in field?.options" :key="oid">
+      <input
+        type="checkbox"
+        @change="$emit('change', option, name)"
+        :name="String(oid)"
+        :value="option"
+      />
+      <label :for="option">
         {{ option }}
       </label>
     </div>

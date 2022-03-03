@@ -1,5 +1,5 @@
 <script lang="ts">
-import { defineComponent } from 'vue'
+import { defineComponent, PropType } from 'vue'
 
 export default defineComponent({
   name: 'select-input',
@@ -10,7 +10,10 @@ export default defineComponent({
     placeholder: String,
     name: String,
     id: String,
-    options: []
+    options: Array as PropType<string[]>
+  },
+  mounted() {
+    console.log(this.$props)
   }
 })
 </script>

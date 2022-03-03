@@ -21,11 +21,16 @@ export enum FieldName {
 export type Field = {
   title: string
   type: FieldName
-  value?: unknown
+  value: string 
   options: string[] | undefined
   width: number | undefined
   required: boolean | undefined
   placeholder: string | undefined
   description: string | undefined
-  name: string | undefined
+  name: string
+  checked?: Boolean
+  error: string
+  key?: string | number | symbol | undefined
+  showError: boolean
+  id?: string
 }

@@ -4,10 +4,9 @@ export default defineComponent({
   name: 'light-box',
   props: {
     show: Boolean,
-    src: String,
+    src: String
   }
 })
-
 </script>
 
 <template>

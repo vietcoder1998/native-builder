@@ -1,6 +1,6 @@
 <script lang="ts">
-import { defineComponent } from '@vue/runtime-core'
-import { FieldName } from '../../typing/fields'
+import { defineComponent, PropType } from '@vue/runtime-core'
+import { Field, FieldName } from '../../typing/fields'
 import CheckBoxVue from './CheckBox.vue'
 import DateInputVue from './DateInput.vue'
 import NumberInputVue from './NumberInput.vue'
@@ -19,23 +19,15 @@ export default defineComponent({
     RadioInputVue,
     CheckBoxVue
   },
-  props: {
-    title: String,
-    type: String,
-    width: Number,
-    required: Boolean,
-    placeholder: String,
-    description: String,
-    showError: Boolean,
-    errorMessage: String,
-    name: String,
-    options: []
-  },
   data() {
     return {
       current: TextInputVue
     }
   },
+  props: {
+    field: {} as PropType<Field>
+  },
+
   methods: {
     change(e: any) {
       console.log(e)
@@ -49,7 +41,7 @@ export default defineComponent({
 
   // switch component
   mounted() {
-    switch (this.$props.type) {
+    switch (this.$props.field?.type) {
       case FieldName.textarea:
         this.$data.current = TextAreaVue
         break
@@ -68,7 +60,7 @@ export default defineComponent({
       case FieldName.date:
         this.$data.current = DateInputVue
         break
-        
+
       case FieldName.checkbox:
         this.$data.current = CheckBoxVue
         break
@@ -77,36 +69,35 @@ export default defineComponent({
         this.$data.current = TextInputVue
         break
     }
-  },
+  }
 })
-
-
 </script>
 
 <template>
   <div class="validate form mb-5">
-    <label :for="name" class="w-full relative">
-      {{ title }}
-      <span v-show="required" class="text-red-500 absolute top-0 -right-2"
+    <label :for="field?.name" class="w-full relative">
+      {{ field?.title }}
+      <span
+        v-show="field?.required"
+        class="text-red-500 absolute top-0 -right-2"
         >*</span
       >
     </label>
     <keep-alive
-      include="title,name,title,description, required, placeholder,value"
+      include="field"
       max="10"
     >
       <component
         v-bind:is="current"
-        v-bind:value="value"
-        v-bind:description="description"
-        v-bind:placeholder="placeholder"
-        v-bind:options="options"
-        v-bind:name="name"
+        v-bind:field="field"
         @change="change"
       ></component>
     </keep-alive>
-    <p v-show="showError" class="text-red-400 text-sm absolute bottom-0 left-0">
-      Lỗi ở đây
+    <p
+      v-show="field?.showError"
+      class="text-red-400 text-sm absolute bottom-0 left-0"
+    >
+      {{ field?.error }}
     </p>
   </div>
 </template>
@@ -114,8 +105,5 @@ export default defineComponent({
 <style>
 .err-container {
   margin-bottom: 20px;
-}
-
-.err-detail {
 }
 </style>
