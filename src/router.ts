@@ -3,6 +3,7 @@ import Home from './views/Home.vue'
 import Gallery from './views/Gallery.vue'
 import FormContact from './views/FormContact.vue'
 import SlidePage from './views/SlidePage.vue'
+import Admin from './views/Admin.vue'
 
 const routes = [
   {
@@ -24,6 +25,11 @@ const routes = [
     path: '/slider',
     name: 'SlidePage',
     component: SlidePage
+  },
+  {
+    path: '/admin',
+    name: 'admin',
+    component: Admin
   }
 ]
 

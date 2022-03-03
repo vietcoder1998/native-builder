@@ -1,22 +1,15 @@
-<script setup lang="ts">
-// This starter template is using Vue 3 <script setup> SFCs
-// Check out https://v3.vuejs.org/api/sfc-script-setup.html#sfc-script-setup
-// Import Swiper styles
-import 'swiper/css'
-// Import Swiper styles
-import 'swiper/css/navigation'
-import 'swiper/css/pagination'
-import 'swiper/css/scrollbar'
-</script>
+<script setup lang="ts"></script>
 
 <template>
   <h1 class="text-3xl font-bold underline">Example</h1>
+  <button></button>
   <!--router link-->
   <router-link to="/gallery">gallery</router-link>
   <router-link to="/form-contact">form-contact</router-link>
   <router-link to="/slider">slider</router-link>
   <router-link to="/change-data-form">change-data-form</router-link>
   <router-link to="/beae-element">beae-element</router-link>
+  <router-link to="/admin">admin</router-link>
 
   <!--router-view-->
   <hr class="m-6" />

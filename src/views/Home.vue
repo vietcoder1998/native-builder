@@ -1,6 +1,6 @@
 <script lang="ts">
 import { defineComponent } from 'vue'
-import * as HelloWorld from '../components/HelloWorld.vue'
+import HelloWorld from '../components/HelloWorld.vue'
 export default defineComponent({
   name: 'hello-world',
   components: {
@@ -9,7 +9,7 @@ export default defineComponent({
 })
 </script>
 <template>
-  <HelloWorld msg="This is new tutorial into home" />
+  <HelloWorld :msg="'This is new tutorial into home'" />
 </template>
 
 <style scoped></style>
