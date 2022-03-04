@@ -1,12 +1,13 @@
+import { key } from './../store'
 export type FieldType =
-  | "text"
-  | "textarea"
-  | "checkbox"
-  | "dropdown"
-  | "button"
-  | "date"
-  | "radio"
-  | "textarea";
+  | 'text'
+  | 'textarea'
+  | 'checkbox'
+  | 'dropdown'
+  | 'button'
+  | 'date'
+  | 'radio'
+  | 'textarea'
 
 export enum FieldName {
   text = 'text',
@@ -18,6 +19,26 @@ export enum FieldName {
   radio = 'radio',
   number = 'number'
 }
+
+export type FieldFixer = {
+  title: string
+  fieldType: string
+  customHTMLAttributes: Object
+  options?: FieldName[]
+}
+
+export enum HTMLInputCustomAttributes {
+  required = 'required',
+  checked = 'checked',
+  placeholder = 'placeholder',
+  description = 'description',
+  name = 'name',
+  key = 'key',
+  value = 'value',
+  defaultValue = 'defaultValue',
+  options = 'options'
+}
+
 export type Field = {
   title: string
   type: FieldName
@@ -33,4 +54,5 @@ export type Field = {
   key: string | number | symbol | undefined
   showError: boolean
   id: string
+  defaultValue: string
 }

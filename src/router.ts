@@ -1,10 +1,9 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import Home from './views/Home.vue'
 import Gallery from './views/Gallery.vue'
-import FormContact from './views/FormContact.vue'
 import SlidePage from './views/SlidePage.vue'
 import Admin from './views/Admin.vue'
-
+import Register from './views/Register.vue'
 const routes = [
   {
     path: '/',
@@ -18,8 +17,8 @@ const routes = [
   },
   {
     path: '/form-contact',
-    name: 'FormContact',
-    component: FormContact
+    name: 'Register',
+    component: Register
   },
   {
     path: '/slider',

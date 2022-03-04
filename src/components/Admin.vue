@@ -9,15 +9,10 @@ export default defineComponent({
   data() {},
   components: {},
   method: {
-    incremment() {
-      this.$store.commit('increment')
-      console.log(this.$store.state.count)
-    }
+    incremment() {}
   },
   computed: {
-    count(): number {
-      return this.$store.state.count
-    }
+    count() {}
   }
 })
 </script>

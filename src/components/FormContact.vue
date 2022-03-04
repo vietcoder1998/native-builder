@@ -1,12 +1,12 @@
 <script lang="ts">
-import { defineComponent, defineProps, onMounted, ref } from 'vue'
+import { defineComponent, onMounted, ref } from 'vue'
 import { Field } from '../typing/fields'
-import ValidateField from './form-input/ValidateField.vue'
+import DymamicInput from './form/input/DynamicInput.vue'
 
 const form1 = ref('#form-1')
 export default defineComponent({
   name: 'form-contact-view',
-  components: { ValidateField },
+  components: { DymamicInput },
   data() {
     return {
       fields: [
@@ -119,7 +119,7 @@ export default defineComponent({
     @submit.prevent="validateFormat"
   >
     <div v-for="(field, id) in fields" :key="id" class="relative">
-      <ValidateField v-bind:field="field" />
+      <DymamicInput v-bind:field="field" />
     </div>
     <button type="submit" class="border w-20 h-14 bg-blue-500 text-blue-50">
       Submit

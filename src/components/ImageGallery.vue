@@ -1,13 +1,17 @@
 <script lang="ts">
-import { defineComponent, ref } from 'vue'
-import Modal from './Modal.vue'
+import { defineComponent } from 'vue'
+import InputFixer from './form/fixer/InputFixer.vue'
 import LightBox from './LightBox.vue'
-
+import Modal from './Modal.vue'
+import MultiFixer from './form/fixer/MultiFixer.vue'
+import { FieldName } from '../typing/fields'
 export default defineComponent({
   name: 'image-gallery',
   components: {
     Modal,
-    LightBox
+    LightBox,
+    InputFixer,
+    MultiFixer
   },
   data() {
     return {
@@ -77,117 +81,140 @@ export default defineComponent({
       this.$data.items[lastIndex] = temp
       this.$data.showModal = false
     },
-    onShowLightBox() {
+    onShowLightBox(item: {
+      src: string
+      title: string
+      thumbnail: string
+      index: number
+    }) {
       this.$data.showLightBox = true
+      this.$data.fixingItem = item
     }
   }
 })
 </script>
 
 <template>
-  <main>
+  <main class="grid grid-cols-2 m-2">
     <div>
       <div>
-        <label> Columns </label>
-        <input
-          type="number"
-          v-model="columns"
-          @change="onChangeParams(columns, gap)"
-        />
+        <div>
+          <label> Columns </label>
+          <input
+            id="gap"
+            type="number"
+            v-model="columns"
+            @change="onChangeParams(columns, gap)"
+            class="w-full"
+          />
+        </div>
+        <div>
+          <label> Gap </label>
+          <input
+            type="number"
+            v-model="gap"
+            class="w-full"
+            @change="onChangeParams(columns, gap)"
+          />
+        </div>
       </div>
-      <div>
-        <label> Gap </label>
-        <input
-          type="number"
-          v-model="gap"
-          @change="onChangeParams(columns, gap)"
-        />
+
+      <!-- Image Info -->
+      <table class="table-auto border-collapse border-slate-400">
+        <thead>
+          <tr>
+            <th class="border border-slate-300">stt</th>
+            <th class="border border-slate-300">src</th>
+            <th class="border border-slate-300">title</th>
+            <th class="border border-slate-300">thumbnail</th>
+            <th class="border border-slate-300">action</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr v-for="({ src, title, thumbnail }, index) in items" :key="index">
+            <td class="border border-slate-300">{{ index }}</td>
+            <td class="border border-slate-300">
+              {{ src }}
+            </td>
+            <td class="border border-slate-300">{{ title }}</td>
+            <td class="border border-slate-300">{{ thumbnail }}</td>
+            <td class="border border-slate-300">
+              <button
+                id="show-modal"
+                @click="
+                  ;(showModal = true),
+                    (fixingItem = { src, title, thumbnail, index })
+                "
+              >
+                Fix
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <LightBox
+        :show="showLightBox"
+        @close="showLightBox = false"
+        :src="fixingItem.src"
+      />
+      <!--modal-->
+      <modal
+        :show="showModal"
+        @close=";(showModal = false), (lastIndex = fixingItem.index)"
+        @update="onUpdateImage(fixingItem, lastIndex)"
+        :title="fixingItem.title"
+        :src="fixingItem.src"
+        :thumbnail="fixingItem.thumbnail"
+        :index="fixingItem.index"
+      >
+        <template>
+          <h3>Fix item {{ fixingItem.index }}</h3>
+        </template>
+      </modal>
+      <!--modal-->
+
+      <button class="btn border btn-primary m-1 p-1" @click="onChangAddState">
+        + Add more
+      </button>
+
+      <div class="p-2 m-2" v-show="isAdd">
+        <form @submit.prevent="onAddNewItem">
+          <input v-model="newItem.src" type="string" placeholder="src" />
+          <input v-model="newItem.title" type="string" placeholder="title" />
+          <input
+            v-model="newItem.thumbnail"
+            type="string"
+            placeholder="thumbnail"
+          />
+          <button id="show-modal" @click="showModal = true">Fix</button>
+        </form>
+      </div>
+      <!-- Image gallery -->
+      <div v-bind:class="cls">
+        <div v-for="(item, index) in items" :key="index">
+          <img
+            :src="item.thumbnail"
+            :aria-label="item.thumbnail"
+            class="ri"
+            @click="onShowLightBox({ ...item, index })"
+          />
+        </div>
       </div>
     </div>
-
-    <!-- Image Info -->
-    <table class="table-auto border-collapse border-slate-400">
-      <thead>
-        <tr>
-          <th class="border border-slate-300">stt</th>
-          <th class="border border-slate-300">src</th>
-          <th class="border border-slate-300">title</th>
-          <th class="border border-slate-300">thumbnail</th>
-          <th class="border border-slate-300">action</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr v-for="({ src, title, thumbnail }, index) in items" :key="index">
-          <td class="border border-slate-300">{{ index }}</td>
-          <td class="border border-slate-300">
-            {{ src }}
-          </td>
-          <td class="border border-slate-300">{{ title }}</td>
-          <td class="border border-slate-300">{{ thumbnail }}</td>
-          <td class="border border-slate-300">
-            <button
-              id="show-modal"
-              @click="
-                ;(showModal = true),
-                  (fixingItem = { src, title, thumbnail, index })
-              "
-            >
-              Fix
-            </button>
-          </td>
-        </tr>
-      </tbody>
-    </table>
-    <!--modal-->
-    <modal
-      :show="showModal"
-      @close=";(showModal = false), (lastIndex = fixingItem.index)"
-      @update="onUpdateImage(fixingItem, lastIndex)"
-      :title="fixingItem.title"
-      :src="fixingItem.src"
-      :thumbnail="fixingItem.thumbnail"
-      :index="fixingItem.index"
-    >
-      <template>
-        <h3>Fix item {{ fixingItem.index }}</h3>
-      </template>
-    </modal>
-    <!--modal-->
-
-    <button class="btn border btn-primary m-1 p-1" @click="onChangAddState">
-      + Add more
-    </button>
-
-    <div class="p-2 m-2" v-show="isAdd">
-      <form @submit.prevent="onAddNewItem">
-        <input v-model="newItem.src" type="string" placeholder="src" />
-        <input v-model="newItem.title" type="string" placeholder="title" />
-        <input
-          v-model="newItem.thumbnail"
-          type="string"
-          placeholder="thumbnail"
-        />
-        <button id="show-modal" @click="showModal = true">Fix</button>
-      </form>
-    </div>
-    <!-- Image gallery -->
-    <div v-bind:class="cls">
-      <div v-for="(item, index) in items" :key="index">
-        <img
-          :src="item.thumbnail"
-          :aria-label="item.thumbnail"
-          class="ri"
-          @click="onShowLightBox"
-        />
-
-        <!--light-box for image -->
-        <light-box
-          :show="showLightBox"
-          @close="showLightBox = false"
-          :src="item.src"
-        />
-      </div>
-    </div>
+    <MultiFixer
+      :initParams="[
+        {
+          fieldType: 'text',
+          title: 'Gap',
+          customHTMLAttributes: { defaultValue: '2', options: ['a', 'b'] }
+        },
+        {
+          fieldType: 'text',
+          title: 'Columns',
+          customHTMLAttributes: { defaultValue: '2', options: ['a', 'b'] }
+        }
+      ]"
+    />
   </main>
 </template>
 

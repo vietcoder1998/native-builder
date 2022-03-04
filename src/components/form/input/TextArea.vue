@@ -1,26 +1,28 @@
 <script lang="ts">
 import { defineComponent, PropType } from 'vue';
-import { Field } from '../../typing/fields';
+import { Field } from '../../../typing/fields';
 
 export default defineComponent({
-    name: 'date-input',
+    name: 'text-input',
     props: {
-        field: {} as PropType<Field>
-    },
+       field: {} as PropType<Field>
+    }
 })
 </script>
 <template>
-    <input
-        :key="field?.key"
-        class="w-full text-left"
-        type="date"
+    <textarea
+        class="w-full text-left border"
+        type="text"
         :value="field?.value"
-        :required="field?.required"
+        :key="field?.key"
         :placeholder="field?.placeholder"
         :id="field?.id"
         :name="field?.name"
-        @change="$emit('change')"
-      />
+        rows="3"
+        v-on:change="$emit('change')"
+        :required="field?.required"
+      >
+      </textarea>
 </template>
 
 <style>

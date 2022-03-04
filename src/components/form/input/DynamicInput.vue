@@ -1,6 +1,6 @@
 <script lang="ts">
 import { defineComponent, PropType } from '@vue/runtime-core'
-import { Field, FieldName } from '../../typing/fields'
+import { Field, FieldName } from '../../../typing/fields'
 import CheckBoxVue from './CheckBox.vue'
 import DateInputVue from './DateInput.vue'
 import NumberInputVue from './NumberInput.vue'

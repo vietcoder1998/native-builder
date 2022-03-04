@@ -8,6 +8,4 @@ import { store } from './store'
 const app = createApp(App)
 app.use(router, store).mount('#app')
 
-store.commit('increment')
-
 console.log(store.state.count)

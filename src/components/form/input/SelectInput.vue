@@ -1,6 +1,6 @@
 <script lang="ts">
 import { defineComponent, PropType } from 'vue'
-import { Field } from '../../typing/fields'
+import { Field } from '../../../typing/fields'
 
 export default defineComponent({
   name: 'select-input',
