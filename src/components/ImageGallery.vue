@@ -201,20 +201,22 @@ export default defineComponent({
         </div>
       </div>
     </div>
-    <MultiFixer
-      :initParams="[
-        {
-          fieldType: 'text',
-          title: 'Gap',
-          customHTMLAttributes: { defaultValue: '2', options: ['a', 'b'] }
-        },
-        {
-          fieldType: 'text',
-          title: 'Columns',
-          customHTMLAttributes: { defaultValue: '2', options: ['a', 'b'] }
-        }
-      ]"
-    />
+    <div class="m-2">
+      <MultiFixer
+        :initParams="[
+          {
+            fieldType: 'text',
+            title: 'Gap',
+            customHTMLAttributes: { defaultValue: '2', options: ['a', 'b'] }
+          },
+          {
+            fieldType: 'text',
+            title: 'Columns',
+            customHTMLAttributes: { defaultValue: '2', options: ['a', 'b'] }
+          }
+        ]"
+      />
+    </div>
   </main>
 </template>
 

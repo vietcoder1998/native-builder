@@ -1,14 +1,14 @@
 <script lang="ts">
-import { defineComponent } from 'vue'
-import { FieldName } from '../../../typing/fields'
+import { defineComponent, PropType } from 'vue'
+import { FieldName, FieldFixer } from '../../../typing/fields'
 export default defineComponent({
   name: 'input-fixer',
+  props: {
+    initInfo: {} as PropType<FieldFixer>
+  },
   data() {
     return {
-      title: '',
-      fieldType: FieldName.text,
-      customHTMLAttributes: {},
-      options: [FieldName.text, FieldName.textarea, FieldName.dropdown]
+      info: this.initInfo
     }
   },
   mounted() {
@@ -19,27 +19,44 @@ export default defineComponent({
 
 <template>
   <div class="p-4">
-    <div>
+    <div class="mb-2">
       <label for="title-fixer" class="w-full"> Tittle </label>
-      <input id="title-fixer" type="text" required />
+      <input
+        :value="initInfo?.title"
+        id="title-fixer"
+        type="text"
+        class="w-full"
+        required
+      />
     </div>
-    <div>
+    <div class="mb-2">
       <label for="title-fixer"> Field Type </label>
-      <select v-model="fieldType" class="w-full p-3 border" required="true">
+      <select
+        :value="info?.fieldType"
+        class="w-full p-3 border"
+        required="true"
+      >
         <option value="text" disabled selected>Mặc định</option>
-        <option v-for="(option, oid) in options" :key="oid" :value="option">
+        <option
+          v-for="(option, oid) in info?.options"
+          :key="oid"
+          :value="option"
+        >
           {{ option }}
         </option>
       </select>
     </div>
-    <div>
+    <div class="mb-2">
       <label for="custom-fixer" class="w-full"> customHTMLAttributes </label>
       <textarea
         class="w-full border"
         id="custom-fixer"
         type="text"
-        required
         rows="3"
+        placeholder="
+          name:value
+          name1:value1
+        "
       ></textarea>
     </div>
     <button class="bg-blue-200">Submit</button>
