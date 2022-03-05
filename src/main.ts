@@ -7,5 +7,3 @@ import { store } from './store'
 
 const app = createApp(App)
 app.use(router, store).mount('#app')
-
-console.log(store.state.count)
