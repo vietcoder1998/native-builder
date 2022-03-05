@@ -5,6 +5,7 @@ import LightBox from './LightBox.vue'
 import Modal from './Modal.vue'
 import MultiFixer from './form/fixer/MultiFixer.vue'
 import { FieldName } from '../typing/fields'
+import { GalleryItem } from '../typing/gallery'
 export default defineComponent({
   name: 'image-gallery',
   components: {
@@ -13,18 +14,31 @@ export default defineComponent({
     InputFixer,
     MultiFixer
   },
-  data() {
+  data(): {
+    items: GalleryItem[]
+    columns: number
+    gap: number
+    cls: string
+    newItem: GalleryItem
+    fixingItem: GalleryItem
+    showModal: boolean
+    isAdd: boolean
+    lastIndex: number
+    showLightBox: boolean
+  } {
     return {
       items: [
         {
           src: 'https://picsum.photos/200/300',
           title: 'Just add your desired ',
-          thumbnail: 'this is a good photo'
+          thumbnail: 'this is a good photo',
+          alt: 'Just add your desired'
         },
         {
           src: 'https://picsum.photos/200/300',
           title: 'Just add your desired ',
-          thumbnail: 'this is a good photo'
+          thumbnail: 'this is a good photo',
+          alt: 'Just add your desired'
         },
         {
           src: 'https://picsum.photos/200/300',
@@ -89,6 +103,15 @@ export default defineComponent({
     }) {
       this.$data.showLightBox = true
       this.$data.fixingItem = item
+    }
+  },
+  computed: {
+    getInfo(): { name: string; items: GalleryItem[]; columns: number } {
+      return {
+        name: 'gallery',
+        items: this.$data.items,
+        columns: this.$data.columns
+      }
     }
   }
 })

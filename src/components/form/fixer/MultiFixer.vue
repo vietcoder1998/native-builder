@@ -11,11 +11,13 @@ export default defineComponent({
     InputFixer
   },
   props: {
-    initParams: [] as PropType<FieldFixer[]>
+    initParams: [] as PropType<FieldFixer[]>,
+    initName: String
   },
-  data(): { params: FieldFixer[] | undefined } {
+  data(): { params: FieldFixer[] | undefined; element?: String } {
     return {
-      params: this.initParams as FieldFixer[]
+      params: this.initParams as FieldFixer[],
+      element: this.initName as String
     }
   },
   mounted() {
