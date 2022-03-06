@@ -10,7 +10,7 @@ export default defineComponent({
     name: String,
     id: String,
     class: String,
-    isShow: Boolean
+    isShow: Boolean,
   },
   data() {
     return {
@@ -23,11 +23,12 @@ export default defineComponent({
 <template>
   <div>
     <button
-      class="px-2 py-1 my-1 text-blue-50 bg-blue-400 rounded"
+      class="px-2 py-1 my-1 "
       @click="open = !open"
     >
       {{ title }}
     </button>
+    <hr />
     <div v-show="open">
       <slot />
     </div>

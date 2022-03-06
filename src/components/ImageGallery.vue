@@ -6,13 +6,15 @@ import Modal from './Modal.vue'
 import MultiFixer from './form/fixer/MultiFixer.vue'
 import { FieldName } from '../typing/fields'
 import { GalleryItem } from '../typing/gallery'
+import Accordion from './ui/Accordion.vue'
 export default defineComponent({
   name: 'image-gallery',
   components: {
     Modal,
     LightBox,
     InputFixer,
-    MultiFixer
+    MultiFixer,
+    Accordion
   },
   data(): {
     items: GalleryItem[]
@@ -23,7 +25,7 @@ export default defineComponent({
     fixingItem: GalleryItem
     showModal: boolean
     isAdd: boolean
-    lastIndex: number
+    lastIndex?: number
     showLightBox: boolean
   } {
     return {
@@ -31,29 +33,39 @@ export default defineComponent({
         {
           src: 'https://picsum.photos/200/300',
           title: 'Just add your desired ',
-          thumbnail: 'this is a good photo',
+          thumbnail: 'https://picsum.photos/200/300',
           alt: 'Just add your desired'
         },
         {
           src: 'https://picsum.photos/200/300',
           title: 'Just add your desired ',
-          thumbnail: 'this is a good photo',
+          thumbnail: 'https://picsum.photos/200/300',
           alt: 'Just add your desired'
         },
         {
           src: 'https://picsum.photos/200/300',
           title: 'Just add your desired ',
-          thumbnail: 'this is a good photo'
+          thumbnail: 'https://picsum.photos/200/300'
         },
         {
           src: 'https://picsum.photos/200/300',
           title: 'Just add your desired ',
-          thumbnail: 'this is a good photo'
+          thumbnail: 'https://picsum.photos/200/300'
         },
         {
           src: 'https://picsum.photos/200/300',
           title: 'Just add your desired ',
-          thumbnail: 'this is a good photo'
+          thumbnail: 'https://picsum.photos/200/300'
+        },
+        {
+          src: 'https://picsum.photos/200/300',
+          title: 'Just add your desired ',
+          thumbnail: 'https://picsum.photos/200/300'
+        },
+        {
+          src: 'https://picsum.photos/200/300',
+          title: 'Just add your desired ',
+          thumbnail: 'https://picsum.photos/200/300'
         }
       ],
       columns: 4,
@@ -76,24 +88,6 @@ export default defineComponent({
     },
     onAddNewItem(event: Event) {
       this.$data.items.push(this.$data.newItem)
-    },
-    onUpdateImage(
-      fixingItem: {
-        src: string
-        title: string
-        thumbnail: string
-        index: number
-      },
-      lastIndex: number
-    ) {
-      const temp = this.$data.items[fixingItem.index]
-      this.$data.items[fixingItem.index] = {
-        src: fixingItem.src,
-        title: fixingItem.title,
-        thumbnail: fixingItem.thumbnail
-      }
-      this.$data.items[lastIndex] = temp
-      this.$data.showModal = false
     },
     onShowLightBox(item: {
       src: string
@@ -118,8 +112,8 @@ export default defineComponent({
 </script>
 
 <template>
-  <main class="grid grid-cols-2 m-2">
-    <div>
+  <main class="grid grid-cols-8 m-2">
+    <div class="col-span-2 p-4">
       <div>
         <div>
           <label> Columns </label>
@@ -140,41 +134,40 @@ export default defineComponent({
             @change="onChangeParams(columns, gap)"
           />
         </div>
+        <button class="btn border btn-primary m-1 p-1" @click="onChangAddState">
+          + Add more
+        </button>
+        <div class="m-2" v-show="isAdd">
+          <form @submit.prevent="onAddNewItem">
+            <input v-model="newItem.src" type="string" placeholder="src" />
+            <input v-model="newItem.title" type="string" placeholder="title" />
+            <input
+              v-model="newItem.thumbnail"
+              type="string"
+              placeholder="thumbnail"
+            />
+            <button id="show-modal c " @click="showModal = true">Fix</button>
+          </form>
+        </div>
       </div>
-
-      <!-- Image Info -->
-      <table class="table-auto border-collapse border-slate-400">
-        <thead>
-          <tr>
-            <th class="border border-slate-300">stt</th>
-            <th class="border border-slate-300">src</th>
-            <th class="border border-slate-300">title</th>
-            <th class="border border-slate-300">thumbnail</th>
-            <th class="border border-slate-300">action</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr v-for="({ src, title, thumbnail }, index) in items" :key="index">
-            <td class="border border-slate-300">{{ index }}</td>
-            <td class="border border-slate-300">
-              {{ src }}
-            </td>
-            <td class="border border-slate-300">{{ title }}</td>
-            <td class="border border-slate-300">{{ thumbnail }}</td>
-            <td class="border border-slate-300">
-              <button
-                id="show-modal"
-                @click="
-                  ;(showModal = true),
-                    (fixingItem = { src, title, thumbnail, index })
-                "
-              >
-                Fix
-              </button>
-            </td>
-          </tr>
-        </tbody>
-      </table>
+      <!--items-->
+      <div>
+        <Accordion title="Items">
+          <ul class="ml-4">
+            <li v-for="(item, i) in items" :key="i">
+              <Accordion :title="'img' + i">
+                <div class="ml-2">
+                  <p>{{ item.src }}</p>
+                  <p>{{ item.thumbnail }}</p>
+                  <p>{{ item.title }}</p>
+                </div>
+              </Accordion>
+            </li>
+          </ul>
+        </Accordion>
+      </div>
+    </div>
+    <div class="col-span-4">
       <LightBox
         :show="showLightBox"
         @close="showLightBox = false"
@@ -183,8 +176,7 @@ export default defineComponent({
       <!--modal-->
       <modal
         :show="showModal"
-        @close=";(showModal = false), (lastIndex = fixingItem.index)"
-        @update="onUpdateImage(fixingItem, lastIndex)"
+        @close=";(showModal = false), (lastIndex = fixingItem?.index)"
         :title="fixingItem.title"
         :src="fixingItem.src"
         :thumbnail="fixingItem.thumbnail"
@@ -195,36 +187,20 @@ export default defineComponent({
         </template>
       </modal>
       <!--modal-->
-
-      <button class="btn border btn-primary m-1 p-1" @click="onChangAddState">
-        + Add more
-      </button>
-
-      <div class="p-2 m-2" v-show="isAdd">
-        <form @submit.prevent="onAddNewItem">
-          <input v-model="newItem.src" type="string" placeholder="src" />
-          <input v-model="newItem.title" type="string" placeholder="title" />
-          <input
-            v-model="newItem.thumbnail"
-            type="string"
-            placeholder="thumbnail"
-          />
-          <button id="show-modal" @click="showModal = true">Fix</button>
-        </form>
-      </div>
       <!-- Image gallery -->
       <div v-bind:class="cls">
         <div v-for="(item, index) in items" :key="index">
           <img
             :src="item.thumbnail"
             :aria-label="item.thumbnail"
-            class="ri"
+            class="ri w-full"
             @click="onShowLightBox({ ...item, index })"
           />
         </div>
       </div>
     </div>
-    <div class="m-2">
+    <div class="m-2 col-span-2">
+      <!-- Image Info -->
       <MultiFixer
         :initParams="[
           {
@@ -246,10 +222,6 @@ export default defineComponent({
 <style scoped>
 .img-container {
   display: flex;
-}
-.ri {
-  width: 100px;
-  height: 100px;
 }
 table {
   margin-bottom: 20px;
