@@ -147,9 +147,13 @@ export default defineComponent({
   },
   methods: {
     // set value of CustomHTMLAttributes onchange textarea value
-    onChangeAttributes(e: Event & { target: HTMLTextAreaElement }): void {
-      const nAttb: CustomHTMLAttributes = JSON.parse(e.target.value)
-      const k: number = Number(e.target.id.split('custom')[0])
+    onChangeAttributes(e: Event): void {
+      const nAttb: CustomHTMLAttributes = JSON.parse(
+        (e.target as HTMLTextAreaElement).value
+      )
+      const k: number = Number(
+        (e?.target as HTMLTextAreaElement).id.split('custom')[0]
+      )
       this.fields[k].customHTMLAttributes = nAttb
     },
     addNewField() {
@@ -211,8 +215,9 @@ export default defineComponent({
                       :value="fieldName"
                       :key="fieldName"
                     >
-                      {{ fieldName }}
+                      {{ field }}
                     </option>
+                    ƒ
                   </select>
                   <label :for="'custom' + i"> Custom HTTML abtribute </label>
                   <textarea
@@ -220,8 +225,8 @@ export default defineComponent({
                     placeholder="{name: value,name1: value1,}"
                     rows="4"
                     :id="'custom' + i"
-                    :defaultValue="formatInput(i)"
                     :key="i"
+                    :value="formatInput(i)"
                     @input="onChangeAttributes"
                   ></textarea>
                   <button></button>
