@@ -102,6 +102,10 @@ export default defineComponent({
     validateFormat() {
       console.log(this.$refs.form1)
       alert('submit')
+    },
+    onChangeFieldValue(event: Event, index: number) {
+      const value = event
+      console.log(index)
     }
   }
 })
@@ -113,16 +117,36 @@ export default defineComponent({
         <Accordion title="fields">
           <ul class="ml-3">
             <li v-for="(field, i) in fields" :key="i" class="mb-3">
-              <Accordion :title="field?.title">
-                <div v-for="(value, key) in field" :key="key">
+              <Accordion :title="'item' + i">
+                <div>
+                  <label :for="'title' + i"> Tittle </label>
                   <input
                     class="w-full"
                     type="text"
-                    :key="key"
-                    :id="key + i"
-                    :placeholder="key"
-                    v-bind:value="value"
+                    v-model="field.title"
+                    placeholder="must long than 2"
                   />
+                  <label :for="'type' + i"> Type </label>
+                  <select
+                    v-model="field.type"
+                    defaultValue="text"
+                    class="w-full p-2 border"
+                  >
+                    <option value="text">text</option>
+                    <option value="select">text</option>
+                    <option value="number">number</option>
+                    <option value="textarea">textarea</option>
+                    <option value="radio">radio</option>
+                    <option value="textarea">textarea</option>
+                  </select>
+                  <label :for="'custom' + i"> Custom HTTML abtribute </label>
+                  <textarea
+                    class="w-full p-2 border"
+                    placeholder="{name: value,name1: value1,}"
+                    rows="4"
+                    :id="'custom' + i"
+                  ></textarea>
+                  <button></button>
                 </div>
               </Accordion>
             </li>

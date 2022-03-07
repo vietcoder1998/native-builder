@@ -27,7 +27,6 @@ export default defineComponent({
   props: {
     field: {} as PropType<Field>
   },
-
   methods: {
     change(e: any) {
       console.log(e)
@@ -38,38 +37,43 @@ export default defineComponent({
   activated() {
     console.log('hello world')
   },
+  // watch: listen props, change on change props
+  watch: {
+    field(nValue: Field, oValue: Field) {
+      console.log('watch in dynamic')
+      switch (nValue?.type) {
+        case FieldName.textarea:
+          this.current = TextAreaVue
+          break
+
+        case FieldName.dropdown:
+          this.current = SelectInputVue
+          break
+        
+        case FieldName.number:
+          this.current = NumberInputVue
+          break
+        case FieldName.radio:
+          this.current = RadioInputVue
+          break
+
+        case FieldName.date:
+          this.current = DateInputVue
+          break
+
+        case FieldName.checkbox:
+          this.current = CheckBoxVue
+          break
+
+        default:
+          this.current = TextInputVue
+          break
+      }
+    }
+  },
 
   // switch component
-  mounted() {
-    switch (this.$props.field?.type) {
-      case FieldName.textarea:
-        this.$data.current = TextAreaVue
-        break
-
-      case FieldName.dropdown:
-        this.$data.current = SelectInputVue
-        break
-
-      case FieldName.number:
-        this.$data.current = NumberInputVue
-        break
-      case FieldName.radio:
-        this.$data.current = RadioInputVue
-        break
-
-      case FieldName.date:
-        this.$data.current = DateInputVue
-        break
-
-      case FieldName.checkbox:
-        this.$data.current = CheckBoxVue
-        break
-
-      default:
-        this.$data.current = TextInputVue
-        break
-    }
-  }
+  mounted() {}
 })
 </script>
 
@@ -83,10 +87,7 @@ export default defineComponent({
         >*</span
       >
     </label>
-    <keep-alive
-      include="field"
-      max="10"
-    >
+    <keep-alive include="field" max="10">
       <component
         v-bind:is="current"
         v-bind:field="field"
