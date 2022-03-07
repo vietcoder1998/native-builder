@@ -6,4 +6,4 @@ import { createStore } from 'vuex'
 import { store } from './store'
 
 const app = createApp(App)
-app.use(router, store).mount('#app')
+app.use(router).use(store).mount('#app')

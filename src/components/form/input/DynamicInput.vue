@@ -48,7 +48,6 @@ export default defineComponent({
   },
   methods: {
     forceRender(): void {
-      console.log('force render', this.field)
       switch (this.field?.type) {
         case FieldName.upload:
           this.current = UploadVue
@@ -84,9 +83,7 @@ export default defineComponent({
     },
 
     onChange(e: any) {
-      console.log('change in dynamic', e, this.field?.index)
       if (this.field?.index && e) {
-        console.log(e.target)
         if (e?.target?.files[0]) {
           const image = e.target.files[0]
           const reader = new FileReader()
