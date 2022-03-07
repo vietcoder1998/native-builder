@@ -19,7 +19,7 @@ export interface State {
     navigation: boolean
     itemsNumber: number
     slides: SlideElement[]
-  }
+  },
 }
 
-export interface 
+export interface store

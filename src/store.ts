@@ -50,6 +50,34 @@ export const store = createStore<State>({
     },
     changeSlideNavigation(state) {
       state.slidePage.navigation != state.slidePage.navigation
+    },
+    setValue(keys: string[], nStateValue: Object) {
+      if (!keys) {
+        state = nStateValue
+      } else {
+        state = setValueFromMultipleKey(keys, state, nStateValue)
+      }
     }
   }
 })
+
+function getValueFromMultipleKey(params: string[], ob: Object) {
+  let param = params[0]
+  if (params.length === 1) {
+    return ob[params[0]]
+  } else {
+    const nParams = params.pop()
+    return getValueFromMultipleKey(nParams, ob[param])
+  }
+}
+
+function setValueFromMultipleKey(params: string[], ob: Object, value: unknown) {
+  let param = params[0]
+  if (params.length <= 1) {
+    ob[params[0]] = value
+    return ob
+  } else {
+    const nParams = params.pop()
+    return setValueFromMultipleKey(nParams, ob[param], value)
+  }
+}

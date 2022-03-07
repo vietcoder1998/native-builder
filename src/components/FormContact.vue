@@ -215,7 +215,7 @@ export default defineComponent({
                       :value="fieldName"
                       :key="fieldName"
                     >
-                      {{ field }}
+                      {{ fieldName }}
                     </option>
                     ƒ
                   </select>

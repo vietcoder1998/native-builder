@@ -8,7 +8,7 @@ export default defineComponent({
   components: {
     Accordion
   },
-  setup() {},
+
   data(): {
     collections: ProductCollection
     col: number
@@ -20,9 +20,9 @@ export default defineComponent({
       collections: Object.assign(
         {} as PropType<ProductCollection>,
         new Array(20).fill(
-          {
+          { 
             thumbnail: 'https://picsum.photos/200/300',
-            productTitle: 'Sp1',
+            productTitle: 'Sp',
             price: 1.0,
             addToCart: false
           },
@@ -32,6 +32,20 @@ export default defineComponent({
       )
     }
   },
+  methods: {
+    forceRender() {
+      console.log('force update beae element')
+    }
+  },
+  watch: {
+    collections: {
+      handler(nValue, oValue) {
+        this.forceRender()
+      },
+      deep: true
+    }
+  },
+
   computed: {
     itemCls(): string {
       return `grid grid-cols-${this.$data.col} gap-${this.$data.gap}`
@@ -61,7 +75,7 @@ export default defineComponent({
             :key="key"
           >
             <label> {{ key }} </label>
-            <input class="w-full" />
+            <input class="w-full" v-model="collections[id][key]" />
           </div>
         </Accordion>
       </Accordion>
@@ -72,12 +86,11 @@ export default defineComponent({
           class="col-span-1"
           v-for="(collection, id) in collections"
           :key="id"
+          :id="'collection' + id"
         >
-          <div class="p-2">
             <img :src="collection.thumbnail" />
             <p>{{ collection.productTitle }}</p>
             <button class="border">+ Add to Cart</button>
-          </div>
         </div>
       </div>
     </div>
