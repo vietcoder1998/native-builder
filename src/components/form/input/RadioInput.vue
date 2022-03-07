@@ -11,15 +11,15 @@ export default defineComponent({
 })
 </script>
 <template>
-  <div v-for="(option, oid) in field?.options" :key="option + oid">
+  <div v-for="(option, oid) in field?.customHTMLAttributes.options" :key="option + oid">
     <input
       type="radio"
-      :id="field?.name + option"
-      :name="field?.name"
-      :required="field?.required"
+      :id="field?.customHTMLAttributes.name + option"
+      :name="field?.customHTMLAttributes.name"
+      :required="field?.customHTMLAttributes.required"
       @change="$emit('change')"
     />
-    <label :for="field?.name + option">
+    <label :for="field?.customHTMLAttributes.name + option">
       {{ option }}
     </label>
   </div>

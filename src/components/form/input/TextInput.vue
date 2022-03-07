@@ -14,11 +14,11 @@ export default defineComponent({
     class="w-full text-left"
     type="text"
     :value="field?.value"
-    :required="field?.required"
-    :placeholder="field?.placeholder"
-    :id="field?.id"
-    :name="field?.name"
-    :aria-describedby="field?.description"
+    :required="field?.customHTMLAttributes.required"
+    :placeholder="field?.customHTMLAttributes.placeholder"
+    :id="field?.customHTMLAttributes.id"
+    :name="field?.customHTMLAttributes.name"
+    :aria-describedby="field?.customHTMLAttributes.description"
     @change="$emit('change')"
   />
 </template>

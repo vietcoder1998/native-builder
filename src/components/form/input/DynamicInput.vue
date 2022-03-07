@@ -27,11 +27,6 @@ export default defineComponent({
   props: {
     field: {} as PropType<Field>
   },
-  methods: {
-    change(e: any) {
-      console.log(e)
-    }
-  },
 
   // called on init
   activated() {
@@ -39,9 +34,25 @@ export default defineComponent({
   },
   // watch: listen props, change on change props
   watch: {
-    field(nValue: Field, oValue: Field) {
-      console.log('watch in dynamic')
-      switch (nValue?.type) {
+    field: {
+      handler(nValue: Field, oValue: Field) {
+        this.forceRender()
+      },
+      deep: true
+    }
+  },
+  mounted() {
+    console.log('mounted')
+    this.forceRender()
+  },
+  updated() {
+    console.log('updated')
+    this.forceRender()
+  },
+  methods: {
+    forceRender(): void {
+      console.log('force render', this.field)
+      switch (this.field?.type) {
         case FieldName.textarea:
           this.current = TextAreaVue
           break
@@ -49,7 +60,7 @@ export default defineComponent({
         case FieldName.dropdown:
           this.current = SelectInputVue
           break
-        
+
         case FieldName.number:
           this.current = NumberInputVue
           break
@@ -69,20 +80,20 @@ export default defineComponent({
           this.current = TextInputVue
           break
       }
+    },
+    onChange() {
+      console.log('ok')
     }
-  },
-
-  // switch component
-  mounted() {}
+  }
 })
 </script>
 
 <template>
   <div class="validate form mb-5">
-    <label :for="field?.name" class="w-full relative">
+    <label :for="field?.customHTMLAttributes.name" class="w-full relative">
       {{ field?.title }}
       <span
-        v-show="field?.required"
+        v-show="field?.customHTMLAttributes.required"
         class="text-red-500 absolute top-0 -right-2"
         >*</span
       >
@@ -91,14 +102,15 @@ export default defineComponent({
       <component
         v-bind:is="current"
         v-bind:field="field"
-        @change="change"
+        :key="field?.customHTMLAttributes.key"
+        @change="onChange"
       ></component>
     </keep-alive>
     <p
-      v-show="field?.showError"
+      v-show="field?.customHTMLAttributes.showError"
       class="text-red-400 text-sm absolute bottom-0 left-0"
     >
-      {{ field?.error }}
+      {{ field?.customHTMLAttributes.error }}
     </p>
   </div>
 </template>

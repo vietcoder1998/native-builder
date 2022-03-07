@@ -1,3 +1,4 @@
+import { Field } from './fields'
 import { key } from './../store'
 export type FieldType =
   | 'text'
@@ -43,6 +44,10 @@ export type Field = {
   title?: string
   type?: FieldName
   value?: string
+  customHTMLAttributes: CustomHTMLAttributes
+}
+
+export type CustomHTMLAttributes = {
   options?: string[]
   width?: number
   required?: boolean

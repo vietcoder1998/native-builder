@@ -88,10 +88,12 @@ export default defineComponent({
       <Accordion title="pagination">
         <RadioInput
           :field="{
-            options: ['a', 'b'],
-            name: 'pagination',
-            required: true,
-            id: 'pagination',
+            customHTMLAttributes: {
+              options: ['a', 'b'],
+              name: 'pagination',
+              required: true,
+              id: 'pagination'
+            },
             value: 'a'
           }"
         />
