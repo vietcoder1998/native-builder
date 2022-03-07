@@ -1,7 +1,6 @@
 <script lang="ts">
-import { defineComponent, PropType } from 'vue'
-import {SlideElement} from '../typing/sliders'
-import Slides from '../components/Slides.vue'
+import { defineComponent } from 'vue';
+import Slides from '../components/Slides.vue';
 
 export default defineComponent({
     name: 'slide',

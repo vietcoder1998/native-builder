@@ -4,15 +4,22 @@ import { ProductCollection } from '../typing/beae.element'
 import Accordion from './ui/Accordion.vue'
 
 export default defineComponent({
-  setup() {},
-  component: {
+  name: 'beae-element',
+  components: {
     Accordion
   },
-  data(): { collections: ProductCollection } {
+  setup() {},
+  data(): {
+    collections: ProductCollection
+    col: number
+    gap: number
+  } {
     return {
+      col: 4,
+      gap: 2,
       collections: Object.assign(
         {} as PropType<ProductCollection>,
-        Array.prototype.fill(
+        new Array(20).fill(
           {
             thumbnail: 'https://picsum.photos/200/300',
             productTitle: 'Sp1',
@@ -24,21 +31,55 @@ export default defineComponent({
         )
       )
     }
+  },
+  computed: {
+    itemCls(): string {
+      return `grid grid-cols-${this.$data.col} gap-${this.$data.gap}`
+    }
   }
 })
 </script>
 <template>
-  <div class="grid grid-cl-8">
+  <div class="grid grid-cols-8">
     <div class="col-span-2">
-      <Accordion title="Beae Product">
+      <div class="p-2">
+        <label>Columns</label>
+        <input type="number" v-model="col" class="w-full" id="cols-quantity" />
+        <label>Gap</label>
+        <input type="number" v-model="gap" class="w-full" id="gap-range" />
+      </div>
+      <Accordion :title="'Collection'">
         <Accordion
           v-for="(collection, id) in collections"
-          :title="id"
-          v-bind:key="id"
+          :title="String(id)"
+          v-bind:key="String(id)"
         >
-          <input v-for="(value, key) in collection" :value="value" :key="key" />
+          <div
+            class="col-span-1"
+            v-for="(value, key) in collection"
+            :value="value"
+            :key="key"
+          >
+            <label> {{ key }} </label>
+            <input class="w-full" />
+          </div>
         </Accordion>
       </Accordion>
+    </div>
+    <div class="col-span-6 p-2">
+      <div v-bind:class="itemCls">
+        <div
+          class="col-span-1"
+          v-for="(collection, id) in collections"
+          :key="id"
+        >
+          <div class="p-2">
+            <img :src="collection.thumbnail" />
+            <p>{{ collection.productTitle }}</p>
+            <button class="border">+ Add to Cart</button>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </template>

@@ -7,7 +7,6 @@
   <router-link to="/gallery">gallery</router-link>
   <router-link to="/form-contact">form-contact</router-link>
   <router-link to="/slider">slider</router-link>
-  <router-link to="/change-data-form">change-data-form</router-link>
   <router-link to="/beae-collection">beae-collection</router-link>
   <router-link to="/admin">admin</router-link>
 

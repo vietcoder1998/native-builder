@@ -117,7 +117,7 @@ export default defineComponent({
 
 <template>
   <main class="grid grid-cols-8 m-2">
-    <div class="col-span-2 p-4">
+    <div class="col-span-3 p-4">
       <Accordion title="Gallery">
         <div class="ml-2">
           <div>
@@ -181,7 +181,7 @@ export default defineComponent({
         </div>
       </Accordion>
     </div>
-    <div class="col-span-4">
+    <div class="col-span-5">
       <LightBox
         :show="showLightBox"
         @close="showLightBox = false"
@@ -212,23 +212,6 @@ export default defineComponent({
           />
         </div>
       </div>
-    </div>
-    <div class="m-2 col-span-2">
-      <!-- Image Info -->
-      <MultiFixer
-        :initParams="[
-          {
-            fieldType: 'text',
-            title: 'Gap',
-            customHTMLAttributes: { defaultValue: '2', options: ['a', 'b'] }
-          },
-          {
-            fieldType: 'text',
-            title: 'Columns',
-            customHTMLAttributes: { defaultValue: '2', options: ['a', 'b'] }
-          }
-        ]"
-      />
     </div>
   </main>
 </template>

@@ -1,16 +1,19 @@
 <script lang="ts">
-import { defineComponent, defineProps } from 'vue'
+import { defineComponent } from 'vue';
 import BeaeElement from '../components/BeaeElement.vue';
 
 export default defineComponent({
   name: 'beae-collection',
   components: {
     BeaeElement
+  },
+  mouted() {
+    console.log('mounting')
   }
 })
 </script>
 <template>
-  <BeaeElement />
+  <BeaeElement ></BeaeElement>
 </template>
 
 <style scoped></style>
