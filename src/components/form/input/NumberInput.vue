@@ -14,10 +14,10 @@ export default defineComponent({
     class="w-full text-left"
     type="number"
     :value="field?.value"
-    :required="field?.required"
-    :placeholder="field?.placeholder"
-    :id="field?.id"
-    :name="field?.name"
+    :required="field?.customHTMLAttributes.required"
+    :placeholder="field?.customHTMLAttributes.placeholder"
+    :id="field?.customHTMLAttributes.id"
+    :name="field?.customHTMLAttributes.name"
     @change="$emit('change')"
   />
 </template>

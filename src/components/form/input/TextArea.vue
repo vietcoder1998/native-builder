@@ -14,13 +14,13 @@ export default defineComponent({
         class="w-full text-left border"
         type="text"
         :value="field?.value"
-        :key="field?.key"
-        :placeholder="field?.placeholder"
-        :id="field?.id"
-        :name="field?.name"
+        :key="field?.customHTMLAttributes.key"
+        :placeholder="field?.customHTMLAttributes.placeholder"
+        :id="field?.customHTMLAttributes.id"
+        :name="field?.customHTMLAttributes.name"
         rows="3"
         v-on:change="$emit('change')"
-        :required="field?.required"
+        :required="field?.customHTMLAttributes.required"
       >
       </textarea>
 </template>

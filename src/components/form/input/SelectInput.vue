@@ -13,15 +13,15 @@ export default defineComponent({
 <template>
   <select
     :value="field?.value"
-    :name="field?.name"
+    :name="field?.customHTMLAttributes.name"
     class="w-full p-3 border"
     @change="$emit('change')"
-    :required="field?.required"
+    :required="field?.customHTMLAttributes.required"
   >
     <option value="" disabled selected>
-      {{ field?.placeholder }}
+      {{ field?.customHTMLAttributes.placeholder }}
     </option>
-    <option v-for="(option, oid) in field?.options" :key="oid" :value="option">
+    <option v-for="(option, oid) in field?.customHTMLAttributes.options" :key="oid" :value="option">
       {{ option }}
     </option>
   </select>
