@@ -2,11 +2,12 @@
 import { defineComponent, onMounted, ref } from 'vue'
 import { Field } from '../typing/fields'
 import DymamicInput from './form/input/DynamicInput.vue'
+import Accordion from './ui/Accordion.vue'
 
 const form1 = ref('#form-1')
 export default defineComponent({
   name: 'form-contact-view',
-  components: { DymamicInput },
+  components: { DymamicInput, Accordion },
   data() {
     return {
       fields: [
@@ -112,19 +113,47 @@ export default defineComponent({
 })
 </script>
 <template>
-  <form
-    id="form-1"
-    ref="form1"
-    class="grid grid-cols-2 gap-4 mx-3"
-    @submit.prevent="validateFormat"
-  >
-    <div v-for="(field, id) in fields" :key="id" class="relative">
-      <DymamicInput v-bind:field="field" />
+  <div class="grid grid-cols-8">
+    <div class="col-span-2">
+      <Accordion title="Form Contact">
+        <Accordion title="fields">
+          <ul class="ml-3">
+            <li v-for="(field, i) in fields" :key="i" class="mb-3">
+              <Accordion :title="field?.title">
+                <div v-for="(value, key) in field" :key="key">
+                  <input
+                    class="w-full"
+                    type=""
+                    :key="key"
+                    :id="key + i"
+                    :placeholder="key"
+                    v-bind:value="value"
+                  />
+                </div>
+              </Accordion>
+            </li>
+          </ul>
+          <button class="border">+ Add more</button>
+        </Accordion>
+      </Accordion>
     </div>
-    <button type="submit" class="border w-20 h-14 bg-blue-500 text-blue-50">
-      Submit
-    </button>
-  </form>
+    <div class="col-span-4">
+      <form
+        id="form-1"
+        ref="form1"
+        class="grid grid-cols-2 gap-4 mx-3"
+        @submit.prevent="validateFormat"
+      >
+        <div v-for="(field, id) in fields" :key="id" class="relative">
+          <DymamicInput v-bind:field="field" />
+        </div>
+        <button type="submit" class="border w-20 h-14 bg-blue-500 text-blue-50">
+          Submit
+        </button>
+      </form>
+    </div>
+    <div></div>
+  </div>
 </template>
 
 <style scoped></style>

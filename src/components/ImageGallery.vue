@@ -107,6 +107,10 @@ export default defineComponent({
         columns: this.$data.columns
       }
     }
+  },
+  onMounted() {},
+  whenDepsChange(update: any) {
+    console.log(update)
   }
 })
 </script>
@@ -114,58 +118,68 @@ export default defineComponent({
 <template>
   <main class="grid grid-cols-8 m-2">
     <div class="col-span-2 p-4">
-      <div>
-        <div>
-          <label> Columns </label>
-          <input
-            id="gap"
-            type="number"
-            v-model="columns"
-            @change="onChangeParams(columns, gap)"
-            class="w-full"
-          />
-        </div>
-        <div>
-          <label> Gap </label>
-          <input
-            type="number"
-            v-model="gap"
-            class="w-full"
-            @change="onChangeParams(columns, gap)"
-          />
-        </div>
-        <button class="btn border btn-primary m-1 p-1" @click="onChangAddState">
-          + Add more
-        </button>
-        <div class="m-2" v-show="isAdd">
-          <form @submit.prevent="onAddNewItem">
-            <input v-model="newItem.src" type="string" placeholder="src" />
-            <input v-model="newItem.title" type="string" placeholder="title" />
+      <Accordion title="Gallery">
+        <div class="ml-2">
+          <div>
+            <label> Columns </label>
             <input
-              v-model="newItem.thumbnail"
-              type="string"
-              placeholder="thumbnail"
+              id="gap"
+              type="number"
+              v-model="columns"
+              @change="onChangeParams(columns, gap)"
+              class="w-full"
             />
-            <button id="show-modal c " @click="showModal = true">Fix</button>
-          </form>
+          </div>
+          <div>
+            <label> Gap </label>
+            <input
+              type="number"
+              v-model="gap"
+              class="w-full"
+              @change="onChangeParams(columns, gap)"
+            />
+          </div>
+
+          <div class="m-2" v-show="isAdd">
+            <form @submit.prevent="onAddNewItem">
+              <input v-model="newItem.src" type="string" placeholder="src" />
+              <input
+                v-model="newItem.title"
+                type="string"
+                placeholder="title"
+              />
+              <input
+                v-model="newItem.thumbnail"
+                type="string"
+                placeholder="thumbnail"
+              />
+              <button id="show-modal c " @click="showModal = true">Fix</button>
+            </form>
+          </div>
         </div>
-      </div>
-      <!--items-->
-      <div>
-        <Accordion title="Items">
-          <ul class="ml-4">
-            <li v-for="(item, i) in items" :key="i">
-              <Accordion :title="'img' + i">
-                <div class="ml-2">
-                  <p>{{ item.src }}</p>
-                  <p>{{ item.thumbnail }}</p>
-                  <p>{{ item.title }}</p>
-                </div>
-              </Accordion>
-            </li>
-          </ul>
-        </Accordion>
-      </div>
+        <!--items-->
+        <div>
+          <Accordion title="Items">
+            <ul class="ml-4">
+              <li v-for="(item, i) in items" :key="i">
+                <Accordion :title="'img' + i">
+                  <div class="ml-2">
+                    <input class="ml-2" v-model="item.src" />
+                    <input class="ml-2" v-model="item.thumbnail" />
+                    <input class="ml-2" v-model="item.title" />
+                  </div>
+                </Accordion>
+              </li>
+            </ul>
+            <button
+              class="btn border btn-primary m-1 p-1"
+              @click="onChangAddState"
+            >
+              + Add more
+            </button>
+          </Accordion>
+        </div>
+      </Accordion>
     </div>
     <div class="col-span-4">
       <LightBox

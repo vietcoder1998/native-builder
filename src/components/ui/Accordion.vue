@@ -29,7 +29,7 @@ export default defineComponent({
       {{ title }}
     </button>
     <hr />
-    <div v-show="open">
+    <div v-show="open" class="ml-2 pt-2">
       <slot />
     </div>
   </div>
