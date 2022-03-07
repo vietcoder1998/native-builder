@@ -90,10 +90,10 @@ export default defineComponent({
 
 <template>
   <div class="validate form mb-5">
-    <label :for="field?.customHTMLAttributes.name" class="w-full relative">
+    <label :for="field?.customHTMLAttributes?.id" class="w-full relative">
       {{ field?.title }}
       <span
-        v-show="field?.customHTMLAttributes.required"
+        v-show="field?.customHTMLAttributes?.required"
         class="text-red-500 absolute top-0 -right-2"
         >*</span
       >

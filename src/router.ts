@@ -4,6 +4,7 @@ import Gallery from './views/Gallery.vue'
 import SlidePage from './views/SlidePage.vue'
 import Admin from './views/Admin.vue'
 import Register from './views/Register.vue'
+import BeaeCollection from './views/BeaeCollection.vue'
 const routes = [
   {
     path: '/',
@@ -29,6 +30,11 @@ const routes = [
     path: '/admin',
     name: 'admin',
     component: Admin
+  },
+  {
+    path: '/beae-collection',
+    name: 'beae-collection',
+    component: BeaeCollection
   }
 ]
 

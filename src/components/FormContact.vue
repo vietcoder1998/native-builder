@@ -1,5 +1,5 @@
 <script lang="ts">
-import { defineComponent, onMounted, ref } from 'vue'
+import { defineComponent, onMounted, ref, PropType } from 'vue'
 import { Field, CustomHTMLAttributes, FieldName } from '../typing/fields'
 import DymamicInput from './form/input/DynamicInput.vue'
 import Accordion from './ui/Accordion.vue'
@@ -123,10 +123,22 @@ export default defineComponent({
   },
   methods: {
     // set value of CustomHTMLAttributes onchange textarea value
-    onChangeAttributes(e: Event & { target: HTMLTextAreaElement }) {
+    onChangeAttributes(e: Event & { target: HTMLTextAreaElement }): void {
       const nAttb: CustomHTMLAttributes = JSON.parse(e.target.value)
       const k: number = Number(e.target.id.split('custom')[0])
       this.fields[k].customHTMLAttributes = nAttb
+    },
+    addNewField() {
+      let field: Field = {
+        title: 'New Item',
+        type: FieldName.text,
+        customHTMLAttributes: {
+          placeholder: 'new description',
+          defaultValue: undefined
+        }
+      }
+      field.title = 'New Item'
+      this.fields.push(field)
     }
   }
 })
@@ -138,7 +150,7 @@ export default defineComponent({
         <Accordion title="fields">
           <ul class="ml-3">
             <li v-for="(field, i) in fields" :key="i" class="mb-3">
-              <Accordion :title="'item' + i">
+              <Accordion :title="field?.title">
                 <div>
                   <label :for="'title' + i"> Tittle </label>
                   <input
@@ -168,14 +180,14 @@ export default defineComponent({
                     :id="'custom' + i"
                     :defaultValue="formatInput(i)"
                     :key="i"
-                    @input="onChangeAttributes(e)"
+                    @input="onChangeAttributes"
                   ></textarea>
                   <button></button>
                 </div>
               </Accordion>
             </li>
           </ul>
-          <button class="border">+ Add more</button>
+          <button class="border" @click="addNewField">+ Add more</button>
         </Accordion>
       </Accordion>
     </div>
