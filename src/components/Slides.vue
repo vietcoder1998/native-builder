@@ -7,6 +7,8 @@ import 'swiper/css/pagination'
 import 'swiper/css/scrollbar'
 import { Swiper, SwiperSlide } from 'swiper/vue'
 import { Navigation, Pagination, Scrollbar, A11y } from 'swiper'
+import Accordion from './ui/Accordion.vue'
+import RadioInput from './form/input/RadioInput.vue'
 
 export default defineComponent({
   setup() {
@@ -25,7 +27,9 @@ export default defineComponent({
   name: 'slides',
   components: {
     Swiper,
-    SwiperSlide
+    SwiperSlide,
+    Accordion,
+    RadioInput
   },
   data(): { slides: SlideElement[]; pagination: number; itemNumbers: number } {
     return {
@@ -63,23 +67,53 @@ export default defineComponent({
 })
 </script>
 <template>
-  <div>
-    <input type="number" v-model="itemNumbers" />
-    <swiper
-      :slides-per-view="itemNumbers"
-      :space-between="50"
-      :pagination="{ clickable: true }"
-      :allow-slide-prev="true"
-      :allow-slide-next="true"
-      :navigation="true"
-      :modules="modules"
-      @swiper="onSwiper"
-      @slideChange="onSlideChange"
-    >
-      <swiper-slide v-for="(slide, i) in slides" :key="i">
-        <img v-bind:src="slide.src" alt="text" />
-        <p>{{ slide.text }}</p>
-      </swiper-slide>
-    </swiper>
+  <div class="grid grid-cols-8">
+    <div class="col-span-2 p-2">
+      <Accordion title="Slider">
+        <div v-for="(item, i) in slides" :key="i">
+          <Accordion :title="'item' + i">
+            <input type="text" v-model="item.src" :key="i" placeholder="src" />
+            <input
+              type="text"
+              v-model="item.text"
+              :key="i"
+              placeholder="text"
+            />
+          </Accordion>
+        </div>
+      </Accordion>
+      <Accordion title="itemNumbers">
+        <input v-model="itemNumbers" type="number" />
+      </Accordion>
+      <Accordion title="pagination">
+        <RadioInput
+          :field="{
+            options: ['a', 'b'],
+            name: 'pagination',
+            required: true,
+            id: 'pagination',
+            value: 'a'
+          }"
+        />
+      </Accordion>
+    </div>
+    <div class="col-span-4">
+      <swiper
+        v-bind:slides-per-view="itemNumbers"
+        :space-between="50"
+        :pagination="{ clickable: true }"
+        :allow-slide-prev="true"
+        :allow-slide-next="true"
+        :navigation="true"
+        :modules="modules"
+        @swiper="onSwiper"
+        @slideChange="onSlideChange"
+      >
+        <swiper-slide v-for="(slide, i) in slides" :key="i">
+          <img v-bind:src="slide.src" alt="text" />
+          <p>{{ slide.text }}</p>
+        </swiper-slide>
+      </swiper>
+    </div>
   </div>
 </template>

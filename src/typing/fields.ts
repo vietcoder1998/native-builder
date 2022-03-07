@@ -40,19 +40,19 @@ export enum HTMLInputCustomAttributes {
 }
 
 export type Field = {
-  title: string
-  type: FieldName
-  value: string
-  options: string[]
-  width: number
-  required: boolean
-  placeholder: string
-  description: string
-  name: string
+  title?: string
+  type?: FieldName
+  value?: string
+  options?: string[]
+  width?: number
+  required?: boolean
+  placeholder?: string
+  description?: string
+  name?: string
   checked?: Boolean
-  error: string
-  key: string | number | symbol | undefined
-  showError: boolean
-  id: string
-  defaultValue: string
+  error?: string
+  key?: string | number | symbol | undefined
+  showError?: boolean
+  id?: string
+  defaultValue?: string
 }

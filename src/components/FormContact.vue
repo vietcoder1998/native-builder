@@ -19,7 +19,6 @@ export default defineComponent({
           placeholder: 'must longer than 8',
           description: 'please add your name',
           name: 'name',
-          value: null,
           showError: false,
           error: ''
         },
@@ -31,7 +30,6 @@ export default defineComponent({
           placeholder: 'must longer than 8',
           description: 'please add your name',
           name: 'mail',
-          value: null,
           error: ''
         },
         {
@@ -42,7 +40,6 @@ export default defineComponent({
           placeholder: 'must longer than 8',
           description: 'please add your name',
           name: 'Time',
-          value: null,
           error: ''
         },
         {
@@ -54,7 +51,6 @@ export default defineComponent({
           description: 'please add your name',
           name: 'select',
           options: ['The title 1', 'The title 2'] as String[],
-          value: null,
           error: ''
         },
         {
@@ -66,7 +62,6 @@ export default defineComponent({
           description: 'please add your name',
           options: ['The title 1', 'The title 2'],
           name: 'check-box',
-          value: null,
           error: ''
         },
         {
@@ -78,7 +73,6 @@ export default defineComponent({
           description: 'please add your name',
           options: ['The title 1', 'The title 2'],
           name: 'radio',
-          value: null,
           error: ''
         },
         {
@@ -123,7 +117,7 @@ export default defineComponent({
                 <div v-for="(value, key) in field" :key="key">
                   <input
                     class="w-full"
-                    type=""
+                    type="text"
                     :key="key"
                     :id="key + i"
                     :placeholder="key"
