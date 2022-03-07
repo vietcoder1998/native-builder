@@ -6,21 +6,22 @@ export default defineComponent({
     name: 'text-input',
     props: {
        field: {} as PropType<Field>
-    }
+    },
+    emits: ['change']
 })
 </script>
 <template>
     <textarea
         class="w-full text-left border"
         type="text"
-        :value="field?.value"
+        v-model="field.value"
         :key="field?.customHTMLAttributes.key"
         :placeholder="field?.customHTMLAttributes.placeholder"
         :id="field?.customHTMLAttributes.id"
         :name="field?.customHTMLAttributes.name"
         rows="3"
-        v-on:change="$emit('change')"
         :required="field?.customHTMLAttributes.required"
+         @input="$emit('change')"
       >
       </textarea>
 </template>

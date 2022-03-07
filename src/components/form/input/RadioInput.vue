@@ -17,6 +17,7 @@ export default defineComponent({
       :id="field?.customHTMLAttributes.name + option"
       :name="field?.customHTMLAttributes.name"
       :required="field?.customHTMLAttributes.required"
+      v-model="field.value"
       @change="$emit('change')"
     />
     <label :for="field?.customHTMLAttributes.name + option">

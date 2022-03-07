@@ -8,6 +8,7 @@ import RadioInputVue from './RadioInput.vue'
 import SelectInputVue from './SelectInput.vue'
 import TextAreaVue from './TextArea.vue'
 import TextInputVue from './TextInput.vue'
+import UploadVue from './Upload.vue'
 
 export default defineComponent({
   name: 'validate-field',
@@ -17,11 +18,12 @@ export default defineComponent({
     SelectInputVue,
     DateInputVue,
     RadioInputVue,
-    CheckBoxVue
+    UploadVue
   },
   data() {
     return {
-      current: TextInputVue
+      current: {},
+      files: []
     }
   },
   props: {
@@ -42,17 +44,16 @@ export default defineComponent({
     }
   },
   mounted() {
-    console.log('mounted')
-    this.forceRender()
-  },
-  updated() {
-    console.log('updated')
     this.forceRender()
   },
   methods: {
     forceRender(): void {
       console.log('force render', this.field)
       switch (this.field?.type) {
+        case FieldName.upload:
+          this.current = UploadVue
+          break
+
         case FieldName.textarea:
           this.current = TextAreaVue
           break
@@ -81,10 +82,30 @@ export default defineComponent({
           break
       }
     },
-    onChange() {
-      console.log('ok')
+
+    onChange(e: any) {
+      console.log('change in dynamic', e, this.field?.index)
+      if (this.field?.index && e) {
+        console.log(e.target)
+        if (e?.target?.files[0]) {
+          const image = e.target.files[0]
+          const reader = new FileReader()
+          reader.readAsDataURL(image)
+          reader.onload = (e: ProgressEvent<FileReader>) => {
+            const previewImage = e?.target?.result
+            this.$emit('on-change-input-field', this.field?.index, previewImage)
+          }
+        } else {
+          this.$emit(
+            'on-change-input-field',
+            this.field?.index,
+            e?.target?.value
+          )
+        }
+      }
     }
-  }
+  },
+  emits: ['on-change-input-field']
 })
 </script>
 

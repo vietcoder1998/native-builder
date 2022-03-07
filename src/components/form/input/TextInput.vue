@@ -6,20 +6,19 @@ export default defineComponent({
   name: 'text-input',
   props: {
     field: {} as PropType<Field>
-  }
+  },
+  emits: ['change']
 })
 </script>
 <template>
   <input
     class="w-full text-left"
     type="text"
-    :value="field?.value"
+    v-model="field.value"
     :required="field?.customHTMLAttributes.required"
     :placeholder="field?.customHTMLAttributes.placeholder"
     :id="field?.customHTMLAttributes.id"
     :name="field?.customHTMLAttributes.name"
-    :aria-describedby="field?.customHTMLAttributes.description"
-    @change="$emit('change')"
   />
 </template>
 

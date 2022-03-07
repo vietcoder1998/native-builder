@@ -42,12 +42,12 @@ export default defineComponent({
 <template>
   <div class="grid grid-cols-8">
     <div class="col-span-2">
-      <div class="p-2">
-        <label>Columns</label>
+      <Accordion title="Columns">
         <input type="number" v-model="col" class="w-full" id="cols-quantity" />
-        <label>Gap</label>
-        <input type="number" v-model="gap" class="w-full" id="gap-range" />
-      </div>
+      </Accordion>
+      <Accordion title="Gaps">
+        <input type="number" v-model="col" class="w-full" id="cols-quantity" />
+      </Accordion>
       <Accordion :title="'Collection'">
         <Accordion
           v-for="(collection, id) in collections"

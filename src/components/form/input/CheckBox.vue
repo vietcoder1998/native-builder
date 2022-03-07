@@ -7,6 +7,7 @@ export default defineComponent({
   props: {
     field: {} as PropType<Field>
   },
+  emits: ['change'],
   data() {}
 })
 </script>

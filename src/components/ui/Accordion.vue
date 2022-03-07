@@ -1,16 +1,20 @@
 <script lang="ts">
-import { defineComponent, VueElement } from 'vue'
-
+import { defineComponent } from 'vue'
+import { ChevronUpIcon, ChevronDownIcon } from '@vue-hero-icons/outline'
 export default defineComponent({
   name: 'accordion',
   setup() {},
+  components: {
+    ChevronUpIcon,
+    ChevronDownIcon
+  },
   props: {
     title: String,
     key: String,
     name: String,
     id: String,
     class: String,
-    isShow: Boolean,
+    isShow: Boolean
   },
   data() {
     return {
@@ -21,13 +25,12 @@ export default defineComponent({
 })
 </script>
 <template>
-  <div>
-    <button
-      class="px-2 py-1 my-1 "
-      @click="open = !open"
-    >
+  <div class="relative">
+    <button class="px-2 py-1 my-1 relative w-full text-left" @click="open = !open">
       {{ title }}
     </button>
+    <span v-if="open"></span>
+    <span v-else class="absolute right-3 top-2">^</span>
     <hr />
     <div v-show="open" class="ml-2 pt-2">
       <slot />

@@ -13,6 +13,7 @@ export default defineComponent({
         {
           title: 'Your name',
           type: 'text',
+          index: 0,
           customHTMLAttributes: {
             width: 120,
             required: true,
@@ -26,6 +27,7 @@ export default defineComponent({
         {
           title: 'Your Email',
           type: 'text',
+          index: 1,
           customHTMLAttributes: {
             width: 120,
             required: true,
@@ -39,6 +41,7 @@ export default defineComponent({
           title: 'Time',
           type: 'date',
           width: 120,
+          index: 2,
           customHTMLAttributes: {
             required: true,
             placeholder: 'must longer than 8',
@@ -50,6 +53,7 @@ export default defineComponent({
         {
           title: 'Select',
           type: 'dropdown',
+          index: 3,
           customHTMLAttributes: {
             width: 120,
             required: true,
@@ -63,6 +67,7 @@ export default defineComponent({
         {
           title: 'Checkbox',
           type: 'checkbox',
+          index: 4,
           customHTMLAttributes: {
             width: 120,
             required: true,
@@ -77,6 +82,7 @@ export default defineComponent({
           title: 'Radio',
           type: 'radio',
           width: 120,
+          index: 5,
           customHTMLAttributes: {
             required: true,
             placeholder: 'must longer than 8',
@@ -90,6 +96,21 @@ export default defineComponent({
           title: 'Your message',
           type: 'textarea',
           value: '',
+          index: 6,
+          customHTMLAttributes: {
+            width: 120,
+            required: true,
+            placeholder: 'must longer than 8',
+            description: 'please add your name',
+            name: 'msg',
+            error: ''
+          }
+        },
+        {
+          title: 'Upload',
+          type: 'upload',
+          value: '',
+          index: 7,
           customHTMLAttributes: {
             width: 120,
             required: true,
@@ -119,6 +140,9 @@ export default defineComponent({
     },
     checkFieldType() {
       return (type: FieldName): string => (type ? type : 'text')
+    },
+    fieldTypes(): string[] {
+      return Object.values(FieldName)
     }
   },
   methods: {
@@ -132,6 +156,7 @@ export default defineComponent({
       let field: Field = {
         title: 'New Item',
         type: FieldName.text,
+        index: this.fields.length,
         customHTMLAttributes: {
           placeholder: 'new description',
           defaultValue: undefined
@@ -139,6 +164,14 @@ export default defineComponent({
       }
       field.title = 'New Item'
       this.fields.push(field)
+    },
+    onUpdateInputValue(index: number, value: string) {
+      console.log(index, value)
+      if (index && this.fields[index]) {
+        this.fields[index].value = value
+      } else {
+        console.log('no index or value', index, value)
+      }
     }
   }
 })
@@ -152,12 +185,20 @@ export default defineComponent({
             <li v-for="(field, i) in fields" :key="i" class="mb-3">
               <Accordion :title="field?.title">
                 <div>
-                  <label :for="'title' + i"> Tittle </label>
+                  <label :for="'title' + i"> Title </label>
                   <input
                     class="w-full"
                     type="text"
                     v-model="field.title"
                     placeholder="must long than 2"
+                  />
+
+                  <label :for="'value' + i"> Value </label>
+                  <input
+                    class="w-full"
+                    type="text"
+                    v-model="field.value"
+                    placeholder="add your default value"
                   />
                   <label :for="'type' + i"> Type </label>
                   <select
@@ -165,12 +206,13 @@ export default defineComponent({
                     class="w-full p-2 border"
                     :defaultValue="field.type"
                   >
-                    <option value="select">text</option>
-                    <option value="number">number</option>
-                    <option value="textarea">textarea</option>
-                    <option value="radio">radio</option>
-                    <option value="checkbox">checkbox</option>
-                    <option value="date">date</option>
+                    <option
+                      v-for="fieldName in fieldTypes"
+                      :value="fieldName"
+                      :key="fieldName"
+                    >
+                      {{ fieldName }}
+                    </option>
                   </select>
                   <label :for="'custom' + i"> Custom HTTML abtribute </label>
                   <textarea
@@ -199,7 +241,10 @@ export default defineComponent({
         @submit.prevent=""
       >
         <div v-for="(field, id) in fields" :key="id" class="relative">
-          <DymamicInput v-bind:field="field" />
+          <DymamicInput
+            v-bind:field="field"
+            @on-change-input-field="onUpdateInputValue"
+          />
         </div>
         <button type="submit" class="border w-20 h-14 bg-blue-500 text-blue-50">
           Submit

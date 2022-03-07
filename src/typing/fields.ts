@@ -18,7 +18,8 @@ export enum FieldName {
   button = 'button',
   date = 'date',
   radio = 'radio',
-  number = 'number'
+  number = 'number',
+  upload = 'upload'
 }
 
 export type FieldFixer = {
@@ -44,6 +45,7 @@ export type Field = {
   title?: string
   type?: FieldName
   value?: string
+  index: number
   customHTMLAttributes: CustomHTMLAttributes
 }
 

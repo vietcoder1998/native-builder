@@ -6,7 +6,8 @@ export default defineComponent({
   name: 'select-input',
   props: {
     field: Object as PropType<Field>
-  }
+  },
+  emits: ['change']
 })
 </script>
 
@@ -15,8 +16,8 @@ export default defineComponent({
     :value="field?.value"
     :name="field?.customHTMLAttributes.name"
     class="w-full p-3 border"
-    @change="$emit('change')"
     :required="field?.customHTMLAttributes.required"
+    @change="$emit('change')"
   >
     <option value="" disabled selected>
       {{ field?.customHTMLAttributes.placeholder }}
