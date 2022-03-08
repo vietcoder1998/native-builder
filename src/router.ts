@@ -3,7 +3,7 @@ import Home from './views/Home.vue'
 import Gallery from './views/Gallery.vue'
 import SlidePage from './views/SlidePage.vue'
 import Admin from './views/Admin.vue'
-import Register from './views/Register.vue'
+import FormContact from './views/FormContact.vue'
 import BeaeCollection from './views/BeaeCollection.vue'
 const routes = [
   {
@@ -18,8 +18,8 @@ const routes = [
   },
   {
     path: '/form-contact',
-    name: 'Register',
-    component: Register
+    name: 'FormContact',
+    component: FormContact
   },
   {
     path: '/slider',

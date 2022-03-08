@@ -1,7 +1,7 @@
 <script lang="ts">
 import { defineComponent, PropType } from 'vue'
-import { ProductCollection } from '../typing/beae.element'
-import Accordion from './ui/Accordion.vue'
+import { ProductCollection } from '../../typing/beae.element'
+import Accordion from '../ui/Accordion.vue'
 
 export default defineComponent({
   name: 'beae-element',
@@ -86,7 +86,7 @@ export default defineComponent({
           class="col-span-1"
           v-for="(collection, id) in collections"
           :key="id"
-          :id="'collection' + id"
+          :id="'collection' + String(id)"
         >
             <img :src="collection.thumbnail" />
             <p>{{ collection.productTitle }}</p>

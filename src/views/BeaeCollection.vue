@@ -1,6 +1,6 @@
 <script lang="ts">
 import { defineComponent } from 'vue';
-import BeaeElement from '../components/BeaeElement.vue';
+import BeaeElement from '../components/beae-element/BeaeElement.vue';
 
 export default defineComponent({
   name: 'beae-collection',

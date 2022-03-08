@@ -1,12 +1,12 @@
 <script lang="ts">
 import { defineComponent } from 'vue'
-import InputFixer from './form/fixer/InputFixer.vue'
-import LightBox from './LightBox.vue'
-import Modal from './Modal.vue'
-import MultiFixer from './form/fixer/MultiFixer.vue'
-import { FieldName } from '../typing/fields'
-import { GalleryItem } from '../typing/gallery'
-import Accordion from './ui/Accordion.vue'
+import { GalleryItem } from '../../typing/gallery'
+import InputFixer from '../form/fixer/InputFixer.vue'
+import MultiFixer from '../form/fixer/MultiFixer.vue'
+import LightBox from '../ui/LightBox.vue'
+import Modal from '../ui/Modal.vue'
+import Accordion from '../ui/Accordion.vue'
+
 export default defineComponent({
   name: 'image-gallery',
   components: {

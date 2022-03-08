@@ -1,6 +1,6 @@
 <script lang="ts">
 import { defineComponent, defineProps } from 'vue'
-import FormContact from '../components/FormContact.vue'
+import FormContact from '../components/form-contact/FormContact.vue'
 
 export default defineComponent({
   name: 'form-contact',

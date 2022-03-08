@@ -1,8 +1,8 @@
 <script lang="ts">
 import { defineComponent, onMounted, ref, PropType } from 'vue'
-import { Field, CustomHTMLAttributes, FieldName } from '../typing/fields'
-import DymamicInput from './form/input/DynamicInput.vue'
-import Accordion from './ui/Accordion.vue'
+import { Field, CustomHTMLAttributes, FieldName } from '../../typing/fields'
+import DymamicInput from '../form/input/DynamicInput.vue'
+import Accordion from '../ui/Accordion.vue'
 
 export default defineComponent({
   name: 'form-contact-view',
@@ -217,7 +217,6 @@ export default defineComponent({
                     >
                       {{ fieldName }}
                     </option>
-                    ƒ
                   </select>
                   <label :for="'custom' + i"> Custom HTTML abtribute </label>
                   <textarea

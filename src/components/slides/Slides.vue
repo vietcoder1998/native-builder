@@ -1,14 +1,10 @@
 <script lang="ts">
 import { defineComponent, PropType } from 'vue'
-import { SlideElement } from '../typing/sliders'
-import 'swiper/css'
-import 'swiper/css/navigation'
-import 'swiper/css/pagination'
-import 'swiper/css/scrollbar'
+import { SlideElement } from '../../typing/sliders'
 import { Swiper, SwiperSlide } from 'swiper/vue'
 import { Navigation, Pagination, Scrollbar, A11y } from 'swiper'
-import Accordion from './ui/Accordion.vue'
-import RadioInput from './form/input/RadioInput.vue'
+import Accordion from '../ui/Accordion.vue'
+import RadioInput from '../form/input/RadioInput.vue'
 
 export default defineComponent({
   setup() {
@@ -88,11 +84,9 @@ export default defineComponent({
       <Accordion title="pagination">
         <RadioInput
           :field="{
+            index: 1,
             customHTMLAttributes: {
-              options: ['a', 'b'],
-              name: 'pagination',
-              required: true,
-              id: 'pagination'
+              options: ['a', 'b']
             },
             value: 'a'
           }"
@@ -103,10 +97,8 @@ export default defineComponent({
       <swiper
         v-bind:slides-per-view="itemNumbers"
         :space-between="50"
-        :pagination="{ clickable: true }"
         :allow-slide-prev="true"
         :allow-slide-next="true"
-        :navigation="true"
         :modules="modules"
         @swiper="onSwiper"
         @slideChange="onSlideChange"
