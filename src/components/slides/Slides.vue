@@ -27,87 +27,27 @@ export default defineComponent({
     Accordion,
     RadioInput
   },
-  data(): { slides: SlideElement[]; pagination: number; itemNumbers: number } {
-    return {
-      slides: [
-        {
-          src: 'https://picsum.photos/200',
-          text: 'To get a square image, just add the size'
-        },
-        {
-          src: 'https://picsum.photos/200',
-          text: 'To get a square image, just add the size'
-        },
-        {
-          src: 'https://picsum.photos/200',
-          text: 'To get a square image, just add the size'
-        },
-        {
-          src: 'https://picsum.photos/200',
-          text: 'To get a square image, just add the size'
-        },
-        {
-          src: 'https://picsum.photos/200',
-          text: 'To get a square image, just add the size'
-        }
-      ],
-      pagination: 0,
-      itemNumbers: 3
-    }
+  props: {
+      slides: Array as PropType< SlideElement[]>,
+      pagination: Number,
+      itemNumbers: Number
   },
-  methods: {
-    onChangeNumber(e: any) {
-      this.$data.itemNumbers = Number(e?.target?.value)
-    }
-  }
+
 })
 </script>
 <template>
-  <div class="grid grid-cols-8">
-    <div class="col-span-2 p-2">
-      <Accordion title="Slider">
-        <div v-for="(item, i) in slides" :key="i">
-          <Accordion :title="'item' + i">
-            <input type="text" v-model="item.src" :key="i" placeholder="src" />
-            <input
-              type="text"
-              v-model="item.text"
-              :key="i"
-              placeholder="text"
-            />
-          </Accordion>
-        </div>
-      </Accordion>
-      <Accordion title="itemNumbers">
-        <input v-model="itemNumbers" type="number" />
-      </Accordion>
-      <Accordion title="pagination">
-        <RadioInput
-          :field="{
-            index: 1,
-            customHTMLAttributes: {
-              options: ['a', 'b']
-            },
-            value: 'a'
-          }"
-        />
-      </Accordion>
-    </div>
-    <div class="col-span-4">
-      <swiper
-        v-bind:slides-per-view="itemNumbers"
-        :space-between="50"
-        :allow-slide-prev="true"
-        :allow-slide-next="true"
-        :modules="modules"
-        @swiper="onSwiper"
-        @slideChange="onSlideChange"
-      >
-        <swiper-slide v-for="(slide, i) in slides" :key="i">
-          <img v-bind:src="slide.src" alt="text" />
-          <p>{{ slide.text }}</p>
-        </swiper-slide>
-      </swiper>
-    </div>
-  </div>
+  <swiper
+    v-bind:slides-per-view="itemNumbers"
+    :space-between="50"
+    :allow-slide-prev="true"
+    :allow-slide-next="true"
+    :modules="modules"
+    @swiper="onSwiper"
+    @slideChange="onSlideChange"
+  >
+    <swiper-slide v-for="(slide, i) in slides" :key="i">
+      <img v-bind:src="slide.src" alt="text" />
+      <p>{{ slide.text }}</p>
+    </swiper-slide>
+  </swiper>
 </template>
