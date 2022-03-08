@@ -14,25 +14,6 @@ export default defineComponent({
     col: Number,
     gap: Number
   },
-  // {
-  //   return {
-  //     col: 4,
-  //     gap: 2,
-  //     collections: Object.assign(
-  //       {} as PropType<ProductCollection>,
-  //       new Array(20).fill(
-  //         {
-  //           thumbnail: 'https://picsum.photos/200/300',
-  //           productTitle: 'Sp',
-  //           price: 1.0,
-  //           addToCart: false
-  //         },
-  //         0,
-  //         20
-  //       )
-  //     )
-  //   }
-  // },
   methods: {
     forceRender() {
       console.log('force update beae element')
@@ -44,7 +25,19 @@ export default defineComponent({
         this.forceRender()
       },
       deep: true
-    }
+    },
+    col: {
+      handler(nCol, oCol) {
+        this.forceRender()
+      },
+      deep: true
+    },
+    gap: {
+      handler(nCol, oCol) {
+        this.forceRender()
+      },
+      deep: true
+    },
   },
   computed: {
     itemCls(): string {

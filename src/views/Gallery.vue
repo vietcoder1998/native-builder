@@ -3,18 +3,19 @@ import { defineComponent } from 'vue'
 import ImageGallery from '../components/image-gallery/ImageGallery.vue'
 import { GalleryItem } from '../typing/gallery'
 import Accordion from '../components/ui/Accordion.vue'
+import Add from '../components/layout/Add.vue'
 
 export default defineComponent({
   name: 'gallery',
   components: {
     ImageGallery,
-    Accordion
+    Accordion,
+    Add
   },
   data(): {
     items: GalleryItem[]
     columns: number
     gap: number
-    cls: string
     newItem: GalleryItem
     fixingItem: GalleryItem
     showModal: boolean
@@ -64,7 +65,6 @@ export default defineComponent({
       ],
       columns: 4,
       gap: 1,
-      cls: 'grid grid-cols-4 gap-1',
       newItem: { src: '', title: '', thumbnail: '' },
       fixingItem: { src: '', title: '', thumbnail: '', index: 0 },
       showModal: false,
@@ -74,9 +74,6 @@ export default defineComponent({
     }
   },
   methods: {
-    onChangeParams(columns: number, gap: number) {
-      this.$data.cls = `grid grid-cols-${columns} gap-${gap}`
-    },
     onChangAddState() {
       this.$data.isAdd = !this.$data.isAdd
     },
@@ -84,12 +81,15 @@ export default defineComponent({
       this.$data.items.push(this.$data.newItem)
     },
     onShowLightBox(item: GalleryItem, index: number) {
-      this.$data.showLightBox = true
+      this.$data.showLightBox = !this.$data.showLightBox
       this.$data.fixingItem = { ...item, index }
     },
     onShowModal() {
-      this.$data.showModal = !this.$data.showModal
+      this.$data.showModal = false
       this.$data.lastIndex = this.$data.fixingItem?.index
+    },
+    onSubmitInfo(field: GalleryItem) {
+      this.items.push(field)
     }
   },
   computed: {
@@ -99,13 +99,19 @@ export default defineComponent({
         items: this.$data.items,
         columns: this.$data.columns
       }
+    },
+    cls() {
+      //@ts-ignore
+      return `grid grid-cols-${this.$data.columns} gap-${this.$data.gap}`
     }
   },
   onMounted() {},
   whenDepsChange(update: any) {
     console.log(update)
   },
-  emit: ['on-show-light-box', 'on-show-modal']
+
+  watch: {},
+  emit: ['on-show-light-box', 'on-show-modal', 'on']
 })
 </script>
 <template>
@@ -125,9 +131,14 @@ export default defineComponent({
             <input class="ml-2" v-model="item.title" />
           </Accordion>
         </Accordion>
-        <button class="btn border btn-primary m-1 p-1" @click="onChangAddState">
-          + Add more
-        </button>
+        <Add
+          v-bind:field="{
+            title: { name: 'title', type: 'string', value: null },
+            src: { name: 'src', type: 'string', value: null },
+            thumbnail: { name: 'thumbnail', type: 'string', value: null }
+          }"
+          @on-submit-info="onSubmitInfo"
+        ></Add>
       </Accordion>
     </div>
     <div class="col-span-6 p-2">

@@ -31,7 +31,7 @@ export default defineComponent({
 </script>
 
 <template>
-  <div >
+  <div v-bind:class="cls">
     <LightBox
       v-bind:show="showLightBox"
       v-bind:src="fixingItem?.src"
@@ -48,9 +48,8 @@ export default defineComponent({
     >
       <h3>Fix item {{ itemIndex }}</h3>
     </modal>
-    <div v-bind:class="cls">
+    <div v-for="(item, index) in items">
       <img
-        v-for="(item, index) in items"
         v-bind:thumbnail="item.thumbnail"
         v-bind:src="item.src"
         v-bind:alt="item.alt"
@@ -58,6 +57,7 @@ export default defineComponent({
         @click="$emit('on-show-light-box', item, index)"
         :key="index"
       />
+      <p>{{item.title}}</p>
     </div>
   </div>
 </template>

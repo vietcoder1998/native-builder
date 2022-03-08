@@ -27,10 +27,9 @@ export default defineComponent({
 <template>
   <div class="relative">
     <button class="px-2 py-1 my-1 relative w-full text-left" @click="open = !open">
-      {{ title }}
+      <span class="p-3">{{ !open ? ">" : " "}}</span>{{ title }}
     </button>
-    <span v-if="open"></span>
-    <span v-else class="absolute right-3 top-2">^</span>
+    <span v-if="open" class="absolute right-3 top-2">^</span>
     <hr />
     <div v-show="open" class="ml-2 pt-2">
       <slot />

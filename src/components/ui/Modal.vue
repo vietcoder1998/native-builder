@@ -1,13 +1,6 @@
 <script lang="ts">
 import { defineComponent } from '@vue/runtime-core'
 
-type ImgInfo = {
-  index: Number
-  src: String
-  title: String
-  thumbnail: String
-}
-
 export default defineComponent({
   name: 'modal',
   components: {},
