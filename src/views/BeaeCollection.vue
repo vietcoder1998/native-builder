@@ -41,7 +41,7 @@ export default defineComponent({
         <input type="number" v-model="col" class="w-full" id="cols-quantity" />
       </Accordion>
       <Accordion title="Gaps">
-        <input type="number" v-model="col" class="w-full" id="cols-quantity" />
+        <input type="number" v-model="gap" class="w-full" id="cols-quantity" />
       </Accordion>
       <Accordion :title="'Collection'">
         <Accordion
@@ -56,7 +56,7 @@ export default defineComponent({
             :key="key"
           >
             <label> {{ key }} </label>
-            <input class="w-full" v-model="collections[id][key]" />
+            <input class="" v-model="collections[id][key]" />
           </div>
         </Accordion>
       </Accordion>

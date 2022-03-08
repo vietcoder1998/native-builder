@@ -78,15 +78,15 @@ export default defineComponent({
       this.$data.isAdd = !this.$data.isAdd
     },
     onAddNewItem(event: Event) {
-      this.$data.items.push(this.$data.newItem)
+      this.items.push(this.newItem)
     },
     onShowLightBox(item: GalleryItem, index: number) {
-      this.$data.showLightBox = !this.$data.showLightBox
-      this.$data.fixingItem = { ...item, index }
+      this.showLightBox = !this.showLightBox
+      this.fixingItem = { ...item, index }
     },
     onShowModal() {
-      this.$data.showModal = false
-      this.$data.lastIndex = this.$data.fixingItem?.index
+      this.showModal = false
+      this.lastIndex = this.fixingItem?.index
     },
     onSubmitInfo(field: GalleryItem) {
       this.items.push(field)
@@ -96,8 +96,8 @@ export default defineComponent({
     getInfo(): { name: string; items: GalleryItem[]; columns: number } {
       return {
         name: 'gallery',
-        items: this.$data.items,
-        columns: this.$data.columns
+        items: this.items,
+        columns: this.columns
       }
     },
     cls() {
