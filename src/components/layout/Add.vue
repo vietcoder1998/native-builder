@@ -1,18 +1,31 @@
 <script lang="ts">
 import { defineComponent, PropType, ref } from 'vue'
+import { FieldName } from '../../typing/fields'
+import DynamicInput from '../form/input/DynamicInput.vue'
+
+type FieldProps = Record<
+  string,
+  {
+    name: string
+    type: FieldName
+    value: any
+  }
+>
 
 export default defineComponent({
+  name: 'add',
   setup() {
     const formAdd = ref(0)
   },
-  name: 'add',
+  components: {
+    DynamicInput
+  },
   props: {
-    field: {} as PropType<
-      Record<string, { name: string; type: string; value: any }>
-    >
+    field: {} as PropType<FieldProps>,
+    len: Number
   },
   data(): {
-    collection: Record<string, { name: string; type: string; value: any }>
+    collection: FieldProps
     open: boolean
   } {
     return {
@@ -43,16 +56,15 @@ export default defineComponent({
     </button>
     <form v-show="open" ref="formAdd" @submit.prevent="submitForm">
       <div v-for="(vl, id) in collection">
-        <label for="id">
-          {{ vl.name }}
-        </label>
-        <input
-          key="id"
-          class="w-full"
-          :placeholder="vl.name"
-          v-model="vl.value"
-          :key="id"
-          :name="vl.name"
+        <DynamicInput
+          v-bind:field="{
+            title: vl?.name,
+            index: Number(id),
+            type: vl.type,
+            customHTMLAttributes: {
+              name: vl.name
+            }
+          }"
         />
       </div>
       <button @click="open = !open" class="ml-5 p-2 border">Cancel</button>

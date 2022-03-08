@@ -1,6 +1,6 @@
 <script lang="ts">
 import { defineComponent, PropType } from 'vue'
-import { ProductCollection } from '../../typing/beae.element'
+import { BeaeCollection } from '../../typing/beae-element'
 import Accordion from '../ui/Accordion.vue'
 
 export default defineComponent({
@@ -10,7 +10,7 @@ export default defineComponent({
   },
 
   props: {
-    collections: Object,
+    collections: [] as PropType<BeaeCollection[]>,
     col: Number,
     gap: Number
   },
@@ -51,11 +51,11 @@ export default defineComponent({
     <div
       class="col-span-1"
       v-for="(collection, id) in collections"
-      :key="id"
-      :id="'collection' + String(id)"
+      v-bind:key="id"
+       v-bind:id="'collection' + String(id)"
     >
-      <img :src="collection.thumbnail" />
-      <p>{{ collection.productTitle }}</p>
+      <img  v-bind:src="collection?.thumbnail" />
+      <p>{{ collection?.productTitle }}</p>
       <button class="border">+ Add to Cart</button>
     </div>
   </div>

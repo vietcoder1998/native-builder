@@ -1,36 +1,51 @@
 <script lang="ts">
-import { defineComponent, PropType } from 'vue'
-import BeaeElement from '../components/beae-element/BeaeElement.vue'
-import { ProductCollection } from '../typing/beae.element'
+import { defineComponent } from 'vue'
+import Add from '../components/layout/Add.vue'
 import Accordion from '../components/ui/Accordion.vue'
+import { FieldName } from '../typing/fields'
+import BeaeElement from '../components/beae-element/BeaeElement.vue'
+import { BeaeCollection } from '../typing/beae-element'
 
 export default defineComponent({
   name: 'beae-collection',
   components: {
     BeaeElement,
-    Accordion
+    Accordion,
+    Add
+  },
+  created()  {
   },
   data() {
     return {
       col: 4,
       gap: 1,
-      collections: Object.assign(
-        {} as PropType<ProductCollection>,
-        new Array(20).fill(
-          {
-            thumbnail: 'https://picsum.photos/200/300',
-            productTitle: 'Sp',
-            price: 1.0,
-            addToCart: false
-          },
-          0,
-          20
-        )
+      collections: new Array<BeaeCollection>(20).fill(
+        {
+          thumbnail: 'https://picsum.photos/200/300',
+          productTitle: 'Sp',
+          price: 1.0,
+          addToCart: false
+        },
+        0,
+        20
       )
     }
   },
   mouted() {
     console.log('mounting')
+  },
+  methods: {
+    onSubmitInfo(value: BeaeCollection) {
+      this.collections.push(value)
+    }
+  },
+  computed: {
+    textField(): FieldName {
+      return FieldName.text
+    },
+    radioField(): FieldName {
+      return FieldName.radio
+    }
   }
 })
 </script>
@@ -52,13 +67,21 @@ export default defineComponent({
           <div
             class="col-span-1"
             v-for="(value, key) in collection"
-            :value="value"
-            :key="key"
+            v-bind:key="key"
           >
             <label> {{ key }} </label>
-            <input class="" v-model="collections[id][key]" />
+            <input class="w-full" v-model="collection[key]" />
           </div>
         </Accordion>
+        <Add
+          v-bind:field="{
+            thumbnail: { name: 'thumbnail', type: textField, value: null },
+            productTitle: { name: 'productTitle', type: textField, value: null },
+            price: { name: 'price', type: textField, value: null },
+            addToCart: { name: 'addToCart', type: radioField, value: null }
+          }"
+          @on-submit-info="onSubmitInfo"
+        ></Add>
       </Accordion>
     </div>
     <div class="col-span-4">

@@ -4,6 +4,7 @@ import ImageGallery from '../components/image-gallery/ImageGallery.vue'
 import { GalleryItem } from '../typing/gallery'
 import Accordion from '../components/ui/Accordion.vue'
 import Add from '../components/layout/Add.vue'
+import { FieldName } from '../typing/fields'
 
 export default defineComponent({
   name: 'gallery',
@@ -100,6 +101,12 @@ export default defineComponent({
         columns: this.columns
       }
     },
+    textField(): FieldName {
+      return FieldName.text
+    },
+    radioField(): FieldName {
+      return FieldName.radio
+    },
     cls() {
       //@ts-ignore
       return `grid grid-cols-${this.$data.columns} gap-${this.$data.gap}`
@@ -133,9 +140,9 @@ export default defineComponent({
         </Accordion>
         <Add
           v-bind:field="{
-            title: { name: 'title', type: 'string', value: null },
-            src: { name: 'src', type: 'string', value: null },
-            thumbnail: { name: 'thumbnail', type: 'string', value: null }
+            title: { name: 'title', type: textField, value: null },
+            src: { name: 'src', type: textField, value: null },
+            thumbnail: { name: 'thumbnail', type: textField, value: null }
           }"
           @on-submit-info="onSubmitInfo"
         ></Add>
