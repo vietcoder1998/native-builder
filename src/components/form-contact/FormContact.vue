@@ -14,7 +14,7 @@ export default defineComponent({
   computed: {
     formatInput() {
       return (i: number): string =>
-        JSON.stringify(this.fields[i].customHTMLAttributes)
+        this.fields ? JSON.stringify(this.fields[i].customHTMLAttributes) : ''
     },
     checkFieldType() {
       return (type: FieldName): string => (type ? type : 'text')
@@ -26,30 +26,34 @@ export default defineComponent({
   methods: {
     // set value of CustomHTMLAttributes onchange textarea value
     onChangeAttributes(e: Event): void {
-      const nAttb: CustomHTMLAttributes = JSON.parse(
-        (e.target as HTMLTextAreaElement).value
-      )
-      const k: number = Number(
-        (e?.target as HTMLTextAreaElement).id.split('custom')[0]
-      )
-      this.fields[k].customHTMLAttributes = nAttb
+      if (this.fields) {
+        const nAttb: CustomHTMLAttributes = JSON.parse(
+          (e.target as HTMLTextAreaElement).value
+        )
+        const k: number = Number(
+          (e?.target as HTMLTextAreaElement).id.split('custom')[0]
+        )
+        this.fields[k].customHTMLAttributes = nAttb
+      }
     },
     addNewField() {
-      let field: Field = {
-        title: 'New Item',
-        type: FieldName.text,
-        index: this.fields.length,
-        customHTMLAttributes: {
-          placeholder: 'new description',
-          defaultValue: undefined
+      if (this.fields) {
+        let field: Field = {
+          title: 'New Item',
+          type: FieldName.text,
+          index: this.fields.length,
+          customHTMLAttributes: {
+            placeholder: 'new description',
+            defaultValue: undefined
+          }
         }
+        field.title = 'New Item'
+        this.fields.push(field)
       }
-      field.title = 'New Item'
-      this.fields.push(field)
     },
     onUpdateInputValue(index: number, value: string) {
       console.log(index, value)
-      if (index && this.fields[index]) {
+      if (index && this.fields && this.fields[index]) {
         this.fields[index].value = value
       } else {
         console.log('no index or value', index, value)
@@ -59,24 +63,22 @@ export default defineComponent({
 })
 </script>
 <template>
-  <div>
-    <form
-      id="form-1"
-      ref="form1"
-      class="grid grid-cols-2 gap-4 mx-3"
-      @submit.prevent=""
-    >
-      <div v-for="(field, id) in fields" :key="id" class="relative">
-        <DymamicInput
-          v-bind:field="field"
-          @on-change-input-field="onUpdateInputValue"
-        />
-      </div>
-      <button type="submit" class="border w-20 h-14 bg-blue-500 text-blue-50">
-        Submit
-      </button>
-    </form>
-  </div>
+  <form
+    id="form-1"
+    ref="form1"
+    class="grid grid-cols-2 gap-4 mx-3"
+    @submit.prevent=""
+  >
+    <div v-for="(field, id) in fields" :key="id" class="relative">
+      <DymamicInput
+        v-bind:field="field"
+        @on-change-input-field="onUpdateInputValue"
+      />
+    </div>
+    <button type="submit" class="border w-20 h-14 bg-blue-500 text-blue-50">
+      Submit
+    </button>
+  </form>
 </template>
 
 <style scoped></style>

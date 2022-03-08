@@ -83,14 +83,13 @@ export default defineComponent({
     onAddNewItem(event: Event) {
       this.$data.items.push(this.$data.newItem)
     },
-    onShowLightBox(item: {
-      src: string
-      title: string
-      thumbnail: string
-      index: number
-    }) {
+    onShowLightBox(item: GalleryItem, index: number) {
       this.$data.showLightBox = true
-      this.$data.fixingItem = item
+      this.$data.fixingItem = { ...item, index }
+    },
+    onShowModal() {
+      this.$data.showModal = !this.$data.showModal
+      this.$data.lastIndex = this.$data.fixingItem?.index
     }
   },
   computed: {
@@ -106,50 +105,42 @@ export default defineComponent({
   whenDepsChange(update: any) {
     console.log(update)
   },
-  emit: ['show-light-box']
+  emit: ['on-show-light-box', 'on-show-modal']
 })
 </script>
 <template>
   <div class="grid grid-cols-8">
-    <div class="col-span-2">
+    <div class="col-span-2 p-2">
       <Accordion title="Gallery">
         <Accordion title="Columns">
           <input id="gap" type="number" v-model="columns" class="w-full" />
         </Accordion>
         <Accordion title="Gap">
-          <input id="gap" type="number" v-model="columns" class="w-full" />
+          <input id="columns" type="number" v-model="gap" class="w-full" />
         </Accordion>
-        <div>
-          <Accordion title="Items">
-            <ul class="ml-4">
-              <li v-for="(item, i) in items" :key="i">
-                <Accordion :title="'img' + i">
-                  <div class="ml-2">
-                    <input class="ml-2" v-model="item.src" />
-                    <input class="ml-2" v-model="item.thumbnail" />
-                    <input class="ml-2" v-model="item.title" />
-                  </div>
-                </Accordion>
-              </li>
-            </ul>
-            <button
-              class="btn border btn-primary m-1 p-1"
-              @click="onChangAddState"
-            >
-              + Add more
-            </button>
+        <Accordion title="Items">
+          <Accordion v-for="(item, i) in items" :title="'img' + i">
+            <input class="ml-2" v-model="item.src" />
+            <input class="ml-2" v-model="item.thumbnail" />
+            <input class="ml-2" v-model="item.title" />
           </Accordion>
-        </div>
+        </Accordion>
+        <button class="btn border btn-primary m-1 p-1" @click="onChangAddState">
+          + Add more
+        </button>
       </Accordion>
     </div>
-    <div class="col-span-4">
+    <div class="col-span-6 p-2">
       <ImageGallery
         v-bind:cls="cls"
         v-bind:columns="columns"
         v-bind:fixingItem="fixingItem"
         v-bind:gap="gap"
         v-bind:newItem="newItem"
-        @show-light-box=""
+        v-bind:items="items"
+        v-bind:showLightBox="showLightBox"
+        @on-show-light-box="onShowLightBox"
+        @on-show-modal="onShowModal"
       />
     </div>
   </div>

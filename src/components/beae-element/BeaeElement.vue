@@ -12,7 +12,7 @@ export default defineComponent({
   props: {
     collections: Object,
     col: Number,
-    gap: Number,
+    gap: Number
   },
   // {
   //   return {
@@ -21,7 +21,7 @@ export default defineComponent({
   //     collections: Object.assign(
   //       {} as PropType<ProductCollection>,
   //       new Array(20).fill(
-  //         { 
+  //         {
   //           thumbnail: 'https://picsum.photos/200/300',
   //           productTitle: 'Sp',
   //           price: 1.0,
@@ -54,23 +54,16 @@ export default defineComponent({
 })
 </script>
 <template>
-  <div class="grid grid-cols-8">
-    <div class="col-span-2">
-     
-    </div>
-    <div class="col-span-6 p-2">
-      <div v-bind:class="itemCls">
-        <div
-          class="col-span-1"
-          v-for="(collection, id) in collections"
-          :key="id"
-          :id="'collection' + String(id)"
-        >
-            <img :src="collection.thumbnail" />
-            <p>{{ collection.productTitle }}</p>
-            <button class="border">+ Add to Cart</button>
-        </div>
-      </div>
+  <div v-bind:class="itemCls">
+    <div
+      class="col-span-1"
+      v-for="(collection, id) in collections"
+      :key="id"
+      :id="'collection' + String(id)"
+    >
+      <img :src="collection.thumbnail" />
+      <p>{{ collection.productTitle }}</p>
+      <button class="border">+ Add to Cart</button>
     </div>
   </div>
 </template>
