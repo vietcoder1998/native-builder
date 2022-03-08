@@ -1,5 +1,3 @@
-import { Field } from './fields'
-import { key } from './../store'
 export type FieldType =
   | 'text'
   | 'textarea'
@@ -55,11 +53,10 @@ export type CustomHTMLAttributes = {
   required?: boolean
   placeholder?: string
   description?: string
-  name?: string
+  name: string
   checked?: Boolean
   error?: string
   key?: string | number | symbol | undefined
   showError?: boolean
   id?: string
-  defaultValue?: string
 }

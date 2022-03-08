@@ -157,7 +157,7 @@ export default defineComponent({
         index: this.fields.length,
         customHTMLAttributes: {
           placeholder: 'new description',
-          defaultValue: undefined
+          name: new Date().getTime().toString()
         }
       }
       field.title = 'New Item'
@@ -222,7 +222,6 @@ export default defineComponent({
                     :value="formatInput(i)"
                     @input="onChangeAttributes"
                   ></textarea>
-                  <button></button>
                 </div>
               </Accordion>
             </li>

@@ -7,20 +7,32 @@ export default defineComponent({
   props: {
     field: {} as PropType<Field>
   },
-  data() {}
+  computed: {
+    HTMLInputName() {
+      return (...args: string[]): string => {
+        return Array.from(args).reduce(
+          (a: string | undefined, b: string | undefined) => a + '-' + b
+        )
+      }
+    }
+  }
 })
 </script>
 <template>
-  <div v-for="(option, oid) in field?.customHTMLAttributes.options" :key="option + oid">
+  <div
+    v-for="(option, oid) in field?.customHTMLAttributes?.options"
+    :key="option + oid"
+  >
     <input
       type="radio"
-      :id="field?.customHTMLAttributes.name + option"
-      :name="field?.customHTMLAttributes.name"
-      :required="field?.customHTMLAttributes.required"
-      v-model="field.value"
-      @change="$emit('change')"
+      v-bind:id="HTMLInputName(field?.customHTMLAttributes?.name!, option)"
+      v-bind:name="field?.customHTMLAttributes.name"
+      v-bind:required="field?.customHTMLAttributes.required"
+      v-bind:value="option"
+      :checked="option === field?.value"
+      @click="$emit('change', option)"
     />
-    <label :for="field?.customHTMLAttributes.name + option">
+    <label :for="HTMLInputName(field?.customHTMLAttributes?.name!, option)">
       {{ option }}
     </label>
   </div>

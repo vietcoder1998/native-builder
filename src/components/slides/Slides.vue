@@ -29,8 +29,9 @@ export default defineComponent({
   },
   props: {
       slides: Array as PropType< SlideElement[]>,
-      pagination: Number,
-      itemNumbers: Number
+      pagination: Boolean,
+      itemNumbers: Number,
+      navigation: Boolean
   },
 
 })
@@ -42,6 +43,8 @@ export default defineComponent({
     :allow-slide-prev="true"
     :allow-slide-next="true"
     :modules="modules"
+    :pagination="pagination"
+    :navigation="navigation"
     @swiper="onSwiper"
     @slideChange="onSlideChange"
   >
