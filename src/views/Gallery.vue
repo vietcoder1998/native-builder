@@ -109,7 +109,7 @@ export default defineComponent({
     },
     cls() {
       //@ts-ignore
-      return `grid grid-cols-${this.$data.columns} gap-${this.$data.gap}`
+      return `grid grid-cols-${this.$data.columns} gap-${this.$data.gap} `
     }
   },
   onMounted() {},
@@ -126,10 +126,10 @@ export default defineComponent({
     <div class="col-span-2 p-2">
       <Accordion title="Gallery">
         <Accordion title="Columns">
-          <input id="gap" type="number" v-model="columns" class="w-full" />
+          <input id="gap" type="number" v-model="columns" class="w-full" min="0" />
         </Accordion>
         <Accordion title="Gap">
-          <input id="columns" type="number" v-model="gap" class="w-full" />
+          <input id="columns" type="number" v-model="gap" class="w-full"  min="0"  />
         </Accordion>
         <Accordion title="Items">
           <Accordion v-for="(item, i) in items" :title="'img' + i">

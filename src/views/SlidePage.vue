@@ -76,7 +76,7 @@ export default defineComponent({
         </div>
       </Accordion>
       <Accordion title="itemNumbers">
-        <input v-model="itemNumbers" type="number" />
+        <input v-model="itemNumbers" type="number"  min="1"  />
       </Accordion>
       <Accordion title="pagination">
         <RadioInput

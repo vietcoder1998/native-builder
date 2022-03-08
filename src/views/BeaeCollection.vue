@@ -13,8 +13,7 @@ export default defineComponent({
     Accordion,
     Add
   },
-  created()  {
-  },
+  created() {},
   data() {
     return {
       col: 4,
@@ -53,10 +52,22 @@ export default defineComponent({
   <div class="grid grid-cols-8">
     <div class="col-span-2">
       <Accordion title="Columns">
-        <input type="number" v-model="col" class="w-full" id="cols-quantity" />
+        <input
+          type="number"
+          v-model="col"
+          class="w-full"
+          id="cols-quantity"
+          min="0"
+        />
       </Accordion>
       <Accordion title="Gaps">
-        <input type="number" v-model="gap" class="w-full" id="cols-quantity" />
+        <input
+          type="number"
+          v-model="gap"
+          class="w-full"
+          id="cols-quantity"
+          min="0"
+        />
       </Accordion>
       <Accordion :title="'Collection'">
         <Accordion
@@ -76,7 +87,11 @@ export default defineComponent({
         <Add
           v-bind:field="{
             thumbnail: { name: 'thumbnail', type: textField, value: null },
-            productTitle: { name: 'productTitle', type: textField, value: null },
+            productTitle: {
+              name: 'productTitle',
+              type: textField,
+              value: null
+            },
             price: { name: 'price', type: textField, value: null },
             addToCart: { name: 'addToCart', type: radioField, value: null }
           }"

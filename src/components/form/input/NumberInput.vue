@@ -19,6 +19,7 @@ export default defineComponent({
     :placeholder="field?.customHTMLAttributes.placeholder"
     :id="field?.customHTMLAttributes.id"
     :name="field?.customHTMLAttributes.name"
+    min="0"
     @input="$emit('change')"
   />
 </template>

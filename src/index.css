@@ -7,3 +7,8 @@ input {
     border: solid gray 1px ;
     margin-bottom: 5px;
 }
+
+.section {
+    width: 20%;
+}
+

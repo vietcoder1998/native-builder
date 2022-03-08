@@ -44,7 +44,7 @@ export default defineComponent({
           index: this.fields.length,
           customHTMLAttributes: {
             placeholder: 'new description',
-            defaultValue: undefined
+            name: 'text'
           }
         }
         field.title = 'New Item'

@@ -25,7 +25,7 @@ export default defineComponent({
   computed: {
     itemIndex() {
       return this.fixingItem?.index || 0
-    }
+    },
   }
 })
 </script>
@@ -48,13 +48,13 @@ export default defineComponent({
     >
       <h3>Fix item {{ itemIndex }}</h3>
     </modal>
-    <div v-for="(item, index) in items">
+    <div class="col-span-1 relative" v-for="(item, index) in items">
       <img
         v-bind:thumbnail="item.thumbnail"
         v-bind:src="item.src"
         v-bind:alt="item.alt"
-        class="ri w-full"
         @click="$emit('on-show-light-box', item, index)"
+        class="w-full"
         :key="index"
       />
       <p>{{item.title}}</p>
