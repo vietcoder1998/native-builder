@@ -12,20 +12,37 @@ export default defineComponent({
   },
   props: {
     items: Array as PropType<GalleryItem[]>,
-    columns: Number,
+    column: Number,
     gap: Number,
     cls: String,
+    imgCls: String,
     showModal: Boolean,
     isAdd: Boolean,
     lastIndex: Number,
     showLightBox: Boolean,
     newItem: Object as PropType<GalleryItem>,
     fixingItem: Object as PropType<GalleryItem>,
-    childCls: String,
+    childCls: String
+  },
+  data() {
+    return {}
   },
   computed: {
     itemIndex() {
       return this.fixingItem?.index || 0
+    },
+    imageFlexing() {
+      let matrix: any[][] = []
+      for (let i = 0; i < this.column; i++) {
+       matrix.push([])
+      }
+
+      this.items.forEach((item, i) => {
+        let t = i % this.column
+        matrix[t].push(item)
+      })
+
+      return matrix
     }
   }
 })
@@ -50,16 +67,18 @@ export default defineComponent({
       <h3>Fix item {{ itemIndex }}</h3>
     </modal>
     <div
-      v-for="(item, index) in items"
+      v-for="(vertical, i) in imageFlexing"
       v-bind:class="childCls"
-      v-bind:key="index"
+      v-bind:key="i"
     >
-      <img
-        v-bind:src="item.src"
-        v-bind:alt="item.alt"
-        @click="$emit('on-show-light-box', item, index)"
-        class="w-full"
-      />
+      <div v-for="(hoziral, i1) in vertical" v-bind:key="i1">
+        <img
+          v-bind:src="hoziral.src"
+          v-bind:alt="hoziral.alt"
+          @click="$emit('on-show-light-box', hoziral, i * i1 + i1)"
+          v-bind:class="imgCls"
+        />
+      </div>
     </div>
   </div>
 </template>

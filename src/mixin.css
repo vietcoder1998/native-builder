@@ -3,12 +3,9 @@
 }
 
 div[class~='fgrid'] {
-  display: flex;
-  flex-flow: column wrap;
   align-content: space-between;
-  height: 600px;
-  flex-basis: 100%;
-  flex: 1 1 auto;
+  flex-direction: row;
+    width: 100%;
   overflow: auto; /* new */
 }
 
@@ -30,26 +27,7 @@ div[class~='fgrid'] {
   align-content: space-between;
 }
 
-.fgrid-2 {
-  position: relative;
-}
-.fgrid-3 {
-  position: relative;
-}
-.fgrid-4 {
-  position: relative;
-}
-.fgrid-5 {
-  position: relative;
-}
-.fgrid-6 {
-  position: relative;
-}
-.fgrid-7 {
-  position: relative;
-}
-
-.fgrid-1 {
+.w-1m {
   position: relative;
   width: 100%;
 }
@@ -83,3 +61,14 @@ div[class~='fgrid'] {
   position: relative;
   width: 12.5%;
 }
+
+.w-9m {
+  position: relative;
+  width: 11.1%;
+}
+
+.w-10m {
+  position: relative;
+  width: 11.1%;
+}
+

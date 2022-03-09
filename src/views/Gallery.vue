@@ -71,11 +71,15 @@ export default defineComponent({
     },
     cls() {
       //@ts-ignore
-      return `fgrid-${this.column}} `
+      return `fgrid-${this.column} `
     },
     childCls() {
       //@ts-ignore
-      return `w-${this.column}m p-${this.gap} border `
+      return `w-${this.column}m border `
+    },
+    imgCls() {
+      //@ts-ignore
+      return `w-full p-${this.gap} `
     },
     column(): number {
       return this.$store.state.gallery.column
@@ -114,9 +118,10 @@ export default defineComponent({
             id="columns"
             type="number"
             v-bind:value="gap"
-            @input="setGapValue"
             class="w-full"
             min="0"
+            :max="items.length"
+            @input="setGapValue"
           />
         </Accordion>
         <Accordion title="Items">
@@ -150,6 +155,7 @@ export default defineComponent({
         v-bind:newItem="newItem"
         v-bind:items="items"
         v-bind:showLightBox="showLightBox"
+        v-bind:imgCls="imgCls"
         @on-show-light-box="onShowLightBox"
         @on-show-modal="onShowModal"
       />

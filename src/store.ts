@@ -60,6 +60,21 @@ export const store = createStore<State>({
           src: 'https://picsum.photos/200/320',
           title: 'Just add your desired ',
           thumbnail: 'https://picsum.photos/200/40'
+        },
+        {
+          src: 'https://picsum.photos/200/320',
+          title: 'Just add your desired ',
+          thumbnail: 'https://picsum.photos/200/40'
+        },
+        {
+          src: 'https://picsum.photos/200/320',
+          title: 'Just add your desired ',
+          thumbnail: 'https://picsum.photos/200/40'
+        },
+        {
+          src: 'https://picsum.photos/200/320',
+          title: 'Just add your desired ',
+          thumbnail: 'https://picsum.photos/200/40'
         }
       ]
     },
