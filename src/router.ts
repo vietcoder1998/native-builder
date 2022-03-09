@@ -2,9 +2,10 @@ import { createRouter, createWebHistory } from 'vue-router'
 import Home from './views/Home.vue'
 import Gallery from './views/Gallery.vue'
 import SlidePage from './views/SlidePage.vue'
-import Admin from './views/Admin.vue'
 import FormContact from './views/FormContact.vue'
 import BeaeCollection from './views/BeaeCollection.vue'
+import LiquidAdmin from './views/LiquidAdmin.vue'
+
 const routes = [
   {
     path: '/',
@@ -27,14 +28,14 @@ const routes = [
     component: SlidePage
   },
   {
-    path: '/admin',
-    name: 'admin',
-    component: Admin
-  },
-  {
     path: '/beae-collection',
     name: 'beae-collection',
     component: BeaeCollection
+  },
+  {
+    path: '/liquid-admin',
+    name: 'liquid-admin',
+    component: LiquidAdmin
   }
 ]
 

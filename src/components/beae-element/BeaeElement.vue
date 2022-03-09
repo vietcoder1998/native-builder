@@ -37,7 +37,7 @@ export default defineComponent({
         this.forceRender()
       },
       deep: true
-    },
+    }
   },
   computed: {
     itemCls(): string {
@@ -52,10 +52,11 @@ export default defineComponent({
       class="col-span-1"
       v-for="(collection, id) in collections"
       v-bind:key="id"
-       v-bind:id="'collection' + String(id)"
+      v-bind:id="'collection' + String(id)"
     >
-      <img  v-bind:src="collection?.thumbnail" />
+      <img v-bind:src="collection?.thumbnail" />
       <p>{{ collection?.productTitle }}</p>
+
       <button class="border">+ Add to Cart</button>
     </div>
   </div>

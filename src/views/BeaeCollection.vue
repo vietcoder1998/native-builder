@@ -33,17 +33,14 @@ export default defineComponent({
   mouted() {
     console.log('mounting')
   },
-  methods: {
-    onSubmitInfo(value: BeaeCollection) {
-      this.collections.push(value)
+  computed: {
+    jsonView(): string {
+      return JSON.stringify(this.collections)
     }
   },
-  computed: {
-    textField(): FieldName {
-      return FieldName.text
-    },
-    radioField(): FieldName {
-      return FieldName.radio
+  methods: {
+    setCollections(e: Event) {
+      this.collections = JSON.parse((e.target as HTMLTextAreaElement).value)
     }
   }
 })
@@ -105,6 +102,14 @@ export default defineComponent({
         v-bind:col="col"
         v-bind:gap="gap"
       ></BeaeElement>
+    </div>
+    <div class="col-span-2">
+      <textarea
+        v-bind:value="jsonView"
+        rows="20"
+        class="w-full"
+        @input="setCollections"
+      ></textarea>
     </div>
   </div>
 </template>

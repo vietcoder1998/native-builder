@@ -13,9 +13,160 @@ export const store = createStore<State>({
     gallery: {
       column: 1,
       gap: 0,
-      items: []
+      items: [
+        {
+          src: 'https://picsum.photos/200/300',
+          title: 'Just add your desired ',
+          thumbnail: 'https://picsum.photos/200/300',
+          alt: 'Just add your desired'
+        },
+        {
+          src: 'https://picsum.photos/200/300',
+          title: 'Just add your desired ',
+          thumbnail: 'https://picsum.photos/200/300',
+          alt: 'Just add your desired'
+        },
+        {
+          src: 'https://picsum.photos/200/300',
+          title: 'Just add your desired ',
+          thumbnail: 'https://picsum.photos/200/300'
+        },
+        {
+          src: 'https://picsum.photos/200/300',
+          title: 'Just add your desired ',
+          thumbnail: 'https://picsum.photos/200/300'
+        },
+        {
+          src: 'https://picsum.photos/200/300',
+          title: 'Just add your desired ',
+          thumbnail: 'https://picsum.photos/200/300'
+        },
+        {
+          src: 'https://picsum.photos/200/300',
+          title: 'Just add your desired ',
+          thumbnail: 'https://picsum.photos/200/300'
+        },
+        {
+          src: 'https://picsum.photos/200/300',
+          title: 'Just add your desired ',
+          thumbnail: 'https://picsum.photos/200/300'
+        }
+      ]
     },
-    fields: [],
+    formContact: {
+      fields: [
+        {
+          title: 'Your name',
+          type: 'text',
+          index: 0,
+          customHTMLAttributes: {
+            width: 120,
+            required: true,
+            placeholder: 'must longer than 8',
+            description: 'please add your name',
+            name: 'name',
+            showError: false,
+            error: ''
+          }
+        },
+        {
+          title: 'Your Email',
+          type: 'text',
+          index: 1,
+          customHTMLAttributes: {
+            width: 120,
+            required: true,
+            placeholder: 'must longer than 8',
+            description: 'please add your name',
+            name: 'mail',
+            error: ''
+          }
+        },
+        {
+          title: 'Time',
+          type: 'date',
+          width: 120,
+          index: 2,
+          customHTMLAttributes: {
+            required: true,
+            placeholder: 'must longer than 8',
+            description: 'please add your name',
+            name: 'Time',
+            error: ''
+          }
+        },
+        {
+          title: 'Select',
+          type: 'dropdown',
+          index: 3,
+          customHTMLAttributes: {
+            width: 120,
+            required: true,
+            placeholder: 'please chose 1',
+            description: 'please add your name',
+            name: 'select',
+            options: ['The title 1', 'The title 2'] as String[],
+            error: ''
+          }
+        },
+        {
+          title: 'Checkbox',
+          type: 'checkbox',
+          index: 4,
+          customHTMLAttributes: {
+            width: 120,
+            required: true,
+            placeholder: 'must longer than 8',
+            description: 'please add your name',
+            options: ['The title 1', 'The title 2'],
+            name: 'check-box',
+            error: ''
+          }
+        },
+        {
+          title: 'Radio',
+          type: 'radio',
+          width: 120,
+          index: 5,
+          customHTMLAttributes: {
+            required: true,
+            placeholder: 'must longer than 8',
+            description: 'please add your name',
+            options: ['The title 1', 'The title 2'],
+            name: 'radio',
+            error: ''
+          }
+        },
+        {
+          title: 'Your message',
+          type: 'textarea',
+          value: '',
+          index: 6,
+          customHTMLAttributes: {
+            width: 120,
+            required: true,
+            placeholder: 'must longer than 8',
+            description: 'please add your name',
+            name: 'msg',
+            error: ''
+          }
+        },
+        {
+          title: 'Upload',
+          type: 'upload',
+          value: '',
+          index: 7,
+          customHTMLAttributes: {
+            width: 120,
+            required: true,
+            placeholder: 'must longer than 8',
+            description: 'please add your name',
+            name: 'msg',
+            error: ''
+          }
+        }
+      ]
+    },
     slidePage: {
       pagination: true,
       navigation: true,
