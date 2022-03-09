@@ -202,33 +202,46 @@ export const store = createStore<State>({
     changeSlideNavigation(state) {
       state.slidePage.navigation != state.slidePage.navigation
     },
-    setValue(keys: string[], nStateValue: Object) {
+    setValue(state: State, { vl, keys }: { vl: unknown; keys?: string[] }) {
+      console.log(vl, keys)
       if (!keys) {
-        state = nStateValue
+        state = vl
       } else {
-        state = setValueFromMultipleKey(keys, state, nStateValue)
+        state = setValueFromMultipleKey(keys, state, vl)
       }
     }
   }
 })
 
 function getValueFromMultipleKey(params: string[], ob: Object) {
-  let param = params[0]
   if (params.length === 1) {
     return ob[params[0]]
   } else {
+    let param = params[0]
     const nParams = params.pop()
     return getValueFromMultipleKey(nParams, ob[param])
   }
 }
 
-function setValueFromMultipleKey(params: string[], ob: Object, value: unknown) {
-  let param = params[0]
-  if (params.length <= 1) {
-    ob[params[0]] = value
-    return ob
-  } else {
-    const nParams = params.pop()
-    return setValueFromMultipleKey(nParams, ob[param], value)
+function setValueFromMultipleKey(keys: string[], ob: Object, value: unknown) {
+  var temp = ob
+  let len = keys.length
+  for (let i = 0; i < len - 1; i++) {
+    const key = keys[i]
+    if (!temp[key]) {
+      console.log('no key')
+    } else {
+      temp = temp[key]
+    }
   }
+
+  temp[keys[len - 1]] = value
+  return ob
+}
+
+function obLastKey(ob: Object, keys: string[]) {
+  if (k > 0) {
+    return this
+  }
+  return obLastKey
 }

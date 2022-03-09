@@ -40,7 +40,7 @@ export default defineComponent({
     <!--modal-->
     <modal
       v-bind:show="showModal"
-      v-bind:title="fixingItem?.title!"
+      v-bind:title="fixingItem.title"
       v-bind:src="fixingItem?.src"
       v-bind:thumbnail="fixingItem?.thumbnail"
       v-bind:index="fixingItem?.index"
@@ -48,7 +48,7 @@ export default defineComponent({
     >
       <h3>Fix item {{ itemIndex }}</h3>
     </modal>
-    <div v-for="(item, index) in items" class="col-span-1">
+    <div v-for="(item, index) in items" class="col-span-1" v-bind:key="index">
       <img
         v-bind:src="item.src"
         v-bind:alt="item.alt"

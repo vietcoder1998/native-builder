@@ -5,6 +5,7 @@ import { GalleryItem } from '../typing/gallery'
 import Accordion from '../components/ui/Accordion.vue'
 import Add from '../components/layout/Add.vue'
 import { FieldName } from '../typing/fields'
+import { State } from '../typing/store'
 
 export default defineComponent({
   name: 'gallery',
@@ -14,9 +15,6 @@ export default defineComponent({
     Add
   },
   data(): {
-    items: GalleryItem[]
-    columns: number
-    gap: number
     newItem: GalleryItem
     fixingItem: GalleryItem
     showModal: boolean
@@ -25,47 +23,6 @@ export default defineComponent({
     showLightBox: boolean
   } {
     return {
-      items: [
-        {
-          src: 'https://picsum.photos/200/300',
-          title: 'Just add your desired ',
-          thumbnail: 'https://picsum.photos/200/300',
-          alt: 'Just add your desired'
-        },
-        {
-          src: 'https://picsum.photos/200/300',
-          title: 'Just add your desired ',
-          thumbnail: 'https://picsum.photos/200/300',
-          alt: 'Just add your desired'
-        },
-        {
-          src: 'https://picsum.photos/200/300',
-          title: 'Just add your desired ',
-          thumbnail: 'https://picsum.photos/200/300'
-        },
-        {
-          src: 'https://picsum.photos/200/300',
-          title: 'Just add your desired ',
-          thumbnail: 'https://picsum.photos/200/300'
-        },
-        {
-          src: 'https://picsum.photos/200/300',
-          title: 'Just add your desired ',
-          thumbnail: 'https://picsum.photos/200/300'
-        },
-        {
-          src: 'https://picsum.photos/200/300',
-          title: 'Just add your desired ',
-          thumbnail: 'https://picsum.photos/200/300'
-        },
-        {
-          src: 'https://picsum.photos/200/300',
-          title: 'Just add your desired ',
-          thumbnail: 'https://picsum.photos/200/300'
-        }
-      ],
-      columns: 4,
-      gap: 1,
       newItem: { src: '', title: '', thumbnail: '' },
       fixingItem: { src: '', title: '', thumbnail: '', index: 0 },
       showModal: false,
@@ -91,16 +48,21 @@ export default defineComponent({
     },
     onSubmitInfo(field: GalleryItem) {
       this.items.push(field)
+    },
+    setColumnValue(e: Event): void {
+      this.$store.commit('setValue', {
+        vl: (e.target as HTMLInputElement).value,
+        keys: ['gallery', 'column']
+      })
+    },
+    setGapValue(e: Event): void {
+      this.$store.commit('setValue', {
+        vl: (e.target as HTMLInputElement).value,
+        keys: ['gallery', 'gap']
+      })
     }
   },
   computed: {
-    getInfo(): { name: string; items: GalleryItem[]; columns: number } {
-      return {
-        name: 'gallery',
-        items: this.items,
-        columns: this.columns
-      }
-    },
     textField(): FieldName {
       return FieldName.text
     },
@@ -109,14 +71,22 @@ export default defineComponent({
     },
     cls() {
       //@ts-ignore
-      return `grid grid-cols-${this.$data.columns} gap-${this.$data.gap} `
+      return `grid grid-cols-${this.column} gap-${this.gap} `
+    },
+    column(): number {
+      return this.$store.state.gallery.column
+    },
+    gap(): number {
+      return this.$store.state.gallery.gap
+    },
+    items(): GalleryItem[] {
+      return this.$store.state.gallery.items
     }
   },
   onMounted() {},
   whenDepsChange(update: any) {
     console.log(update)
   },
-
   watch: {},
   emit: ['on-show-light-box', 'on-show-modal', 'on']
 })
@@ -125,14 +95,32 @@ export default defineComponent({
   <div class="grid grid-cols-8">
     <div class="col-span-2 p-2">
       <Accordion title="Gallery">
-        <Accordion title="Columns">
-          <input id="gap" type="number" v-model="columns" class="w-full" min="0" />
+        <Accordion title="Column">
+          <input
+            id="gap"
+            type="number"
+            class="w-full"
+            @input="setColumnValue"
+            v-bind:value="column"
+            min="0"
+          />
         </Accordion>
         <Accordion title="Gap">
-          <input id="columns" type="number" v-model="gap" class="w-full"  min="0"  />
+          <input
+            id="columns"
+            type="number"
+            v-bind:value="gap"
+            @input="setGapValue"
+            class="w-full"
+            min="0"
+          />
         </Accordion>
         <Accordion title="Items">
-          <Accordion v-for="(item, i) in items" :title="'img' + i">
+          <Accordion
+            v-for="(item, i) in items"
+            :title="'img' + i"
+            v-bind:key="i"
+          >
             <input class="ml-2" v-model="item.src" />
             <input class="ml-2" v-model="item.thumbnail" />
             <input class="ml-2" v-model="item.title" />
@@ -151,7 +139,7 @@ export default defineComponent({
     <div class="col-span-6 p-2">
       <ImageGallery
         v-bind:cls="cls"
-        v-bind:columns="columns"
+        v-bind:column="column"
         v-bind:fixingItem="fixingItem"
         v-bind:gap="gap"
         v-bind:newItem="newItem"

@@ -8,25 +8,22 @@ export default defineComponent({
   },
   data() {
     return {
-      liquidView: '',
       isChanging: false
     }
   },
   components: {},
   methods: {
     saveNewStore() {
-      // const nValue = JSON.parse(this.$refs.liquidValue)
-      //@ts-check
       const nValue = (this.$refs.liquidValue as HTMLTextAreaElement).value
-      this.$store.commit('setValue', JSON.parse(nValue))
+      this.$store.commit('setValue', { vl: JSON.parse(nValue), keys: [this.tab] })
     }
   },
-  computed: {},
-  watch: {
-    tab() {
-      this.liquidView = JSON.stringify(this.$store.state[this.tab])
+  computed: {
+    liquidView() {
+      return JSON.stringify(this.$store.state[this.tab])
     }
-  }
+  },
+  watch: {}
 })
 </script>
 
