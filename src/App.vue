@@ -13,7 +13,7 @@ import 'swiper/css/scrollbar'
   <router-link to="/form-contact">form-contact</router-link>
   <router-link to="/slider">slider</router-link>
   <router-link to="/beae-collection">beae-collection</router-link>
-  <router-link to="/admin">admin</router-link>
+  <router-link to="/liquid-admin">liquid-admin</router-link>
 
   <!--router-view-->
   <hr class="m-6" />

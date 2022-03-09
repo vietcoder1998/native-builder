@@ -31,6 +31,16 @@ export default defineComponent({
   },
   mouted() {
     console.log('mounting')
+  },
+  computed: {
+    jsonView(): string {
+      return JSON.stringify(this.collections)
+    }
+  },
+  methods: {
+    setCollections(e: Event) {
+      this.collections = JSON.parse((e.target as HTMLTextAreaElement).value)
+    }
   }
 })
 </script>
@@ -67,6 +77,14 @@ export default defineComponent({
         v-bind:col="col"
         v-bind:gap="gap"
       ></BeaeElement>
+    </div>
+    <div class="col-span-2">
+      <textarea
+        v-bind:value="jsonView"
+        rows="20"
+        class="w-full"
+        @input="setCollections"
+      ></textarea>
     </div>
   </div>
 </template>
