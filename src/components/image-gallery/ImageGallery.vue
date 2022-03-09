@@ -20,7 +20,8 @@ export default defineComponent({
     lastIndex: Number,
     showLightBox: Boolean,
     newItem: Object as PropType<GalleryItem>,
-    fixingItem: Object as PropType<GalleryItem>
+    fixingItem: Object as PropType<GalleryItem>,
+    childCls: String,
   },
   computed: {
     itemIndex() {
@@ -31,7 +32,7 @@ export default defineComponent({
 </script>
 
 <template>
-  <div v-bind:class="cls">
+  <div class="fgrid">
     <LightBox
       v-bind:show="showLightBox"
       v-bind:src="fixingItem?.src"
@@ -50,7 +51,7 @@ export default defineComponent({
     </modal>
     <div
       v-for="(item, index) in items"
-      class="col-span-1 p-2"
+      v-bind:class="childCls"
       v-bind:key="index"
     >
       <img
@@ -59,7 +60,6 @@ export default defineComponent({
         @click="$emit('on-show-light-box', item, index)"
         class="w-full"
       />
-      <p>{{ item.title }}</p>
     </div>
   </div>
 </template>

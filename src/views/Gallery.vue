@@ -71,7 +71,11 @@ export default defineComponent({
     },
     cls() {
       //@ts-ignore
-      return `grid fgrid-${this.column} gap-${this.gap} `
+      return `fgrid-${this.column}} `
+    },
+    childCls() {
+      //@ts-ignore
+      return `w-${this.column}m p-${this.gap} border `
     },
     column(): number {
       return this.$store.state.gallery.column
@@ -139,6 +143,7 @@ export default defineComponent({
     <div class="col-span-6 p-2">
       <ImageGallery
         v-bind:cls="cls"
+        v-bind:childCls="childCls"
         v-bind:column="column"
         v-bind:fixingItem="fixingItem"
         v-bind:gap="gap"

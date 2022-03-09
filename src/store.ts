@@ -11,45 +11,55 @@ export const key: InjectionKey<Store<State>> = Symbol()
 export const store = createStore<State>({
   state: {
     gallery: {
-      column: 1,
+      column: 4,
       gap: 0,
       items: [
         {
-          src: 'https://picsum.photos/200/300',
+          src: 'https://picsum.photos/200/220',
           title: 'Just add your desired ',
-          thumbnail: 'https://picsum.photos/200/300',
+          thumbnail: 'https://picsum.photos/200/100',
           alt: 'Just add your desired'
         },
         {
-          src: 'https://picsum.photos/200/300',
+          src: 'https://picsum.photos/200/120',
           title: 'Just add your desired ',
-          thumbnail: 'https://picsum.photos/200/300',
+          thumbnail: 'https://picsum.photos/200/110',
           alt: 'Just add your desired'
         },
         {
-          src: 'https://picsum.photos/200/300',
+          src: 'https://picsum.photos/200/270',
           title: 'Just add your desired ',
-          thumbnail: 'https://picsum.photos/200/300'
+          thumbnail: 'https://picsum.photos/200/150'
         },
         {
           src: 'https://picsum.photos/200/300',
           title: 'Just add your desired ',
-          thumbnail: 'https://picsum.photos/200/300'
+          thumbnail: 'https://picsum.photos/200/170'
         },
         {
-          src: 'https://picsum.photos/200/300',
+          src: 'https://picsum.photos/200/80',
           title: 'Just add your desired ',
-          thumbnail: 'https://picsum.photos/200/300'
+          thumbnail: 'https://picsum.photos/200/40'
         },
         {
-          src: 'https://picsum.photos/200/300',
+          src: 'https://picsum.photos/200/100',
           title: 'Just add your desired ',
-          thumbnail: 'https://picsum.photos/200/300'
+          thumbnail: 'https://picsum.photos/200/90'
         },
         {
-          src: 'https://picsum.photos/200/300',
+          src: 'https://picsum.photos/200/70',
           title: 'Just add your desired ',
-          thumbnail: 'https://picsum.photos/200/300'
+          thumbnail: 'https://picsum.photos/200/40'
+        },
+          {
+          src: 'https://picsum.photos/200/90',
+          title: 'Just add your desired ',
+          thumbnail: 'https://picsum.photos/200/40'
+        },
+          {
+          src: 'https://picsum.photos/200/320',
+          title: 'Just add your desired ',
+          thumbnail: 'https://picsum.photos/200/40'
         }
       ]
     },
