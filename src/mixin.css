@@ -1,0 +1,44 @@
+.fix-columns {
+  display: relative;
+}
+
+:root {
+  --w-1: '100%';
+  --w-2: '25%';
+  --w-3: '33,33%';
+  --w-4: '25%';
+  --w-5: '10%';
+  --w-6: '10%';
+  --w-7: '10%';
+  --w-8: '10%';
+}
+
+.fgrid-1 {
+  position: relative;
+  grid-template-columns: repeat(1, 1fr);
+}
+
+.fgrid-2 {
+  position: relative;
+  grid-template-columns: repeat(2, 1fr);
+}
+.fgrid-3 {
+  position: relative;
+  grid-template-columns: repeat(3, 1fr);
+}
+.fgrid-4 {
+  position: relative;
+  grid-template-columns: repeat(4, 1fr);
+}
+.fgrid-5 {
+  position: relative;
+  grid-template-columns: repeat(5, 1fr);
+}
+.fgrid-6 {
+  position: relative;
+  grid-template-columns: repeat(6, 1fr);
+}
+.fgrid-7 {
+  position: relative;
+  grid-template-columns: repeat(7, 1fr);
+}

@@ -71,7 +71,7 @@ export default defineComponent({
     },
     cls() {
       //@ts-ignore
-      return `grid grid-cols-${this.column} gap-${this.gap} `
+      return `grid fgrid-${this.column} gap-${this.gap} `
     },
     column(): number {
       return this.$store.state.gallery.column

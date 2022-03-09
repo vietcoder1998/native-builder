@@ -48,13 +48,16 @@ export default defineComponent({
     >
       <h3>Fix item {{ itemIndex }}</h3>
     </modal>
-    <div v-for="(item, index) in items" class="col-span-1" v-bind:key="index">
+    <div
+      v-for="(item, index) in items"
+      class="col-span-1 p-2"
+      v-bind:key="index"
+    >
       <img
         v-bind:src="item.src"
         v-bind:alt="item.alt"
         @click="$emit('on-show-light-box', item, index)"
         class="w-full"
-        :key="index"
       />
       <p>{{ item.title }}</p>
     </div>
