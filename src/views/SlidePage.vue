@@ -98,7 +98,7 @@ export default defineComponent({
             },
             value: pagination
           }"
-          @change="changePagination"
+          @change="(e: Event) => changePagination(String(e))"
         />
       </Accordion>
       <Accordion title="navigation">
@@ -111,7 +111,7 @@ export default defineComponent({
               name: 'navigation-slide'
             }
           }"
-          @change="changeNavigation"
+          @change="(e: Event) => changeNavigation(String(e))"
         />
       </Accordion>
     </div>

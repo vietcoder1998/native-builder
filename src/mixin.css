@@ -72,3 +72,15 @@ div[class~='fgrid'] {
   width: 11.1%;
 }
 
+.w-200 {
+  width: 400px;
+  height: 100vh;
+  overflow-y: auto;
+  margin-right: 20px;
+}
+
+.content {
+  width: calc(100% - 980px)
+  
+}
+

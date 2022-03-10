@@ -100,8 +100,8 @@ export default defineComponent({
 })
 </script>
 <template>
-  <div class="grid grid-cols-8">
-    <div class="col-span-2 p-2">
+  <div class="flex">
+    <div class="w-200">
       <Accordion title="Gallery">
         <Accordion title="Column">
           <input
@@ -128,11 +128,15 @@ export default defineComponent({
           <Accordion
             v-for="(item, i) in items"
             :title="'img' + i"
-            v-bind:key="i"
+            v-bind:key="String(i)"
           >
-            <input class="ml-2" v-model="item.src" />
-            <input class="ml-2" v-model="item.thumbnail" />
-            <input class="ml-2" v-model="item.title" />
+            <Accordion
+              v-for="(vl, k) in item"
+              v-bind:title="k"
+              v-bind:key="String(i)"
+            >
+              <input class="ml-2" v-bind:value="vl" />
+            </Accordion>
           </Accordion>
         </Accordion>
         <Add
@@ -145,7 +149,7 @@ export default defineComponent({
         ></Add>
       </Accordion>
     </div>
-    <div class="col-span-6 p-2">
+    <div class="content">
       <ImageGallery
         v-bind:cls="cls"
         v-bind:childCls="childCls"

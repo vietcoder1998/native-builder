@@ -228,7 +228,7 @@ export const store = createStore<State>({
     }
   },
   mutations: {
-    setValue(state: State, { vl, keys }: { vl: any | State; keys: string[] }) {
+    setValue(state: State, { vl, keys }: { vl: any | State; keys: (keyof State)[] }) {
       console.log(vl, keys)
       if (!keys) {
         state = vl
@@ -250,7 +250,7 @@ export const store = createStore<State>({
       state.slidePage.pagination = pagination
     },
     changeSlideSrc(state: State, { id, vl }: { id: number, vl: string }) {
-      console.log('change src',id, vl)
+      console.log('change src', id, vl)
       state.slidePage.slides[id].src = vl
     },
     changeSlideText(state: State, { id, vl }: { id: number, vl: string }) {
@@ -259,19 +259,23 @@ export const store = createStore<State>({
   }
 })
 
-function setValueFromMultipleKey(keys: (keyof typeof ob)[], ob: Object, value: unknown) {
-  var temp = ob
-  let len = keys.length
-  for (let i = 0; i < len - 1; i++) {
-    const key = keys[i]
-    if (!temp[key]) {
-      console.log('no key')
-    } else {
-      temp = temp[key]
+function setValueFromMultipleKey(keys: (keyof typeof ob)[], ob: State, value: unknown) {
+  try {
+    var temp = ob
+    let len = keys.length
+    for (let i = 0; i < len - 1; i++) {
+      const key = keys[i]
+      if (!temp[key]) {
+        console.log('no key')
+      } else {
+        //@ts-check
+        temp = temp[key]
+      }
     }
+    //@ts-ingore
+    temp[keys[len - 1]] = value
+    return ob
+  } catch (error) {
+    console.log('error in temp')
   }
-
-  //@ts-ingore
-  temp[keys[len - 1]] = value
-  return ob
 }
