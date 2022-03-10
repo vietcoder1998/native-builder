@@ -17,8 +17,8 @@ export interface State {
     fields: Field[]
   }
   slidePage: {
-    pagination: boolean
-    navigation: boolean
+    pagination: string
+    navigation: string
     itemsNumber: number
     slides: SlideElement[]
   },

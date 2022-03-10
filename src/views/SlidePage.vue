@@ -12,48 +12,52 @@ export default defineComponent({
     Accordion,
     RadioInput
   },
-  data(): {
-    slides: SlideElement[]
-    pagination: string
-    navigation: string
-    itemNumbers: number
-  } {
-    return {
-      slides: [
-        {
-          src: 'https://picsum.photos/200',
-          text: 'To get a square image, just add the size'
-        },
-        {
-          src: 'https://picsum.photos/200',
-          text: 'To get a square image, just add the size'
-        },
-        {
-          src: 'https://picsum.photos/200',
-          text: 'To get a square image, just add the size'
-        },
-        {
-          src: 'https://picsum.photos/200',
-          text: 'To get a square image, just add the size'
-        },
-        {
-          src: 'https://picsum.photos/200',
-          text: 'To get a square image, just add the size'
-        }
-      ],
-      pagination: 'off',
-      itemNumbers: 3,
-      navigation: 'off'
-    }
-  },
+
   methods: {
-    onChangeNumber(e: any) {
-      this.itemNumbers = Number(e?.target?.value)
+    setItemsNumber(e: Event) {
+      const vl = (<HTMLTextAreaElement>e.target).value
+      this.$store.commit('changeItemsNumber', vl)
+    },
+    changeNavigation(e: string) {
+      this.$store.commit('changeNavigation', e)
+    },
+    changePagination(e: string) {
+      this.$store.commit('changePagination', e)
+    },
+    changeSlideItem(id: number, vl: string) {
+      this.$store.commit('changePagination', { id, vl })
+    },
+    changeTextField(key: string, id: number, e: Event) {
+      const vl = (<HTMLTextAreaElement>e.target).value
+
+      console.log(key, id, e)
+      switch (key) {
+        case 'src':
+          this.$store.commit('changeSlideSrc', { id, vl })
+          break
+        case 'text':
+          this.$store.commit('changeSlideText', { id, vl })
+          break
+        default:
+          break
+      }
     }
   },
   computed: {
     convertOnOffToBoolean() {
       return (item: string) => (item === 'on' ? true : false)
+    },
+    slides(): SlideElement[] {
+      return this.$store.state.slidePage.slides
+    },
+    pagination(): string {
+      return this.$store.state.slidePage.pagination
+    },
+    navigation(): string {
+      return this.$store.state.slidePage.navigation
+    },
+    itemsNumber(): number {
+      return this.$store.state.slidePage.itemsNumber
     }
   },
   emits: ['change']
@@ -65,18 +69,24 @@ export default defineComponent({
       <Accordion title="Slider">
         <div v-for="(item, i) in slides" :key="i">
           <Accordion :title="'item' + i">
-            <input type="text" v-model="item.src" :key="i" placeholder="src" />
-            <input
-              type="text"
-              v-model="item.text"
-              :key="i"
-              placeholder="text"
-            />
+            <Accordion v-for="(vl, k) in item" :title="k" :key="k">
+              <input
+                type="text"
+                v-bind:value="vl"
+                v-bind:placeholder="k"
+                @change="(e) => changeTextField(k, i, e)"
+              />
+            </Accordion>
           </Accordion>
         </div>
       </Accordion>
       <Accordion title="itemNumbers">
-        <input v-model="itemNumbers" type="number"  min="1"  />
+        <input
+          v-bind:value="itemsNumber"
+          type="number"
+          min="1"
+          @input="setItemsNumber"
+        />
       </Accordion>
       <Accordion title="pagination">
         <RadioInput
@@ -88,11 +98,7 @@ export default defineComponent({
             },
             value: pagination
           }"
-          @change="
-            (option) => {
-              pagination = String(option)
-            }
-          "
+          @change="changePagination"
         />
       </Accordion>
       <Accordion title="navigation">
@@ -105,19 +111,15 @@ export default defineComponent({
               name: 'navigation-slide'
             }
           }"
-          @change="
-            (option) => {
-              navigation = String(option)
-            }
-          "
+          @change="changeNavigation"
         />
       </Accordion>
     </div>
-    <div class="col-span-4">
+    <div class="col-span-4 p-2">
       <Slides
-        v-bind:pagination="convertOnOffToBoolean(pagination)"
-        v-bind:navigation="convertOnOffToBoolean(navigation)"
-        v-bind:itemNumbers="itemNumbers"
+        v-bind:pagination="pagination"
+        v-bind:navigation="navigation"
+        v-bind:itemsNumber="itemsNumber"
         v-bind:slides="slides"
       />
     </div>

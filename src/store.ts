@@ -200,14 +200,35 @@ export const store = createStore<State>({
       ]
     },
     slidePage: {
-      pagination: true,
-      navigation: true,
+      pagination: 'on',
+      navigation: 'on',
       itemsNumber: 1,
-      slides: []
+      slides: [
+        {
+          src: 'https://picsum.photos/200',
+          text: 'To get a square image, just add the size'
+        },
+        {
+          src: 'https://picsum.photos/200',
+          text: 'To get a square image, just add the size'
+        },
+        {
+          src: 'https://picsum.photos/200',
+          text: 'To get a square image, just add the size'
+        },
+        {
+          src: 'https://picsum.photos/200',
+          text: 'To get a square image, just add the size'
+        },
+        {
+          src: 'https://picsum.photos/200',
+          text: 'To get a square image, just add the size'
+        }
+      ]
     }
   },
   mutations: {
-    setValue(state: State, { vl, keys }: { vl: any | Object; keys: string[]}) {
+    setValue(state: State, { vl, keys }: { vl: any | State; keys: string[] }) {
       console.log(vl, keys)
       if (!keys) {
         state = vl
@@ -218,25 +239,25 @@ export const store = createStore<State>({
 
     pushFieldContact(state: State, item: Field) {
       state.formContact.fields.push(item)
+    },
+    changeItemsNumber(state: State, itemsNumber: number) {
+      state.slidePage.itemsNumber = itemsNumber
+    },
+    changeNavigation(state: State, navigation: string) {
+      state.slidePage.navigation = navigation
+    },
+    changePagination(state: State, pagination: string) {
+      state.slidePage.pagination = pagination
+    },
+    changeSlideSrc(state: State, { id, vl }: { id: number, vl: string }) {
+      console.log('change src',id, vl)
+      state.slidePage.slides[id].src = vl
+    },
+    changeSlideText(state: State, { id, vl }: { id: number, vl: string }) {
+      state.slidePage.slides[id].text = vl
     }
   }
 })
-
-function getValueFromMultipleKey(keys: string[], ob: State) {
-  var temp = ob
-  let len = keys.length
-  for (let i = 0; i < len - 1; i++) {
-    const key = keys[i]
-    if (!temp.hasOwnProperty(key)|| !temp[key]) {
-      console.log('no key')
-    } else {
-      temp = temp[key]
-    }
-  }
-
-  temp[keys[len - 1]] = value
-  return temp[keys[len - 1]]
-}
 
 function setValueFromMultipleKey(keys: (keyof typeof ob)[], ob: Object, value: unknown) {
   var temp = ob

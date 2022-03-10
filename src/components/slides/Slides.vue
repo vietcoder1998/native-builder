@@ -28,23 +28,22 @@ export default defineComponent({
     RadioInput
   },
   props: {
-      slides: Array as PropType< SlideElement[]>,
-      pagination: Boolean,
-      itemNumbers: Number,
-      navigation: Boolean
-  },
-
+    slides: Array as PropType<SlideElement[]>,
+    pagination: String,
+    itemsNumber: Number,
+    navigation: String
+  }
 })
 </script>
 <template>
   <swiper
-    v-bind:slides-per-view="itemNumbers"
+    v-bind:slides-per-view="itemsNumber"
     :space-between="50"
     :allow-slide-prev="true"
     :allow-slide-next="true"
     :modules="modules"
-    :pagination="pagination"
-    :navigation="navigation"
+    v-bind:pagination="!!(pagination === 'on')"
+    v-bind:navigation="!!(navigation === 'on')"
     @swiper="onSwiper"
     @slideChange="onSlideChange"
   >
