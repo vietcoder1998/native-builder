@@ -50,7 +50,7 @@ export default defineComponent({
 })
 </script>
 <template>
-  <div class="ml-4">
+  <div class="mt-2">
     <button v-show="!open" class="p-2 border" @click="open = !open">
       + Add
     </button>

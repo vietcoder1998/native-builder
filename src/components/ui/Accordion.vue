@@ -16,7 +16,7 @@ export default defineComponent({
   },
   data(): {open:boolean} {
     return {
-      open: this.isShow || true
+      open: this.isShow 
     }
   },
   methods: {}

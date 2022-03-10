@@ -44,7 +44,7 @@ export default defineComponent({
       placeholder="Search..."
     />
     <div>
-      <div v-for="item in filterKey" :key="item" class="p-2">
+      <div v-for="(item, i) in filterKey" v-bind:key="i" class="p-2">
         <button
           :class="selected === item ? 'bg-blue-200 p-1 rounded' : 'p-1'"
           @click="onSelect(item)"

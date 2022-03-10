@@ -1,18 +1,23 @@
 <script lang="ts">
 import { defineComponent } from 'vue'
+import MultiFixer from '../components/form/fixer/MultiFixer.vue'
 import ImageGallery from '../components/image-gallery/ImageGallery.vue'
-import { GalleryItem } from '../typing/gallery'
-import Accordion from '../components/ui/Accordion.vue'
+import MultiColumnInfo from '../components/image-gallery/right-section/MultiColumnInfo.vue'
+import SingleColumnInfoVue from '../components/image-gallery/right-section/SingleColumnInfo.vue'
 import Add from '../components/layout/Add.vue'
+import Accordion from '../components/ui/Accordion.vue'
 import { FieldName } from '../typing/fields'
-import { State } from '../typing/store'
+import { GalleryItem } from '../typing/gallery'
 
 export default defineComponent({
   name: 'gallery',
   components: {
     ImageGallery,
     Accordion,
-    Add
+    Add,
+    MultiFixer,
+    MultiColumnInfo,
+    SingleColumnInfoVue
   },
   data(): {
     newItem: GalleryItem
@@ -48,29 +53,8 @@ export default defineComponent({
       this.showModal = false
       this.lastIndex = this.fixingItem?.index
     },
-    onSubmitInfo(field: GalleryItem) {
-      this.$store.commit('pushFieldContact', field)
-    },
-    setColumnValue(e: Event): void {
-      this.$store.commit('setValue', {
-        vl: (e.target as HTMLInputElement).value,
-        keys: ['gallery', 'column']
-      })
-    },
-    setGapValue(e: Event): void {
-      this.$store.commit('setValue', {
-        vl: (e.target as HTMLInputElement).value,
-        keys: ['gallery', 'gap']
-      })
-    }
   },
   computed: {
-    textField(): FieldName {
-      return FieldName.text
-    },
-    radioField(): FieldName {
-      return FieldName.radio
-    },
     cls() {
       //@ts-ignore
       return `fgrid-${this.column} `
@@ -120,38 +104,23 @@ export default defineComponent({
       <p class="text-lg bold border-bottom mb-2">Gallery</p>
       <hr />
       <Accordion title="MultiColumn">
-        <div v-for="(img, key) in imageFlexing" v-bind:key="key" class="ml-2 w-full text-left">
+        <div
+          v-for="(img, key) in imageFlexing"
+          v-bind:key="key"
+          class="ml-2 w-full text-left"
+        >
           <button
-            :class="selected == key ? 'text-blue-400 bg-blue-200 p-3 w-full text-left' : ' p-3  w-full text-left'"
+            :class="
+              selected == key
+                ? 'text-blue-400 bg-blue-200 p-3 w-full text-left'
+                : ' p-3  w-full text-left'
+            "
             @click="selected = key"
           >
             [] Columns
           </button>
         </div>
       </Accordion>
-      <Accordion title="Items">
-        <Accordion
-          v-for="(item, i) in items"
-          :title="'img' + i"
-          v-bind:key="String(i)"
-        >
-          <Accordion
-            v-for="(vl, k) in item"
-            v-bind:title="k"
-            v-bind:key="String(i)"
-          >
-            <input class="ml-2" v-bind:value="vl" />
-          </Accordion>
-        </Accordion>
-      </Accordion>
-      <Add
-        v-bind:field="{
-          title: { name: 'title', type: textField, value: null },
-          src: { name: 'src', type: textField, value: null },
-          thumbnail: { name: 'thumbnail', type: textField, value: null }
-        }"
-        @on-submit-info="onSubmitInfo"
-      ></Add>
     </div>
     <div class="content">
       <ImageGallery
@@ -169,29 +138,9 @@ export default defineComponent({
       />
     </div>
     <div class="w-250 p-2">
-      <div class="">
-        <h2 class="text-bold">Multicolumn</h2>
-        <label>Column</label>
-        <input
-          id="gap"
-          type="number"
-          class="w-full"
-          @input="setColumnValue"
-          v-bind:value="column"
-          min="0"
-        />
-        <p>
-          <label>Gap</label>
-        </p>
-        <input
-          id="columns"
-          type="number"
-          v-bind:value="gap"
-          class="w-full"
-          min="0"
-          :max="items.length"
-          @input="setGapValue"
-        />
+      <MultiColumnInfo v-show="!selected" />
+      <div v-show="selected">
+        <SingleColumnInfoVue :items="imageFlexing[selected]" :title="'Column' + selected" />
       </div>
     </div>
   </div>

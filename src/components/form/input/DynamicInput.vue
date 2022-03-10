@@ -107,7 +107,7 @@ export default defineComponent({
 </script>
 
 <template>
-  <div class="validate form mb-5">
+  <div class="validate form mb-2">
     <label :for="field?.customHTMLAttributes?.id" class="w-full relative">
       {{ field?.title }}
       <span
