@@ -1,11 +1,15 @@
 <style scoped></style>
 <script lang="ts">
-import { defineComponent } from 'vue'
+import { defineComponent, PropType } from 'vue'
 import Vue from 'vue'
 export default defineComponent({
+  props:  {
+    menu: Array as PropType<String[]>
+  },
   data() {
     return {
-      show: true
+      show: true,
+      selected: 'string',
     }
   }
 })

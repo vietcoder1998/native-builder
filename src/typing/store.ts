@@ -1,5 +1,6 @@
 import { Field } from './fields'
 import { SlideElement } from './sliders'
+import { BeaeCollection } from './beae-element';
 
 interface GalleryInfo {
   src: string
@@ -10,7 +11,7 @@ interface GalleryInfo {
 export interface State {
   gallery: {
     gap: number
-    columns: number
+    column: number
     items: GalleryInfo[]
   }
   formContact: {
@@ -22,4 +23,9 @@ export interface State {
     itemsNumber: number
     slides: SlideElement[]
   },
+  collections: {
+    gap: number
+    column: number
+    items: BeaeCollection[]
+  }
 }

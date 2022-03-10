@@ -11,7 +11,7 @@ export default defineComponent({
     LightBox
   },
   props: {
-    items: Array as PropType<GalleryItem[]>,
+    imageFlexing: Array as PropType<GalleryItem[][]>,
     column: Number,
     gap: Number,
     cls: String,
@@ -31,19 +31,6 @@ export default defineComponent({
     itemIndex() {
       return this.fixingItem?.index || 0
     },
-    imageFlexing() {
-      let matrix: any[][] = []
-      for (let i = 0; i < this.column; i++) {
-       matrix.push([])
-      }
-
-      this.items.forEach((item, i) => {
-        let t = i % this.column
-        matrix[t].push(item)
-      })
-
-      return matrix
-    }
   }
 })
 </script>
@@ -58,7 +45,7 @@ export default defineComponent({
     <!--modal-->
     <modal
       v-bind:show="showModal"
-      v-bind:title="fixingItem.title"
+      v-bind:title="fixingItem?.title"
       v-bind:src="fixingItem?.src"
       v-bind:thumbnail="fixingItem?.thumbnail"
       v-bind:index="fixingItem?.index"

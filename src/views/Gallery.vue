@@ -21,6 +21,7 @@ export default defineComponent({
     isAdd: boolean
     lastIndex?: number
     showLightBox: boolean
+    selected: number
   } {
     return {
       newItem: { src: '', title: '', thumbnail: '' },
@@ -28,7 +29,8 @@ export default defineComponent({
       showModal: false,
       isAdd: false,
       lastIndex: 0,
-      showLightBox: false
+      showLightBox: false,
+      selected: null
     }
   },
   methods: {
@@ -89,6 +91,19 @@ export default defineComponent({
     },
     items(): GalleryItem[] {
       return this.$store.state.gallery.items
+    },
+    imageFlexing() {
+      let matrix: any[][] = []
+      for (let i = 0; i < this.column; i++) {
+        matrix.push([])
+      }
+
+      this.items.forEach((item, i) => {
+        let t = i % this.column
+        matrix[t].push(item)
+      })
+
+      return matrix
     }
   },
   onMounted() {},
@@ -101,60 +116,49 @@ export default defineComponent({
 </script>
 <template>
   <div class="flex">
-    <div class="w-200">
-      <Accordion title="Gallery">
-        <Accordion title="Column">
-          <input
-            id="gap"
-            type="number"
-            class="w-full"
-            @input="setColumnValue"
-            v-bind:value="column"
-            min="0"
-          />
-        </Accordion>
-        <Accordion title="Gap">
-          <input
-            id="columns"
-            type="number"
-            v-bind:value="gap"
-            class="w-full"
-            min="0"
-            :max="items.length"
-            @input="setGapValue"
-          />
-        </Accordion>
-        <Accordion title="Items">
+    <div class="w-250">
+      <p class="text-lg bold border-bottom mb-2">Gallery</p>
+      <hr />
+      <Accordion title="MultiColumn">
+        <div v-for="(img, key) in imageFlexing" v-bind:key="key" class="ml-2 w-full text-left">
+          <button
+            :class="selected == key ? 'text-blue-400 bg-blue-200 p-3 w-full text-left' : ' p-3  w-full text-left'"
+            @click="selected = key"
+          >
+            [] Columns
+          </button>
+        </div>
+      </Accordion>
+      <Accordion title="Items">
+        <Accordion
+          v-for="(item, i) in items"
+          :title="'img' + i"
+          v-bind:key="String(i)"
+        >
           <Accordion
-            v-for="(item, i) in items"
-            :title="'img' + i"
+            v-for="(vl, k) in item"
+            v-bind:title="k"
             v-bind:key="String(i)"
           >
-            <Accordion
-              v-for="(vl, k) in item"
-              v-bind:title="k"
-              v-bind:key="String(i)"
-            >
-              <input class="ml-2" v-bind:value="vl" />
-            </Accordion>
+            <input class="ml-2" v-bind:value="vl" />
           </Accordion>
         </Accordion>
-        <Add
-          v-bind:field="{
-            title: { name: 'title', type: textField, value: null },
-            src: { name: 'src', type: textField, value: null },
-            thumbnail: { name: 'thumbnail', type: textField, value: null }
-          }"
-          @on-submit-info="onSubmitInfo"
-        ></Add>
       </Accordion>
+      <Add
+        v-bind:field="{
+          title: { name: 'title', type: textField, value: null },
+          src: { name: 'src', type: textField, value: null },
+          thumbnail: { name: 'thumbnail', type: textField, value: null }
+        }"
+        @on-submit-info="onSubmitInfo"
+      ></Add>
     </div>
     <div class="content">
       <ImageGallery
         v-bind:cls="cls"
         v-bind:childCls="childCls"
         v-bind:column="column"
-        v-bind:fixingItem="fixingItem"
+        v-bind:imageFlexing="imageFlexing"
         v-bind:gap="gap"
         v-bind:newItem="newItem"
         v-bind:items="items"
@@ -163,6 +167,32 @@ export default defineComponent({
         @on-show-light-box="onShowLightBox"
         @on-show-modal="onShowModal"
       />
+    </div>
+    <div class="w-250 p-2">
+      <div class="">
+        <h2 class="text-bold">Multicolumn</h2>
+        <label>Column</label>
+        <input
+          id="gap"
+          type="number"
+          class="w-full"
+          @input="setColumnValue"
+          v-bind:value="column"
+          min="0"
+        />
+        <p>
+          <label>Gap</label>
+        </p>
+        <input
+          id="columns"
+          type="number"
+          v-bind:value="gap"
+          class="w-full"
+          min="0"
+          :max="items.length"
+          @input="setGapValue"
+        />
+      </div>
     </div>
   </div>
 </template>

@@ -9,6 +9,8 @@ import './index.css'
 import './mixin.css'
 import router from './router'
 import { store } from './store'
+import { library } from '@fortawesome/fontawesome'
+import * as faAdd from '@fortawesome/free-solid-svg-icons'
 
 const app = createApp(App)
 app.use(router).use(store).mount('#app')

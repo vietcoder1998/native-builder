@@ -34,13 +34,26 @@ export default defineComponent({
     console.log('mounting')
   },
   computed: {
+    collections() {
+      return this.$store.state.collections
+    },
     jsonView(): string {
       return JSON.stringify(this.collections)
+    },
+    textField(): FieldName {
+      return FieldName.text
+    },
+    radioField(): FieldName {
+      return FieldName.radio
     }
   },
   methods: {
     setCollections(e: Event) {
       this.collections = JSON.parse((e.target as HTMLTextAreaElement).value)
+    },
+    onSubmitInfo(collection: BeaeCollection) {
+      console.log(collection)
+      this.$store.commit('pushCollection', collection) 
     }
   }
 })

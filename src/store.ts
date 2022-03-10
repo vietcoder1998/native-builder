@@ -1,8 +1,10 @@
 // store.ts
 import { InjectionKey, StyleHTMLAttributes } from 'vue'
-import { createStore, Store } from 'vuex'
+import { createStore } from 'vuex'
 import { State } from './typing/store'
 import { Field } from './typing/fields';
+import { Store } from 'vuex';
+import { BeaeCollection } from './typing/beae-element';
 
 // define your typings for the store state
 
@@ -19,13 +21,11 @@ export const store = createStore<State>({
           src: 'https://picsum.photos/200/220',
           title: 'Just add your desired ',
           thumbnail: 'https://picsum.photos/200/100',
-          alt: 'Just add your desired'
         },
         {
           src: 'https://picsum.photos/200/120',
           title: 'Just add your desired ',
           thumbnail: 'https://picsum.photos/200/110',
-          alt: 'Just add your desired'
         },
         {
           src: 'https://picsum.photos/200/270',
@@ -225,6 +225,115 @@ export const store = createStore<State>({
           text: 'To get a square image, just add the size'
         }
       ]
+    },
+    collections: {
+      gap: 0,
+      column: 4,
+      items: [
+        {
+          thumbnail: 'https://picsum.photos/200/220',
+          productTitle: 'Just add your desired ',
+          price: 1.0,
+          addToCart: false
+        },
+        {
+          thumbnail: 'https://picsum.photos/200/220',
+          productTitle: 'Just add your desired ',
+          price: 1.0,
+          addToCart: false
+        }, {
+          thumbnail: 'https://picsum.photos/200/220',
+          productTitle: 'Just add your desired ',
+          price: 1.0,
+          addToCart: false
+        }, {
+          thumbnail: 'https://picsum.photos/200/220',
+          productTitle: 'Just add your desired ',
+          price: 1.0,
+          addToCart: false
+        }, {
+          thumbnail: 'https://picsum.photos/200/220',
+          productTitle: 'Just add your desired ',
+          price: 1.0,
+          addToCart: false
+        }, {
+          thumbnail: 'https://picsum.photos/200/220',
+          productTitle: 'Just add your desired ',
+          price: 1.0,
+          addToCart: false
+        }, {
+          thumbnail: 'https://picsum.photos/200/220',
+          productTitle: 'Just add your desired ',
+          price: 1.0,
+          addToCart: false
+        }, {
+          thumbnail: 'https://picsum.photos/200/220',
+          productTitle: 'Just add your desired ',
+          price: 1.0,
+          addToCart: false
+        }, {
+          thumbnail: 'https://picsum.photos/200/220',
+          productTitle: 'Just add your desired ',
+          price: 1.0,
+          addToCart: false
+        }, {
+          thumbnail: 'https://picsum.photos/200/220',
+          productTitle: 'Just add your desired ',
+          price: 1.0,
+          addToCart: false
+        }, {
+          thumbnail: 'https://picsum.photos/200/220',
+          productTitle: 'Just add your desired ',
+          price: 1.0,
+          addToCart: false
+        }, {
+          thumbnail: 'https://picsum.photos/200/220',
+          productTitle: 'Just add your desired ',
+          price: 1.0,
+          addToCart: false
+        }, {
+          thumbnail: 'https://picsum.photos/200/220',
+          productTitle: 'Just add your desired ',
+          price: 1.0,
+          addToCart: false
+        }, {
+          thumbnail: 'https://picsum.photos/200/220',
+          productTitle: 'Just add your desired ',
+          price: 1.0,
+          addToCart: false
+        }, {
+          thumbnail: 'https://picsum.photos/200/220',
+          productTitle: 'Just add your desired ',
+          price: 1.0,
+          addToCart: false
+        }, {
+          thumbnail: 'https://picsum.photos/200/220',
+          productTitle: 'Just add your desired ',
+          price: 1.0,
+          addToCart: false
+        }, {
+          thumbnail: 'https://picsum.photos/200/220',
+          productTitle: 'Just add your desired ',
+          price: 1.0,
+          addToCart: false
+        }, {
+          thumbnail: 'https://picsum.photos/200/220',
+          productTitle: 'Just add your desired ',
+          price: 1.0,
+          addToCart: false
+        }, {
+          thumbnail: 'https://picsum.photos/200/220',
+          productTitle: 'Just add your desired ',
+          price: 1.0,
+          addToCart: false
+        }, {
+          thumbnail: 'https://picsum.photos/200/220',
+          productTitle: 'Just add your desired ',
+          price: 1.0,
+          addToCart: false
+        },
+
+      ]
     }
   },
   mutations: {
@@ -255,6 +364,10 @@ export const store = createStore<State>({
     },
     changeSlideText(state: State, { id, vl }: { id: number, vl: string }) {
       state.slidePage.slides[id].text = vl
+    },
+    pushCollection(state: State, collection: BeaeCollection) {
+      console.groupCollapsed(collection)
+      state.collections.items.push(collection)
     }
   }
 })

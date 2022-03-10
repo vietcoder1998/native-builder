@@ -1,5 +1,5 @@
 <script setup lang="ts">
-  import './mixin.css'
+/* import font awesome icon component */
 </script>
 
 <template>
