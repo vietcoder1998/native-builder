@@ -1,5 +1,5 @@
+import { Field } from './fields'
 import { SlideElement } from './sliders'
-import { FieldName } from './fields'
 
 interface GalleryInfo {
   src: string
@@ -13,7 +13,9 @@ export interface State {
     columns: number
     items: GalleryInfo[]
   }
-  fields: Field[]
+  formContact: {
+    fields: Field[]
+  }
   slidePage: {
     pagination: boolean
     navigation: boolean
@@ -21,5 +23,3 @@ export interface State {
     slides: SlideElement[]
   },
 }
-
-export interface store

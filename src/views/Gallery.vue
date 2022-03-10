@@ -47,7 +47,7 @@ export default defineComponent({
       this.lastIndex = this.fixingItem?.index
     },
     onSubmitInfo(field: GalleryItem) {
-      this.items.push(field)
+      this.$store.commit('pushFieldContact', field)
     },
     setColumnValue(e: Event): void {
       this.$store.commit('setValue', {

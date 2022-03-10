@@ -4,7 +4,7 @@ import Gallery from './views/Gallery.vue'
 import SlidePage from './views/SlidePage.vue'
 import FormContact from './views/FormContact.vue'
 import BeaeCollection from './views/BeaeCollection.vue'
-import LiquidAdmin from './views/LiquidAdmin.vue'
+import FormAdminVue from './views/FormAdmin.vue'
 
 const routes = [
   {
@@ -33,9 +33,9 @@ const routes = [
     component: BeaeCollection
   },
   {
-    path: '/liquid-admin',
-    name: 'liquid-admin',
-    component: LiquidAdmin
+    path: '/form-admin',
+    name: 'form-admin',
+    component: FormAdminVue
   }
 ]
 

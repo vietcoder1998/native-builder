@@ -4,13 +4,13 @@ import BeaeElement from '../components/beae-element/BeaeElement.vue'
 import ImageGallery from '../components/image-gallery/ImageGallery.vue'
 import Slides from '../components/slides/Slides.vue'
 import FormContact from '../components/form-contact/FormContact.vue'
-import LiquidAdmin from '../components/liquid-admin/LiquidAdmin.vue'
+import LiquidAdmin from '../components/form-admin/FormAdmin.vue'
 import Accordion from '../components/ui/Accordion.vue'
 import { State } from '../typing/store'
 import SearchSelect from '../components/ui/SearchSelect.vue'
 
 export default defineComponent({
-  name: 'liquid-admin',
+  name: 'form-admin',
   components: {
     ImageGallery,
     FormContact,

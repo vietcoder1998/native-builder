@@ -21,7 +21,7 @@ export default defineComponent({
     },
     fieldTypes(): string[] {
       return Object.values(FieldName)
-    }
+    },
   },
   methods: {
     // set value of CustomHTMLAttributes onchange textarea value
@@ -52,9 +52,9 @@ export default defineComponent({
       }
     },
     onUpdateInputValue(index: number, value: string) {
-      console.log(index, value)
+      console.log('update ->' , index, value)
       if (index && this.fields && this.fields[index]) {
-        this.fields[index].value = value
+        this.$store.state.formContact.fields[index] = value
       } else {
         console.log('no index or value', index, value)
       }
@@ -72,7 +72,7 @@ export default defineComponent({
     <div v-for="(field, id) in fields" :key="id" class="relative">
       <DymamicInput
         v-bind:field="field"
-        @on-change-input-field="onUpdateInputValue"
+        @on-input-field="onUpdateInputValue"
       />
     </div>
     <button type="submit" class="border w-20 h-14 bg-blue-500 text-blue-50">

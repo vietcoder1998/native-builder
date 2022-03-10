@@ -1,7 +1,8 @@
 // store.ts
-import { InjectionKey } from 'vue'
+import { InjectionKey, StyleHTMLAttributes } from 'vue'
 import { createStore, Store } from 'vuex'
 import { State } from './typing/store'
+import { Field } from './typing/fields';
 
 // define your typings for the store state
 
@@ -51,12 +52,12 @@ export const store = createStore<State>({
           title: 'Just add your desired ',
           thumbnail: 'https://picsum.photos/200/40'
         },
-          {
+        {
           src: 'https://picsum.photos/200/90',
           title: 'Just add your desired ',
           thumbnail: 'https://picsum.photos/200/40'
         },
-          {
+        {
           src: 'https://picsum.photos/200/320',
           title: 'Just add your desired ',
           thumbnail: 'https://picsum.photos/200/40'
@@ -84,6 +85,7 @@ export const store = createStore<State>({
           title: 'Your name',
           type: 'text',
           index: 0,
+          value: null,
           customHTMLAttributes: {
             width: 120,
             required: true,
@@ -98,6 +100,7 @@ export const store = createStore<State>({
           title: 'Your Email',
           type: 'text',
           index: 1,
+          value: null,
           customHTMLAttributes: {
             width: 120,
             required: true,
@@ -112,6 +115,7 @@ export const store = createStore<State>({
           type: 'date',
           width: 120,
           index: 2,
+          value: null,
           customHTMLAttributes: {
             required: true,
             placeholder: 'must longer than 8',
@@ -124,6 +128,7 @@ export const store = createStore<State>({
           title: 'Select',
           type: 'dropdown',
           index: 3,
+          value: null,
           customHTMLAttributes: {
             width: 120,
             required: true,
@@ -138,6 +143,7 @@ export const store = createStore<State>({
           title: 'Checkbox',
           type: 'checkbox',
           index: 4,
+          value: null,
           customHTMLAttributes: {
             width: 120,
             required: true,
@@ -153,6 +159,7 @@ export const store = createStore<State>({
           type: 'radio',
           width: 120,
           index: 5,
+          value: null,
           customHTMLAttributes: {
             required: true,
             placeholder: 'must longer than 8',
@@ -200,55 +207,38 @@ export const store = createStore<State>({
     }
   },
   mutations: {
-    changeGap(state, nGap) {
-      state.gallery.gap = nGap
-    },
-    changeColumn(state, nColumn) {
-      state.gallery.column = nColumn
-    },
-    fixGalleryItem(state, index, nField) {
-      const temp = state.gallery.items[nField.index]
-      state.gallery.items[nField.index] = {
-        src: nField.src,
-        title: nField.title,
-        thumbnail: nField.thumbnail
-      }
-      state.gallery.items[lastIndex] = temp
-    },
-    addNewImage(state, nImage) {
-      state.gallery.items.push(nImage)
-    },
-    changeFields(state, index, key, nValue) {
-      state.field[index][key] = nValue
-    },
-    pushNewField(state, nField) {
-      state.field.push(nField)
-    },
-    changeSlideNavigation(state) {
-      state.slidePage.navigation != state.slidePage.navigation
-    },
-    setValue(state: State, { vl, keys }: { vl: unknown; keys?: string[] }) {
+    setValue(state: State, { vl, keys }: { vl: any | Object; keys: string[]}) {
       console.log(vl, keys)
       if (!keys) {
         state = vl
       } else {
         state = setValueFromMultipleKey(keys, state, vl)
       }
+    },
+
+    pushFieldContact(state: State, item: Field) {
+      state.formContact.fields.push(item)
     }
   }
 })
 
-function getValueFromMultipleKey(params: string[], ob: Object) {
-  if (params.length === 1) {
-    return ob[params[0]]
-  } else {
-    let param = params[0]
-    const nParams = params.pop()
-    return getValueFromMultipleKey(nParams, ob[param])
+function getValueFromMultipleKey(keys: string[], ob: State) {
+  var temp = ob
+  let len = keys.length
+  for (let i = 0; i < len - 1; i++) {
+    const key = keys[i]
+    if (!temp.hasOwnProperty(key)|| !temp[key]) {
+      console.log('no key')
+    } else {
+      temp = temp[key]
+    }
   }
+
+  temp[keys[len - 1]] = value
+  return temp[keys[len - 1]]
 }
 
-function setValueFromMultipleKey(keys: string[], ob: Object, value: unknown) {
+function setValueFromMultipleKey(keys: (keyof typeof ob)[], ob: Object, value: unknown) {
   var temp = ob
   let len = keys.length
   for (let i = 0; i < len - 1; i++) {
@@ -260,13 +250,7 @@ function setValueFromMultipleKey(keys: string[], ob: Object, value: unknown) {
     }
   }
 
+  //@ts-ingore
   temp[keys[len - 1]] = value
   return ob
-}
-
-function obLastKey(ob: Object, keys: string[]) {
-  if (k > 0) {
-    return this
-  }
-  return obLastKey
 }

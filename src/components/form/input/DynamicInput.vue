@@ -90,11 +90,11 @@ export default defineComponent({
           reader.readAsDataURL(image)
           reader.onload = (e: ProgressEvent<FileReader>) => {
             const previewImage = e?.target?.result
-            this.$emit('on-change-input-field', this.field?.index, previewImage)
+            this.$emit('on-input-field', this.field?.index, previewImage)
           }
         } else {
           this.$emit(
-            'on-change-input-field',
+            'on-input-field',
             this.field?.index,
             e?.target?.value
           )
@@ -102,7 +102,7 @@ export default defineComponent({
       }
     }
   },
-  emits: ['on-change-input-field']
+  emits: ['on-input-field']
 })
 </script>
 
