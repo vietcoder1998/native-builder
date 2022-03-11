@@ -5,6 +5,7 @@ import { Swiper, SwiperSlide } from 'swiper/vue'
 import { Navigation, Pagination, Scrollbar, A11y } from 'swiper'
 import Accordion from '../ui/Accordion.vue'
 import RadioInput from '../form/input/RadioInput.vue'
+import store from '../../mixin/store'
 
 export default defineComponent({
   setup() {
@@ -21,34 +22,29 @@ export default defineComponent({
     }
   },
   name: 'slides',
+  mixins: [store],
   components: {
     Swiper,
     SwiperSlide,
     Accordion,
     RadioInput
   },
-  props: {
-    slides: Array as PropType<SlideElement[]>,
-    pagination: String,
-    itemsNumber: Number,
-    navigation: String
-  }
 })
 </script>
 <template>
   <swiper
-    v-bind:slides-per-view="itemsNumber"
+    v-bind:slides-per-view="options?.itemsNumber"
     :space-between="50"
     :allow-slide-prev="true"
     :allow-slide-next="true"
     :modules="modules"
-    v-bind:pagination="!!(pagination === 'on')"
-    v-bind:navigation="!!(navigation === 'on')"
+    v-bind:pagination="!!(options?.pagination === 'on')"
+    v-bind:navigation="!!(options?.navigation === 'on')"
     @swiper="onSwiper"
     @slideChange="onSlideChange"
   >
-    <swiper-slide v-for="(slide, i) in slides" :key="i">
-      <img v-bind:src="slide.src" alt="text" />
+    <swiper-slide v-for="(item, i) in items" :key="i">
+      <img v-bind:src="item.src" alt="text" />
       <p>{{ slide.text }}</p>
     </swiper-slide>
   </swiper>

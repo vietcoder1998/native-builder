@@ -33,7 +33,7 @@ export const store = createStore<State>({
                 type: ElementType.gallery,
                 fields: gallery,
                 gap: 1,
-                column: 4
+                column: 3
               }
             ]
           }
@@ -48,7 +48,7 @@ export const store = createStore<State>({
             quantity: 4,
             elements: [
               {
-                name: 'gallery',
+                name: 'form',
                 type: ElementType.form,
                 fields: formContact,
                 gap: 1,
@@ -64,8 +64,18 @@ export const store = createStore<State>({
           {
             name: 'column1',
             elements: [
-              { name: 'gallery', type: ElementType.slide, fields: slide, gap: 1,
-                column: 4 }
+              {
+                name: 'slide',
+                type: ElementType.slide,
+                fields: slide,
+                gap: 1,
+                column: 4,
+                options: {
+                  pagination: true,
+                  navigation: true,
+                  itemsNumber: 3
+                }
+              }
             ]
           }
         ]
@@ -81,7 +91,9 @@ export const store = createStore<State>({
       if (!keys) {
         state = vl
       } else {
-        state = setValueFromMultipleKey(keys, state, vl)
+        
+        
+        
       }
     },
 
@@ -107,6 +119,34 @@ export const store = createStore<State>({
     pushCollection(state: State, collection: BeaeCollection) {
       console.groupCollapsed(collection)
       state.collections.items.push(collection)
+    }
+  },
+  getters: {
+    // get value of fields in store
+    items(
+      state: State,
+      { sid, cid, eid }: { sid: number; cid: number; eid: number }
+    ) {
+      console.log('mixin in here')
+      return state.sections[sid].columns[cid].elements[eid].fields
+    },
+    column(
+      state: State,
+      { sid, cid, eid }: { sid: number; cid: number; eid: number }
+    ) {
+      return state.sections[sid].columns[cid].elements[eid].column
+    },
+    gap(
+      state: State,
+      { sid, cid, eid }: { sid: number; cid: number; eid: number }
+    ) {
+      return state.sections[sid].columns[cid].elements[eid].gap
+    },
+    options(
+      state: State,
+      { sid, cid, eid }: { sid: number; cid: number; eid: number }
+    ) {
+      return state.sections[sid].columns[cid].elements[eid].options
     }
   }
 })

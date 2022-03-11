@@ -43,23 +43,6 @@ export default defineComponent({
       }
     }
   },
-  computed: {
-    convertOnOffToBoolean() {
-      return (item: string) => (item === 'on' ? true : false)
-    },
-    slides(): SlideElement[] {
-      return this.$store.state.slidePage.slides
-    },
-    pagination(): string {
-      return this.$store.state.slidePage.pagination
-    },
-    navigation(): string {
-      return this.$store.state.slidePage.navigation
-    },
-    itemsNumber(): number {
-      return this.$store.state.slidePage.itemsNumber
-    }
-  },
   emits: ['change']
 })
 </script>
@@ -109,19 +92,14 @@ export default defineComponent({
             value: navigation,
             customHTMLAttributes: {
               options: ['on', 'off'],
-              name: 'navigation-slide',
-            },
+              name: 'navigation-slide'
+            }
           }"
         />
       </Accordion>
     </div>
     <div class="col-span-4 p-2">
-      <Slides
-        v-bind:pagination="pagination"
-        v-bind:navigation="navigation"
-        v-bind:itemsNumber="itemsNumber"
-        v-bind:slides="slides"
-      />
+      <Slides />
     </div>
   </div>
 </template>

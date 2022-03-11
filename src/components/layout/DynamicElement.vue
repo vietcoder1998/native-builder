@@ -1,5 +1,5 @@
 <script lang="ts">
-import { computed, defineComponent, PropType } from 'vue'
+import { defineComponent,PropType } from 'vue'
 import { ElementType } from '../../typing/home'
 import FormContactVue from '../form-contact/FormContact.vue'
 import ImageGalleryVue from '../image-gallery/ImageGallery.vue'
@@ -9,6 +9,8 @@ export default defineComponent({
   name: 'dynamic-element',
   components: {
     ImageGalleryVue,
+    SlidesVue,
+    FormContactVue,
   },
   props: {
     type: String as PropType<ElementType>,
@@ -24,14 +26,17 @@ export default defineComponent({
   },
 
   beforeMount() {
-    console.log(this.$props)
     switch (this.type) {
       case ElementType.gallery:
         this.current = ImageGalleryVue
         break
 
       case ElementType.form:
-        this.current = ImageGalleryVue
+        this.current = FormContactVue
+        break
+
+      case ElementType.slide:
+        this.current = SlidesVue
         break
 
       default:

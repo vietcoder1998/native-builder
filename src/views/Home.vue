@@ -45,6 +45,13 @@ export default defineComponent({
                   v-bind:title="element.name"
                   :key="cid"
                 >
+                  <label
+                    v-for="(fields, cid) in elements"
+                    v-bind:title="element.name"
+                    :key="cid"
+                  >
+                    {{ fields.type }}
+                  </label>
                 </Accordion>
               </Accordion>
             </Accordion>

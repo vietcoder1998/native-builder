@@ -5,8 +5,9 @@ export interface Column<T> {
 }
 
 export interface Element {
-  fields: Field[],
+  fields: Field[]
   type: ElementType
+  options?: Record<Symbol, any>
 }
 
 export interface Section {
