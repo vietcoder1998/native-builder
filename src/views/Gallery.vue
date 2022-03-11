@@ -45,14 +45,6 @@ export default defineComponent({
     onAddNewItem(event: Event) {
       this.items.push(this.newItem)
     },
-    onShowLightBox(item: GalleryItem, index: number) {
-      this.showLightBox = !this.showLightBox
-      this.fixingItem = { ...item, index }
-    },
-    onShowModal() {
-      this.showModal = false
-      this.lastIndex = this.fixingItem?.index
-    },
   },
   computed: {
     cls() {

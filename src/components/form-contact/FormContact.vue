@@ -52,7 +52,7 @@ export default defineComponent({
       }
     },
     onUpdateInputValue(index: number, value: string) {
-      console.log('update ->' , index, value)
+      console.log('update ->', index, value)
       if (index && this.fields && this.fields[index]) {
         this.$store.state.formContact.fields[index] = value
       } else {
@@ -63,22 +63,24 @@ export default defineComponent({
 })
 </script>
 <template>
-  <form
-    id="form-1"
-    ref="form1"
-    class="grid grid-cols-2 gap-4 mx-3 my-5"
-    @submit.prevent=""
-  >
-    <div v-for="(field, id) in fields" :key="id" class="relative">
-      <DymamicInput
-        v-bind:field="field"
-        @on-input-field="onUpdateInputValue"
-      />
-    </div>
-    <button type="submit" class="border w-20 h-14 bg-blue-500 text-blue-50">
-      Submit
-    </button>
-  </form>
+  <div class="bg-white">
+    <form
+      id="form-1"
+      ref="form1"
+      class="grid grid-cols-2 gap-4 mx-3 my-5"
+      @submit.prevent=""
+    >
+      <div v-for="(field, id) in fields" :key="id" class="relative">
+        <DymamicInput
+          v-bind:field="field"
+          @on-input-field="onUpdateInputValue"
+        />
+      </div>
+      <button type="submit" class="border w-20 h-14 bg-blue-500 text-blue-50">
+        Submit
+      </button>
+    </form>
+  </div>
 </template>
 
 <style scoped></style>

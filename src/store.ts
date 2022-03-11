@@ -14,8 +14,8 @@ export const key: InjectionKey<Store<State>> = Symbol()
 export const store = createStore<State>({
   state: {
     gallery: {
-      column: 4,
-      gap: 0,
+      column: 3,
+      gap: 2,
       items: [
         {
           src: 'https://picsum.photos/200/220',
@@ -55,7 +55,7 @@ export const store = createStore<State>({
         {
           src: 'https://picsum.photos/200/90',
           title: 'Just add your desired ',
-          thumbnail: 'https://picsum.photos/200/40'
+          thumbnail: 'https://picsum.photos/200/60'
         },
         {
           src: 'https://picsum.photos/200/320',
@@ -70,10 +70,10 @@ export const store = createStore<State>({
         {
           src: 'https://picsum.photos/200/320',
           title: 'Just add your desired ',
-          thumbnail: 'https://picsum.photos/200/40'
+          thumbnail: 'https://picsum.photos/200/80'
         },
         {
-          src: 'https://picsum.photos/200/320',
+          src: 'https://picsum.photos/200/120',
           title: 'Just add your desired ',
           thumbnail: 'https://picsum.photos/200/40'
         }

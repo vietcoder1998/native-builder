@@ -10,27 +10,67 @@ export default defineComponent({
     Modal,
     LightBox
   },
-  props: {
-    imageFlexing: Array as PropType<GalleryItem[][]>,
-    column: Number,
-    gap: Number,
-    cls: String,
-    imgCls: String,
-    showModal: Boolean,
-    isAdd: Boolean,
-    lastIndex: Number,
-    showLightBox: Boolean,
-    newItem: Object as PropType<GalleryItem>,
-    fixingItem: Object as PropType<GalleryItem>,
-    childCls: String
-  },
+  props: {},
   data() {
-    return {}
+    return {
+      fixingItem: {
+        index: 0
+      },
+      showLightBox: false,
+      isAdd: false,
+      lastIndex: 0,
+      showModal: false,
+      newItem: {}
+    }
   },
   computed: {
-    itemIndex() {
+    itemIndex(): number {
       return this.fixingItem?.index || 0
     },
+    cls() {
+      //@ts-ignore
+      return `fgrid-${this.column} `
+    },
+    childCls() {
+      //@ts-ignore
+      return `w-${this.column}`
+    },
+    imgCls() {
+      //@ts-ignore
+      return `w-full p-${this.gap} `
+    },
+    column(): number {
+      return this.$store.state.gallery.column
+    },
+    gap(): number {
+      return this.$store.state.gallery.gap
+    },
+    items(): GalleryItem[] {
+      return this.$store.state.gallery.items
+    },
+    imageFlexing() {
+      let matrix: any[][] = []
+      for (let i = 0; i < this.column; i++) {
+        matrix.push([])
+      }
+
+      this.items.forEach((item, i) => {
+        let t = i % this.column
+        matrix[t].push(item)
+      })
+
+      return matrix
+    }
+  },
+  methods: {
+    onShowLightBox(item: GalleryItem, index: number) {
+      this.showLightBox = !this.showLightBox
+      this.fixingItem = { ...item, index }
+    },
+    onShowModal() {
+      this.showModal = false
+      this.lastIndex = this.fixingItem?.index
+    }
   }
 })
 </script>
@@ -38,32 +78,32 @@ export default defineComponent({
 <template>
   <div class="fgrid selected-cpn">
     <LightBox
-      v-bind:show="showLightBox"
-      v-bind:src="fixingItem?.src"
+      :show="showLightBox"
+      :src="fixingItem?.src"
       @close="$emit('on-show-light-box')"
     />
     <!--modal-->
     <modal
-      v-bind:show="showModal"
-      v-bind:title="fixingItem?.title"
-      v-bind:src="fixingItem?.src"
-      v-bind:thumbnail="fixingItem?.thumbnail"
-      v-bind:index="fixingItem?.index"
-      @close="$emit('on-show-modal')"
+      :show="showModal"
+      :title="fixingItem?.title"
+      :src="fixingItem?.src"
+      :thumbnail="fixingItem?.thumbnail"
+      :index="fixingItem?.index"
+      @close="onShowModal"
     >
       <h3>Fix item {{ itemIndex }}</h3>
     </modal>
     <div
       v-for="(vertical, i) in imageFlexing"
-      v-bind:class="childCls"
-      v-bind:key="i"
+      :class="childCls"
+      :key="i"
     >
-      <div v-for="(hoziral, i1) in vertical" v-bind:key="i1">
+      <div v-for="(hoziral, i1) in vertical" :key="i1">
         <img
-          v-bind:src="hoziral.src"
-          v-bind:alt="hoziral.alt"
-          @click="$emit('on-show-light-box', hoziral, i * i1 + i1)"
-          v-bind:class="imgCls"
+          :src="hoziral.src"
+          :alt="hoziral.alt"
+          @click="onShowLightBox( hoziral, i * i1 + i1)"
+          :class="imgCls"
         />
       </div>
     </div>

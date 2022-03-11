@@ -5,8 +5,9 @@
 div[class~='fgrid'] {
   align-content: space-between;
   flex-direction: row;
-    width: 100%;
+  width: 100%;
   overflow: auto; /* new */
+  background-color: white;
 }
 
 /* :root {
@@ -25,6 +26,7 @@ div[class~='fgrid'] {
   display: flex;
   flex-flow: column wrap;
   align-content: space-between;
+  margin-bottom: 10px;
 }
 
 .w-1m {
@@ -79,11 +81,9 @@ div[class~='fgrid'] {
   margin-right: 20px;
 }
 
-.content {  
-  width: calc(100% - 500px)
-  
+.content {
+  width: calc(100% - 500px);
 }
-
 
 .section-btn {
 }

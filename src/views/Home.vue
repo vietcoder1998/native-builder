@@ -34,6 +34,15 @@ export default defineComponent({
                   type: 'test'
                 }
               ]
+            },
+            {
+              name: 'Column1',
+              elements: [
+                {
+                  name: 'abc',
+                  type: 'test'
+                }
+              ]
             }
           ]
         },
@@ -102,11 +111,16 @@ export default defineComponent({
               :key="sid"
             >
               <Accordion
-                v-for="(columns, cid) in section"
-                v-bind:title="columns.name"
+                v-for="(column, cid) in section.columns"
+                v-bind:title="column.name"
                 :key="cid"
               >
-              ASS
+                <Accordion
+                  v-for="(element, cid) in column.elements"
+                  v-bind:title="element.name"
+                  :key="cid"
+                >
+                </Accordion>
               </Accordion>
             </Accordion>
           </div>
@@ -115,7 +129,7 @@ export default defineComponent({
       </Tabs>
     </div>
     <div>
-      <div class="bg-white">
+      <div>
         <Gallery></Gallery>
         <FormContact></FormContact>
         <SlidePage></SlidePage>
