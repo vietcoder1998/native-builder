@@ -1,3 +1,4 @@
+import { Section } from './home';
 import { Field } from './fields'
 import { SlideElement } from './sliders'
 import { BeaeCollection } from './beae-element';
@@ -9,6 +10,7 @@ interface GalleryInfo {
 }
 
 export interface State {
+  sections: Section[] 
   gallery: {
     gap: number
     column: number

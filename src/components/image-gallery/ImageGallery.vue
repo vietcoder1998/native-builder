@@ -10,7 +10,12 @@ export default defineComponent({
     Modal,
     LightBox
   },
-  props: {},
+  props: {
+    postion: Array as PropType<number[]>,
+    sid: Number,
+    cid: Number,
+    eid: Number
+  },
   data() {
     return {
       fixingItem: {
@@ -39,14 +44,21 @@ export default defineComponent({
       //@ts-ignore
       return `w-full p-${this.gap} `
     },
+    elementDetail() {
+      return this.$store.state.sections[this.sid].columns[this.cid].elements[
+        this.eid
+      ]
+    },
     column(): number {
-      return this.$store.state.gallery.column
+      console.log(this.elementDetail)
+      return this.elementDetail.column
     },
     gap(): number {
-      return this.$store.state.gallery.gap
+      return this.elementDetail.gap
     },
     items(): GalleryItem[] {
-      return this.$store.state.gallery.items
+      console.log('image gallery => ', typeof this.elementDetail.fields)
+      return Object.values(this.elementDetail.fields)
     },
     imageFlexing() {
       let matrix: any[][] = []
@@ -54,11 +66,14 @@ export default defineComponent({
         matrix.push([])
       }
 
+      console.log(this.items, this.items.length, this.column)
+
       this.items.forEach((item, i) => {
         let t = i % this.column
         matrix[t].push(item)
       })
 
+      console.log(matrix)
       return matrix
     }
   },
@@ -93,16 +108,12 @@ export default defineComponent({
     >
       <h3>Fix item {{ itemIndex }}</h3>
     </modal>
-    <div
-      v-for="(vertical, i) in imageFlexing"
-      :class="childCls"
-      :key="i"
-    >
+    <div v-for="(vertical, i) in imageFlexing" :class="childCls" :key="i">
       <div v-for="(hoziral, i1) in vertical" :key="i1">
         <img
           :src="hoziral.src"
           :alt="hoziral.alt"
-          @click="onShowLightBox( hoziral, i * i1 + i1)"
+          @click="onShowLightBox(hoziral, i * i1 + i1)"
           :class="imgCls"
         />
       </div>

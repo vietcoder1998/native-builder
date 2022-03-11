@@ -7,6 +7,12 @@ import Accordion from '../ui/Accordion.vue'
 export default defineComponent({
   name: 'form-contact-view',
   components: { DymamicInput, Accordion },
+  props: {
+    postion: Array as PropType<number[]>,
+    sid: Number,
+    cid: Number,
+    eid: Number
+  },
   refs: {},
   computed: {
     formatInput() {
@@ -19,8 +25,11 @@ export default defineComponent({
     fieldTypes(): string[] {
       return Object.values(FieldName)
     },
+    elementDeatail(){
+      return this.$store.state.sections[this.sid].columns[this.cid].elements[this.eid]
+    },
     fields() {
-      return this.$store.state.formContact.fields
+      return this.elementDeatail.fields
     }
   },
   methods: {

@@ -1,100 +1,25 @@
 <script lang="ts">
 import { defineComponent } from 'vue'
-import FormContact from './../components/form-contact/FormContact.vue'
-import Gallery from './../components/image-gallery/ImageGallery.vue'
-import SlidePage from './../components/slides/Slides.vue'
-import Tabs from '../components/ui/Tabs.vue'
-import Tab from '../components/ui/Tab.vue'
+import DynamicElement from '../components/layout/DynamicElement.vue'
 import Accordion from '../components/ui/Accordion.vue'
-import { Section } from '../typing/home'
+import Tab from '../components/ui/Tab.vue'
+import Tabs from '../components/ui/Tabs.vue'
 
 export default defineComponent({
   setup() {},
   name: 'home-page',
   components: {
-    FormContact,
-    Gallery,
-    SlidePage,
     Tabs,
     Tab,
-    Accordion
+    Accordion,
+    DynamicElement
   },
-  data(): { sections: Section[] } {
-    return {
-      sections: [
-        {
-          name: 'Section1',
-          id: '1',
-          columns: [
-            {
-              name: 'Column1',
-              elements: [
-                {
-                  name: 'abc',
-                  type: 'test'
-                }
-              ]
-            },
-            {
-              name: 'Column1',
-              elements: [
-                {
-                  name: 'abc',
-                  type: 'test'
-                }
-              ]
-            }
-          ]
-        },
-        {
-          name: 'Section2',
-          id: '2',
-          columns: [
-            {
-              name: 'Column1',
-              elements: [
-                {
-                  name: 'abc',
-                  type: 'test'
-                }
-              ]
-            },
-            {
-              name: 'Column2',
-              elements: [
-                {
-                  name: 'abc',
-                  type: 'test'
-                }
-              ]
-            }
-          ]
-        },
-        {
-          name: 'Section3',
-          id: '3',
-          columns: [
-            {
-              name: 'Column1',
-              elements: [
-                {
-                  name: 'abc',
-                  type: 'test'
-                }
-              ]
-            },
-            {
-              name: 'Column2',
-              elements: [
-                {
-                  name: 'abc',
-                  type: 'test'
-                }
-              ]
-            }
-          ]
-        }
-      ]
+  computed: {
+    sections() {
+      return this.$store.state.sections
+    },
+    position() {
+      return (sid: number, cid: number, eid: number) => [sid, cid, eid]
     }
   }
 })
@@ -128,11 +53,16 @@ export default defineComponent({
         <Tab title="Element">Element</Tab>
       </Tabs>
     </div>
-    <div>
-      <div>
-        <Gallery></Gallery>
-        <FormContact></FormContact>
-        <SlidePage></SlidePage>
+    <div class="content">
+      <div v-for="(section, sid) in sections" :key="sid">
+        <div v-for="(column, cid) in section.columns" :key="cid">
+          <div v-for="(element, eid) in column.elements" :key="eid">
+            <DynamicElement
+              v-bind:position="position(sid, cid, eid)"
+              v-bind:type="element.type"
+            />
+          </div>
+        </div>
       </div>
     </div>
   </div>

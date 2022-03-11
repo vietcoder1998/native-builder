@@ -55,7 +55,7 @@ export default defineComponent({
       + Add
     </button>
     <form v-show="open" ref="formAdd" @submit.prevent="submitForm">
-      <div v-for="(vl, id) in collection">
+      <!-- <div v-for="(vl, id) in collection">
         <DynamicInput
           v-bind:field="{
             title: vl?.name,
@@ -66,7 +66,7 @@ export default defineComponent({
             }
           }"
         />
-      </div>
+      </div> -->
       <button @click="open = !open" class="ml-5 p-2 border">Cancel</button>
       <button type="submit" class="ml-5 p-2 border">Submit</button>
     </form>

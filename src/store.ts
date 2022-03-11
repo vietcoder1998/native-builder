@@ -1,10 +1,15 @@
+import { ElementType } from './typing/home'
 // store.ts
 import { InjectionKey, StyleHTMLAttributes } from 'vue'
 import { createStore } from 'vuex'
 import { State } from './typing/store'
-import { Field } from './typing/fields';
-import { Store } from 'vuex';
-import { BeaeCollection } from './typing/beae-element';
+import { Field } from './typing/fields'
+import { Store } from 'vuex'
+import { BeaeCollection } from './typing/beae-element'
+import collections from './data/collections'
+import formContact from './data/form-contact'
+import gallery from './data/gallery'
+import slide from './data/slide'
 
 // define your typings for the store state
 
@@ -13,331 +18,65 @@ export const key: InjectionKey<Store<State>> = Symbol()
 
 export const store = createStore<State>({
   state: {
-    gallery: {
-      column: 3,
-      gap: 2,
-      items: [
-        {
-          src: 'https://picsum.photos/200/220',
-          title: 'Just add your desired ',
-          thumbnail: 'https://picsum.photos/200/100',
-        },
-        {
-          src: 'https://picsum.photos/200/120',
-          title: 'Just add your desired ',
-          thumbnail: 'https://picsum.photos/200/110',
-        },
-        {
-          src: 'https://picsum.photos/200/270',
-          title: 'Just add your desired ',
-          thumbnail: 'https://picsum.photos/200/150'
-        },
-        {
-          src: 'https://picsum.photos/200/300',
-          title: 'Just add your desired ',
-          thumbnail: 'https://picsum.photos/200/170'
-        },
-        {
-          src: 'https://picsum.photos/200/80',
-          title: 'Just add your desired ',
-          thumbnail: 'https://picsum.photos/200/40'
-        },
-        {
-          src: 'https://picsum.photos/200/100',
-          title: 'Just add your desired ',
-          thumbnail: 'https://picsum.photos/200/90'
-        },
-        {
-          src: 'https://picsum.photos/200/70',
-          title: 'Just add your desired ',
-          thumbnail: 'https://picsum.photos/200/40'
-        },
-        {
-          src: 'https://picsum.photos/200/90',
-          title: 'Just add your desired ',
-          thumbnail: 'https://picsum.photos/200/60'
-        },
-        {
-          src: 'https://picsum.photos/200/320',
-          title: 'Just add your desired ',
-          thumbnail: 'https://picsum.photos/200/40'
-        },
-        {
-          src: 'https://picsum.photos/200/320',
-          title: 'Just add your desired ',
-          thumbnail: 'https://picsum.photos/200/40'
-        },
-        {
-          src: 'https://picsum.photos/200/320',
-          title: 'Just add your desired ',
-          thumbnail: 'https://picsum.photos/200/80'
-        },
-        {
-          src: 'https://picsum.photos/200/120',
-          title: 'Just add your desired ',
-          thumbnail: 'https://picsum.photos/200/40'
-        }
-      ]
-    },
-    formContact: {
-      fields: [
-        {
-          title: 'Your name',
-          type: 'text',
-          index: 0,
-          value: null,
-          customHTMLAttributes: {
-            width: 120,
-            required: true,
-            placeholder: 'must longer than 8',
-            description: 'please add your name',
-            name: 'name',
-            showError: false,
-            error: ''
+    sections: [
+      {
+        name: 'section1',
+        gap: 3,
+        quantity: 4,
+        total: 12,
+        columns: [
+          {
+            name: 'column1',
+            elements: [
+              {
+                name: 'gallery',
+                type: ElementType.gallery,
+                fields: gallery,
+                gap: 1,
+                column: 4
+              }
+            ]
           }
-        },
-        {
-          title: 'Your Email',
-          type: 'text',
-          index: 1,
-          value: null,
-          customHTMLAttributes: {
-            width: 120,
-            required: true,
-            placeholder: 'must longer than 8',
-            description: 'please add your name',
-            name: 'mail',
-            error: ''
+        ]
+      },
+      {
+        name: 'section2',
+        columns: [
+          {
+            name: 'column1',
+            gap: 3,
+            quantity: 4,
+            elements: [
+              {
+                name: 'gallery',
+                type: ElementType.form,
+                fields: formContact,
+                gap: 1,
+                column: 4
+              }
+            ]
           }
-        },
-        {
-          title: 'Time',
-          type: 'date',
-          width: 120,
-          index: 2,
-          value: null,
-          customHTMLAttributes: {
-            required: true,
-            placeholder: 'must longer than 8',
-            description: 'please add your name',
-            name: 'Time',
-            error: ''
+        ]
+      },
+      {
+        name: 'section3',
+        columns: [
+          {
+            name: 'column1',
+            elements: [
+              { name: 'gallery', type: ElementType.slide, fields: slide, gap: 1,
+                column: 4 }
+            ]
           }
-        },
-        {
-          title: 'Select',
-          type: 'dropdown',
-          index: 3,
-          value: null,
-          customHTMLAttributes: {
-            width: 120,
-            required: true,
-            placeholder: 'please chose 1',
-            description: 'please add your name',
-            name: 'select',
-            options: ['The title 1', 'The title 2'] as String[],
-            error: ''
-          }
-        },
-        {
-          title: 'Checkbox',
-          type: 'checkbox',
-          index: 4,
-          value: null,
-          customHTMLAttributes: {
-            width: 120,
-            required: true,
-            placeholder: 'must longer than 8',
-            description: 'please add your name',
-            options: ['The title 1', 'The title 2'],
-            name: 'check-box',
-            error: ''
-          }
-        },
-        {
-          title: 'Radio',
-          type: 'radio',
-          width: 120,
-          index: 5,
-          value: null,
-          customHTMLAttributes: {
-            required: true,
-            placeholder: 'must longer than 8',
-            description: 'please add your name',
-            options: ['The title 1', 'The title 2'],
-            name: 'radio',
-            error: ''
-          }
-        },
-        {
-          title: 'Your message',
-          type: 'textarea',
-          value: '',
-          index: 6,
-          customHTMLAttributes: {
-            width: 120,
-            required: true,
-            placeholder: 'must longer than 8',
-            description: 'please add your name',
-            name: 'msg',
-            error: ''
-          }
-        },
-        {
-          title: 'Upload',
-          type: 'upload',
-          value: '',
-          index: 7,
-          customHTMLAttributes: {
-            width: 120,
-            required: true,
-            placeholder: 'must longer than 8',
-            description: 'please add your name',
-            name: 'msg',
-            error: ''
-          }
-        }
-      ]
-    },
-    slidePage: {
-      pagination: 'on',
-      navigation: 'on',
-      itemsNumber: 1,
-      slides: [
-        {
-          src: 'https://picsum.photos/200',
-          text: 'To get a square image, just add the size'
-        },
-        {
-          src: 'https://picsum.photos/200',
-          text: 'To get a square image, just add the size'
-        },
-        {
-          src: 'https://picsum.photos/200',
-          text: 'To get a square image, just add the size'
-        },
-        {
-          src: 'https://picsum.photos/200',
-          text: 'To get a square image, just add the size'
-        },
-        {
-          src: 'https://picsum.photos/200',
-          text: 'To get a square image, just add the size'
-        }
-      ]
-    },
-    collections: {
-      gap: 0,
-      column: 4,
-      items: [
-        {
-          thumbnail: 'https://picsum.photos/200/220',
-          productTitle: 'Just add your desired ',
-          price: 1.0,
-          addToCart: false
-        },
-        {
-          thumbnail: 'https://picsum.photos/200/220',
-          productTitle: 'Just add your desired ',
-          price: 1.0,
-          addToCart: false
-        }, {
-          thumbnail: 'https://picsum.photos/200/220',
-          productTitle: 'Just add your desired ',
-          price: 1.0,
-          addToCart: false
-        }, {
-          thumbnail: 'https://picsum.photos/200/220',
-          productTitle: 'Just add your desired ',
-          price: 1.0,
-          addToCart: false
-        }, {
-          thumbnail: 'https://picsum.photos/200/220',
-          productTitle: 'Just add your desired ',
-          price: 1.0,
-          addToCart: false
-        }, {
-          thumbnail: 'https://picsum.photos/200/220',
-          productTitle: 'Just add your desired ',
-          price: 1.0,
-          addToCart: false
-        }, {
-          thumbnail: 'https://picsum.photos/200/220',
-          productTitle: 'Just add your desired ',
-          price: 1.0,
-          addToCart: false
-        }, {
-          thumbnail: 'https://picsum.photos/200/220',
-          productTitle: 'Just add your desired ',
-          price: 1.0,
-          addToCart: false
-        }, {
-          thumbnail: 'https://picsum.photos/200/220',
-          productTitle: 'Just add your desired ',
-          price: 1.0,
-          addToCart: false
-        }, {
-          thumbnail: 'https://picsum.photos/200/220',
-          productTitle: 'Just add your desired ',
-          price: 1.0,
-          addToCart: false
-        }, {
-          thumbnail: 'https://picsum.photos/200/220',
-          productTitle: 'Just add your desired ',
-          price: 1.0,
-          addToCart: false
-        }, {
-          thumbnail: 'https://picsum.photos/200/220',
-          productTitle: 'Just add your desired ',
-          price: 1.0,
-          addToCart: false
-        }, {
-          thumbnail: 'https://picsum.photos/200/220',
-          productTitle: 'Just add your desired ',
-          price: 1.0,
-          addToCart: false
-        }, {
-          thumbnail: 'https://picsum.photos/200/220',
-          productTitle: 'Just add your desired ',
-          price: 1.0,
-          addToCart: false
-        }, {
-          thumbnail: 'https://picsum.photos/200/220',
-          productTitle: 'Just add your desired ',
-          price: 1.0,
-          addToCart: false
-        }, {
-          thumbnail: 'https://picsum.photos/200/220',
-          productTitle: 'Just add your desired ',
-          price: 1.0,
-          addToCart: false
-        }, {
-          thumbnail: 'https://picsum.photos/200/220',
-          productTitle: 'Just add your desired ',
-          price: 1.0,
-          addToCart: false
-        }, {
-          thumbnail: 'https://picsum.photos/200/220',
-          productTitle: 'Just add your desired ',
-          price: 1.0,
-          addToCart: false
-        }, {
-          thumbnail: 'https://picsum.photos/200/220',
-          productTitle: 'Just add your desired ',
-          price: 1.0,
-          addToCart: false
-        }, {
-          thumbnail: 'https://picsum.photos/200/220',
-          productTitle: 'Just add your desired ',
-          price: 1.0,
-          addToCart: false
-        },
-
-      ]
-    }
+        ]
+      }
+    ]
   },
   mutations: {
-    setValue(state: State, { vl, keys }: { vl: any | State; keys: (keyof State)[] }) {
+    setValue(
+      state: State,
+      { vl, keys }: { vl: any | State; keys: (keyof State)[] }
+    ) {
       console.log(vl, keys)
       if (!keys) {
         state = vl
@@ -358,11 +97,11 @@ export const store = createStore<State>({
     changePagination(state: State, pagination: string) {
       state.slidePage.pagination = pagination
     },
-    changeSlideSrc(state: State, { id, vl }: { id: number, vl: string }) {
+    changeSlideSrc(state: State, { id, vl }: { id: number; vl: string }) {
       console.log('change src', id, vl)
       state.slidePage.slides[id].src = vl
     },
-    changeSlideText(state: State, { id, vl }: { id: number, vl: string }) {
+    changeSlideText(state: State, { id, vl }: { id: number; vl: string }) {
       state.slidePage.slides[id].text = vl
     },
     pushCollection(state: State, collection: BeaeCollection) {
@@ -372,7 +111,11 @@ export const store = createStore<State>({
   }
 })
 
-function setValueFromMultipleKey(keys: (keyof typeof ob)[], ob: State, value: unknown) {
+function setValueFromMultipleKey(
+  keys: (keyof typeof ob)[],
+  ob: State,
+  value: unknown
+) {
   try {
     var temp = ob
     let len = keys.length
@@ -385,7 +128,7 @@ function setValueFromMultipleKey(keys: (keyof typeof ob)[], ob: State, value: un
         temp = temp[key]
       }
     }
-    //@ts-ingore
+    //@ts-ignore
     temp[keys[len - 1]] = value
     return ob
   } catch (error) {
