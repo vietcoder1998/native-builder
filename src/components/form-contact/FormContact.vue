@@ -8,9 +8,6 @@ export default defineComponent({
   name: 'form-contact-view',
   components: { DymamicInput, Accordion },
   refs: {},
-  props: {
-    fields: Array as PropType<Field[]>
-  },
   computed: {
     formatInput() {
       return (i: number): string =>
@@ -22,6 +19,9 @@ export default defineComponent({
     fieldTypes(): string[] {
       return Object.values(FieldName)
     },
+    fields() {
+      return this.$store.state.formContact.fields
+    }
   },
   methods: {
     // set value of CustomHTMLAttributes onchange textarea value
@@ -66,7 +66,7 @@ export default defineComponent({
   <form
     id="form-1"
     ref="form1"
-    class="grid grid-cols-2 gap-4 mx-3"
+    class="grid grid-cols-2 gap-4 mx-3 my-5"
     @submit.prevent=""
   >
     <div v-for="(field, id) in fields" :key="id" class="relative">

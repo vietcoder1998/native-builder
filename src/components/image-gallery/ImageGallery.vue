@@ -36,7 +36,7 @@ export default defineComponent({
 </script>
 
 <template>
-  <div class="fgrid">
+  <div class="fgrid selected-cpn">
     <LightBox
       v-bind:show="showLightBox"
       v-bind:src="fixingItem?.src"

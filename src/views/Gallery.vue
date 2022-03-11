@@ -137,11 +137,5 @@ export default defineComponent({
         @on-show-modal="onShowModal"
       />
     </div>
-    <div class="w-250 p-2">
-      <MultiColumnInfo v-show="!selected" />
-      <div v-show="selected">
-        <SingleColumnInfoVue :items="imageFlexing[selected]" :title="'Column' + selected" />
-      </div>
-    </div>
   </div>
 </template>

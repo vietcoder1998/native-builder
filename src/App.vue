@@ -3,9 +3,11 @@
 </script>
 
 <template>
-  <h1 class="text-3xl font-bold underline">Example</h1>
-  <button></button>
   <!--router link-->
+  <div>
+    <button></button>
+  </div>
+  <router-link to="/">Home</router-link>
   <router-link to="/gallery">gallery</router-link>
   <router-link to="/form-contact">form-contact</router-link>
   <router-link to="/slider">slider</router-link>
@@ -13,7 +15,6 @@
   <router-link to="/beae-collection">beae-collection</router-link>
 
   <!--router-view-->
-  <hr class="m-6" />
   <router-view></router-view>
 </template>
 

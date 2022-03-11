@@ -16,6 +16,7 @@
       "vite/client" // if using vite
       // ...
     ],
+    "extends": "@vue/tsconfig/tsconfig.json"
   },
   "include": ["src/**/*.ts", "src/**/*.d.ts", "src/**/*.tsx", "src/**/*.vue"],
   "references": [{ "path": "./tsconfig.node.json" }]

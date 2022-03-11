@@ -62,7 +62,7 @@ export default defineComponent({
 })
 </script>
 <template>
-  <div class="grid grid-cols-8">
+  <div class="grid grid-cols-8s">
     <div class="col-span-2">
       <Accordion title="Form Contact">
         <Accordion title="fields">

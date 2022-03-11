@@ -98,20 +98,20 @@ export default defineComponent({
             },
             value: pagination
           }"
-          @change="(e: Event) => changePagination(String(e))"
+          @change="changePagination"
         />
       </Accordion>
       <Accordion title="navigation">
         <RadioInput
+          @change="changeNavigation"
           v-bind:field="{
             index: 1,
             value: navigation,
             customHTMLAttributes: {
               options: ['on', 'off'],
-              name: 'navigation-slide'
-            }
+              name: 'navigation-slide',
+            },
           }"
-          @change="(e: Event) => changeNavigation(String(e))"
         />
       </Accordion>
     </div>
