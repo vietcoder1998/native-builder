@@ -1,5 +1,6 @@
 <script lang="ts">
 import { defineComponent, onMounted, ref, PropType } from 'vue'
+import dynamicElement from '../../mixin/dynamicElement'
 import { Field, CustomHTMLAttributes, FieldName } from '../../typing/fields'
 import DymamicInput from '../form/input/DynamicInput.vue'
 import Accordion from '../ui/Accordion.vue'
@@ -14,56 +15,51 @@ export default defineComponent({
     eid: Number
   },
   refs: {},
+  mixins: [dynamicElement<any, any, Field>()],
   computed: {
     formatInput() {
       return (i: number): string =>
-        this.fields ? JSON.stringify(this.fields[i].customHTMLAttributes) : ''
+        this.items ? JSON.stringify(this.items[i].customHTMLAttributes) : ''
     },
     checkFieldType() {
       return (type: FieldName): string => (type ? type : 'text')
     },
     fieldTypes(): string[] {
       return Object.values(FieldName)
-    },
-    elementDeatail(){
-      return this.$store.state.sections[this.sid].columns[this.cid].elements[this.eid]
-    },
-    fields() {
-      return this.elementDeatail.fields
     }
   },
   methods: {
     // set value of CustomHTMLAttributes onchange textarea value
     onChangeAttributes(e: Event): void {
-      if (this.fields) {
+      if (this.items) {
         const nAttb: CustomHTMLAttributes = JSON.parse(
           (e.target as HTMLTextAreaElement).value
         )
         const k: number = Number(
           (e?.target as HTMLTextAreaElement).id.split('custom')[0]
         )
-        this.fields[k].customHTMLAttributes = nAttb
+        this.items[k].customHTMLAttributes = nAttb
       }
     },
     addNewField() {
-      if (this.fields) {
+      if (this.items) {
         let field: Field = {
           title: 'New Item',
           type: FieldName.text,
-          index: this.fields.length,
+          index: this.items.length,
           customHTMLAttributes: {
             placeholder: 'new description',
             name: 'text'
           }
         }
         field.title = 'New Item'
-        this.fields.push(field)
+        this.items.push(field)
       }
     },
     onUpdateInputValue(index: number, value: string) {
       console.log('update ->', index, value)
-      if (index && this.fields && this.fields[index]) {
-        this.$store.state.formContact.fields[index] = value
+      if (index && this.items && this.items[index]) {
+        this.$store.state.formContact.items[index] = value
       } else {
         console.log('no index or value', index, value)
       }
@@ -79,7 +75,7 @@ export default defineComponent({
       class="grid grid-cols-2 gap-4 mx-3 my-5"
       @submit.prevent=""
     >
-      <div v-for="(field, id) in fields" :key="id" class="relative">
+      <div v-for="(field, id) in items" :key="id" class="relative">
         <DymamicInput
           v-bind:field="field"
           @on-input-field="onUpdateInputValue"

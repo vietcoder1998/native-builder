@@ -37,7 +37,7 @@ export default defineComponent({
         break
 
       case ElementType.slide:
-        this.current = ImageGalleryVue
+        this.current = SlidesVue
         break
 
       default:

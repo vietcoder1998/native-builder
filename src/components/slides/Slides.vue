@@ -5,7 +5,7 @@ import { Swiper, SwiperSlide } from 'swiper/vue'
 import { Navigation, Pagination, Scrollbar, A11y } from 'swiper'
 import Accordion from '../ui/Accordion.vue'
 import RadioInput from '../form/input/RadioInput.vue'
-import store from '../../mixin/store'
+import dynamicElement from '../../mixin/dynamicElement'
 
 export default defineComponent({
   setup() {
@@ -22,13 +22,13 @@ export default defineComponent({
     }
   },
   name: 'slides',
-  mixins: [store],
+  mixins: [dynamicElement],
   components: {
     Swiper,
     SwiperSlide,
     Accordion,
     RadioInput
-  },
+  }
 })
 </script>
 <template>
