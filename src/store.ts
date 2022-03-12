@@ -71,8 +71,8 @@ export const store = createStore<State>({
                 gap: 1,
                 column: 4,
                 options: {
-                  pagination: true,
-                  navigation: true,
+                  pagination: 'on',
+                  navigation: 'on',
                   itemsNumber: 3
                 }
               }

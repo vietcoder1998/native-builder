@@ -1,5 +1,5 @@
 <script lang="ts">
-import { defineComponent,PropType } from 'vue'
+import { defineComponent, PropType } from 'vue'
 import store from '../../mixin/store'
 import { ElementType } from '../../typing/home'
 import FormContactVue from '../form-contact/FormContact.vue'
@@ -11,15 +11,13 @@ export default defineComponent({
   components: {
     ImageGalleryVue,
     SlidesVue,
-    FormContactVue,
+    FormContactVue
   },
   props: {
     type: String as PropType<ElementType>,
     position: Array as PropType<number[]>
   },
-  created() {
-    console.log(this.$props)
-  },
+  created() {},
   data(): { current: any } {
     return {
       current: {}

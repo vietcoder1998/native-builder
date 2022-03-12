@@ -22,7 +22,7 @@ export default defineComponent({
     }
   },
   name: 'slides',
-  mixins: [dynamicElement],
+  mixins: [dynamicElement<any, any, SlideElement>()],
   components: {
     Swiper,
     SwiperSlide,
@@ -45,7 +45,7 @@ export default defineComponent({
   >
     <swiper-slide v-for="(item, i) in items" :key="i">
       <img v-bind:src="item.src" alt="text" />
-      <p>{{ slide.text }}</p>
+      <p>{{ slide?.text }}</p>
     </swiper-slide>
   </swiper>
 </template>
