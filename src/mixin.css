@@ -24,7 +24,6 @@ div[class~='fgrid'] {
 .fgrid {
   position: relative;
   display: flex;
-  flex-flow: column wrap;
   align-content: space-between;
   margin-bottom: 10px;
 }

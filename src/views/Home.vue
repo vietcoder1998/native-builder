@@ -72,14 +72,8 @@ export default defineComponent({
         </div>
       </div>
     </div>
-  </div>
-  <div class="w-250 p-2">
-    <!-- <MultiColumnInfo v-show="!selected" />
-    <div v-show="selected">
-      <SingleColumnInfoVue
-        :items="imageFlexing[selected]"
-        :title="'Column' + selected"
-      />
-    </div> -->
+    <div class="w-250 p-2">
+      {{'ehello world'}}
+    </div>
   </div>
 </template>
