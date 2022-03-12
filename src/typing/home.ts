@@ -4,8 +4,8 @@ export interface Column<T> {
   elements: Array<T>
 }
 
-export interface Element {
-  fields: Field[]
+export interface Element<T> {
+  fields: Field[] | T[]
   type: ElementType
   options?: Record<Symbol, any>
 }

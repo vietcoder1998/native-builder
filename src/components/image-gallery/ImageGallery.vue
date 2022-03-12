@@ -1,6 +1,7 @@
 <script lang="ts">
 import { defineComponent, PropType } from 'vue'
 import storeMixin from '../../mixin/store'
+import { Field } from '../../typing/fields'
 import { GalleryItem } from '../../typing/gallery'
 import LightBox from '../ui/LightBox.vue'
 import Modal from '../ui/Modal.vue'
@@ -31,7 +32,7 @@ export default defineComponent({
       newItem: {}
     }
   },
-  mixins: [storeMixin({sid: 0 , cid: 0 ,eid: 0})],
+  mixins: [storeMixin],
   computed: {
     itemIndex(): number {
       return this.fixingItem?.index || 0
@@ -48,24 +49,20 @@ export default defineComponent({
       //@ts-ignore
       return `w-full p-${this.gap} `
     },
-    items(): GalleryItem[] {
-      console.log('image gallery => ', typeof this.elementDetail.fields)
-      return Object.values(this.elementDetail.fields)
+    items(): GalleryItem[] | Field[] {
+      console.log('image gallery => ',  this.elementDetail.fields)
+      return this.elementDetail?.fields as GalleryItem[] || []
     },
     imageFlexing() {
       let matrix: any[][] = []
       for (let i = 0; i < this.column; i++) {
         matrix.push([])
       }
-
       console.log(this.items, this.items.length, this.column)
-
       this.items.forEach((item, i) => {
         let t = i % this.column
         matrix[t].push(item)
       })
-
-      console.log(matrix)
       return matrix
     }
   },
