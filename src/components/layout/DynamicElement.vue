@@ -1,5 +1,6 @@
 <script lang="ts">
 import { defineComponent,PropType } from 'vue'
+import store from '../../mixin/store'
 import { ElementType } from '../../typing/home'
 import FormContactVue from '../form-contact/FormContact.vue'
 import ImageGalleryVue from '../image-gallery/ImageGallery.vue'
@@ -36,7 +37,7 @@ export default defineComponent({
         break
 
       case ElementType.slide:
-        this.current = SlidesVue
+        this.current = ImageGalleryVue
         break
 
       default:

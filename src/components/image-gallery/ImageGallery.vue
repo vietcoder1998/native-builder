@@ -1,5 +1,6 @@
 <script lang="ts">
 import { defineComponent, PropType } from 'vue'
+import storeMixin from '../../mixin/store'
 import { GalleryItem } from '../../typing/gallery'
 import LightBox from '../ui/LightBox.vue'
 import Modal from '../ui/Modal.vue'
@@ -11,10 +12,12 @@ export default defineComponent({
     LightBox
   },
   props: {
-    postion: Array as PropType<number[]>,
     sid: Number,
     cid: Number,
     eid: Number
+  },
+  created() {
+    console.log(this.$props)
   },
   data() {
     return {
@@ -28,6 +31,7 @@ export default defineComponent({
       newItem: {}
     }
   },
+  mixins: [storeMixin({sid: 0 , cid: 0 ,eid: 0})],
   computed: {
     itemIndex(): number {
       return this.fixingItem?.index || 0
@@ -43,18 +47,6 @@ export default defineComponent({
     imgCls() {
       //@ts-ignore
       return `w-full p-${this.gap} `
-    },
-    elementDetail() {
-      return this.$store.state.sections[this.sid].columns[this.cid].elements[
-        this.eid
-      ]
-    },
-    column(): number {
-      console.log(this.elementDetail)
-      return this.elementDetail.column
-    },
-    gap(): number {
-      return this.elementDetail.gap
     },
     items(): GalleryItem[] {
       console.log('image gallery => ', typeof this.elementDetail.fields)

@@ -91,9 +91,7 @@ export const store = createStore<State>({
       if (!keys) {
         state = vl
       } else {
-        
-        
-        
+        state = setValueFromMultipleKey(keys, state, vl)
       }
     },
 
@@ -123,31 +121,12 @@ export const store = createStore<State>({
   },
   getters: {
     // get value of fields in store
-    items(
-      state: State,
-      { sid, cid, eid }: { sid: number; cid: number; eid: number }
-    ) {
-      console.log('mixin in here')
-      return state.sections[sid].columns[cid].elements[eid].fields
-    },
-    column(
-      state: State,
-      { sid, cid, eid }: { sid: number; cid: number; eid: number }
-    ) {
-      return state.sections[sid].columns[cid].elements[eid].column
-    },
-    gap(
-      state: State,
-      { sid, cid, eid }: { sid: number; cid: number; eid: number }
-    ) {
-      return state.sections[sid].columns[cid].elements[eid].gap
-    },
-    options(
-      state: State,
-      { sid, cid, eid }: { sid: number; cid: number; eid: number }
-    ) {
-      return state.sections[sid].columns[cid].elements[eid].options
-    }
+    element:
+      (state) =>
+      ({ sid, cid, eid }) => {
+        console.log(sid, cid, eid)
+        return state.sections[sid].columns[cid].elements[eid]
+      }
   }
 })
 
