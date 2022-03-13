@@ -56,7 +56,6 @@ export default defineComponent({
       for (let i = 0; i < column; i++) {
         matrix.push([])
       }
-      console.log(this.items, this.items.length, this.column)
       this.items.forEach((item, i) => {
         let t = i % column 
         matrix[t].push(item)

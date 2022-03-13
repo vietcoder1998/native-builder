@@ -1,18 +1,15 @@
 <script lang="ts">
-import { defineComponent, PropType } from 'vue'
-import store from '../../mixin/store'
+import { defineComponent, PropType, shallowRef } from 'vue'
 import { ElementType } from '../../typing/home'
 import FormContactVue from '../form-contact/FormContact.vue'
 import ImageGalleryVue from '../image-gallery/ImageGallery.vue'
 import SlidesVue from '../slides/Slides.vue'
 
+const imgGal = shallowRef(ImageGalleryVue)
+const slideVue = shallowRef(SlidesVue)
+const formCon = shallowRef(FormContactVue)
 export default defineComponent({
   name: 'dynamic-element',
-  components: {
-    ImageGalleryVue,
-    SlidesVue,
-    FormContactVue
-  },
   props: {
     type: String as PropType<ElementType>,
     position: Array as PropType<number[]>
@@ -27,19 +24,19 @@ export default defineComponent({
   beforeMount() {
     switch (this.type) {
       case ElementType.gallery:
-        this.current = ImageGalleryVue
+        this.current = imgGal
         break
 
       case ElementType.form:
-        this.current = FormContactVue
+        this.current = formCon
         break
 
       case ElementType.slide:
-        this.current = SlidesVue
+        this.current = slideVue
         break
 
       default:
-        this.current = ImageGalleryVue
+        this.current = formCon
         break
     }
   },

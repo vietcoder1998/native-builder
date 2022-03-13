@@ -1,5 +1,5 @@
 <script lang="ts">
-import { defineComponent, PropType } from '@vue/runtime-core'
+import { defineComponent, PropType, shallowRef } from 'vue'
 import { Field, FieldName } from '../../../typing/fields'
 import CheckBoxVue from './CheckBox.vue'
 import DateInputVue from './DateInput.vue'
@@ -10,16 +10,17 @@ import TextAreaVue from './TextArea.vue'
 import TextInputVue from './TextInput.vue'
 import UploadVue from './Upload.vue'
 
+const numbIn = shallowRef(NumberInputVue)
+const uploIn = shallowRef(UploadVue)
+const textIn = shallowRef(TextInputVue)
+const seleIn = shallowRef(SelectInputVue)
+const radiIn = shallowRef(RadioInputVue)
+const areaIn = shallowRef(TextAreaVue)
+const dateIn = shallowRef(DateInputVue)
+const checIn = shallowRef(CheckBoxVue)
+
 export default defineComponent({
   name: 'validate-field',
-  components: {
-    NumberInputVue,
-    TextInputVue,
-    SelectInputVue,
-    DateInputVue,
-    RadioInputVue,
-    UploadVue
-  },
   data() {
     return {
       current: {},
@@ -50,34 +51,34 @@ export default defineComponent({
     forceRender(): void {
       switch (this.field?.type) {
         case FieldName.upload:
-          this.current = UploadVue
+          this.current = uploIn
           break
 
         case FieldName.textarea:
-          this.current = TextAreaVue
+          this.current = textIn
           break
 
         case FieldName.dropdown:
-          this.current = SelectInputVue
+          this.current = seleIn
           break
 
         case FieldName.number:
-          this.current = NumberInputVue
+          this.current = numbIn
           break
         case FieldName.radio:
-          this.current = RadioInputVue
+          this.current = radiIn
           break
 
         case FieldName.date:
-          this.current = DateInputVue
+          this.current = dateIn
           break
 
         case FieldName.checkbox:
-          this.current = CheckBoxVue
+          this.current = checIn
           break
 
         default:
-          this.current = TextInputVue
+          this.current = textIn
           break
       }
     },
@@ -93,11 +94,7 @@ export default defineComponent({
             this.$emit('on-input-field', this.field?.index, previewImage)
           }
         } else {
-          this.$emit(
-            'on-input-field',
-            this.field?.index,
-            e?.target?.value
-          )
+          this.$emit('on-input-field', this.field?.index, e?.target?.value)
         }
       }
     }

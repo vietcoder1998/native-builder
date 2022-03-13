@@ -26,7 +26,8 @@ export default defineComponent({
     },
     fieldTypes(): string[] {
       return Object.values(FieldName)
-    }
+    },
+ 
   },
   methods: {
     // set value of CustomHTMLAttributes onchange textarea value

@@ -11,9 +11,7 @@ function dynamicElement<T, T1, T2>(): Dynamic<T, T1, T2> {
       cid: Number,
       eid: Number
     },
-    created() {
-      console.log(this.items)
-    },
+    created() {},
     computed: {
       // mix the getters into computed with object spread operator
       ...mapGetters(['element']),
@@ -26,7 +24,6 @@ function dynamicElement<T, T1, T2>(): Dynamic<T, T1, T2> {
         return detail
       },
       column(): number {
-        console.log(this.elementDetail)
         return this.elementDetail.column || 1
       },
       gap(): number {
