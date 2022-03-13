@@ -1,34 +1,66 @@
 <script lang="ts">
 import { defineComponent } from 'vue'
-import selector from '../../mixin/selector'
+import { mapGetters, mapMutations } from 'vuex'
 import Accordion from '../ui/Accordion.vue'
 import DynamicInput from '../ui/input/DynamicInput.vue'
+
 export default defineComponent({
   name: 'selector-info',
-  mixins: [selector()],
   components: { Accordion, DynamicInput },
-  computed: {}
+  computed: {
+    ...mapGetters(['selector'])
+  },
+  methods: {
+    ...mapMutations(['onUpdateSelector']),
+    onSaveOption() {
+      // transform Form into Array<{[key: string]: value }>
+      console.log(this.selector)
+      const nOptions: object[] = Array.from(
+        //@ts-ignore
+        this.$refs?.selectorRef?.getElementsByTagName(
+          'input'
+        ) as HTMLInputElement[],
+        (item: HTMLInputElement) => ({
+          [item?.name]: [
+            item?.value,
+            this.selector?.value?.options?.[item.name][1],
+            this.selector?.value?.options?.[item.name][2] || []
+          ]
+        })
+      )
+
+      this.onUpdateSelector(nOptions)
+
+      alert('Alert success')
+    }
+  }
 })
 </script>
 <template>
   <div>
-    <div>
-      <div v-for="(properties, k) in selector.value?.options" v-bind:key="k">
-        <DynamicInput
-          class="w-full"
-          v-bind:id="'element-selector' + k.toString()"
-          v-bind:field="{
-            value: properties[0],
-            type: properties[1],
-            title: k.toString(),
-            index: parseInt(k.toString()),
-            customHTMLAttributes: {
-              options: properties[2],
-              name: k.toString()
-            }
-          }"
-        />
-      </div>
+    <div v-show="selector.position[1] !== -1">
+      <form ref="selectorRef" @submit.prevent="onSaveOption">
+        <div v-for="(options, k) in selector.value?.options" v-bind:key="k">
+          <DynamicInput
+            class="w-full"
+            v-bind:id="'element-selector' + k.toString()"
+            v-bind:field="{
+              value: options[0],
+              type: options[1],
+              title: k.toString(),
+              index: parseInt(k.toString()),
+              customHTMLAttributes: {
+                options: options[2],
+                name: k.toString()
+              }
+            }"
+          />
+        </div>
+        <div class="text-right">
+          <button class="bg-red-200 rounded p-2 mr-2">Cancel</button>
+          <button class="bg-blue-400 rounded p-2" type="submit">Save</button>
+        </div>
+      </form>
     </div>
   </div>
 </template>

@@ -1,9 +1,10 @@
 <script lang="ts">
 import { defineComponent, PropType } from 'vue'
+import IconVue from './Icon.vue'
 export default defineComponent({
   name: 'accordion',
   setup() {},
-  components: {},
+  components: { IconVue },
   props: {
     title: String,
     key: String,
@@ -29,7 +30,7 @@ export default defineComponent({
 <template>
   <div class="relative mb-2">
     <div :class="open && 'bg-blue-200' + ' rounded'">
-      <font-awesome-icon icon="bicycle"></font-awesome-icon>
+      <!-- <IconVue icon="angle-up"/> -->
       <button
         :class="'px-2 py-1 relative w-full text-left rounded border'"
         @click=";(open = !open), $emit('open')"

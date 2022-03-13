@@ -128,7 +128,6 @@ export const store = createStore<State>({
       state.slidePage.pagination = pagination
     },
     changeSlideSrc(state: State, { id, vl }: { id: number; vl: string }) {
-      console.log('change src', id, vl)
       state.slidePage.slides[id].src = vl
     },
     changeSlideText(state: State, { id, vl }: { id: number; vl: string }) {
@@ -179,6 +178,40 @@ export const store = createStore<State>({
         value,
         position
       }
+    },
+    onUpdateSelector(state, nOptions: Option[]): void {
+      const { position, type } = state.selector
+      const options = nOptions.reduce((reactive, item: Option) => ({
+        ...reactive,
+        [Object.keys(item)[0]]: Object.values(item)[0]
+      }))
+      let selectorOp = {}
+
+      switch (type) {
+        case 'section':
+          selectorOp = state.sections[position[0]].options.bind(...options)
+
+          break
+        case 'column':
+          selectorOp = state.sections[position[0]].columns[position[1]].options
+          break
+        case 'element':
+          selectorOp =
+            state.sections[position[0]].columns[position[1]].elements[
+              position[2]
+            ].options
+          break
+        case 'field':
+          selectorOp = state.sections[position[0]].columns[
+            position[1]
+          ].elements[position[2]].fields[position[3]].options.bind(...options)
+          break
+
+        default:
+          break
+      }
+
+      Object.assign(selectorOp, { ...options })
     }
   },
   getters: {
@@ -200,7 +233,7 @@ export const store = createStore<State>({
       ({ sid, cid, eid, fid }) =>
         state.sections[sid].columns[cid].elements[eid].fields[fid],
     selector: (state) => state.selector
-  },
+  }
 })
 
 function setValueFromMultipleKey(

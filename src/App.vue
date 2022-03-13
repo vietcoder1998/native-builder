@@ -1,5 +1,9 @@
-<script setup lang="ts">
+<script lang="ts">
+import { defineComponent } from '@vue/runtime-core'
 /* import font awesome icon component */
+export default defineComponent({
+  name: 'app'
+})
 </script>
 
 <template>
