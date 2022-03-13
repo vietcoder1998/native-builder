@@ -1,5 +1,8 @@
 import { ElementType } from './home'
 import { Field } from './fields'
+
+export type Options = [any, HTMLInputCustomAttributes, any[]]
+
 export interface Column {
   elements: Element[]
   name: string
@@ -11,13 +14,11 @@ export interface Element {
   fields: Field[]
   type: ElementType
   // foo: baz => baz[0] is value, baz[1] is type, baz[2] is options(ex: gap: [1, number, [2, 3, 4 ] )
-  options?: [any, HTMLInputCustomAttributes, any[]]
+  options?: Options
 }
 
-export type Options = [any, HTMLInputCustomAttributes, any[]]
-
-export interface Section<T> {
-  columns: Column<T>[]
+export interface Section {
+  columns: Column[]
   name: string
   id: string | number | undefined
   quantity: Options

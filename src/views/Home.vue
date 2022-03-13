@@ -1,13 +1,12 @@
 <script lang="ts">
 import { defineComponent } from 'vue'
+import { mapMutations } from 'vuex'
 import DynamicElement from '../components/layout/DynamicElement.vue'
+import SelectorInfo from '../components/layout/SelectorInfo.vue'
 import Accordion from '../components/ui/Accordion.vue'
 import Tab from '../components/ui/Tab.vue'
 import Tabs from '../components/ui/Tabs.vue'
-import SectionSelector from '../components/layout/SectionSelector.vue'
-import ElementSelector from '../components/layout/ElementSelector.vue'
-import { Section, ElementType, SelectorType, Position } from '../typing/index'
-import { mapMutations } from 'vuex'
+import { Position, Section, SelectorType } from '../typing/index'
 export default defineComponent({
   setup() {},
   name: 'home-page',
@@ -16,8 +15,7 @@ export default defineComponent({
     Tab,
     Accordion,
     DynamicElement,
-    SectionSelector,
-    ElementSelector
+    SelectorInfo
   },
   data(): {
     selectPropertiesId: Position
@@ -27,7 +25,7 @@ export default defineComponent({
     }
   },
   computed: {
-    sections(): Section<any>[] {
+    sections(): Section[] {
       return this.$store.state.sections
     },
     position() {
@@ -82,7 +80,7 @@ export default defineComponent({
                     v-bind:title="field.type + fid.toString()"
                     v-bind:class="'w-full rounded text-left hover:bg-slate-300'"
                     v-bind:cls="'ml-2 my-1'"
-                    @open="onSelect([sid, cid, eid, fid], 'element')"
+                    @open="onSelect([sid, cid, eid, fid], 'field')"
                   >
                   </Accordion>
                 </Accordion>
@@ -103,7 +101,7 @@ export default defineComponent({
         <div v-for="(column, cid) in section.columns" :key="cid">
           <div v-for="(element, eid) in column.elements" :key="eid">
             <DynamicElement
-              v-bind:position="position(sid, cid, eid, fid)"
+              v-bind:position="position(sid, cid, eid, -1)"
               v-bind:type="element.type"
             />
           </div>
@@ -113,8 +111,7 @@ export default defineComponent({
     <div class="w-250 p-2 bg-white ml-2">
       <button>{{ selector?.type }}</button>
       <hr />
-      <SelectSelector />
-      <ElementSelector />
+      <SelectorInfo />
     </div>
   </div>
 </template>

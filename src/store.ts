@@ -33,7 +33,9 @@ export const store = createStore<State>({
         columns: [
           {
             name: 'column1',
-            quantity: [1, 'number'],
+            options: {
+              quantity: [1, 'number']
+            },
             elements: [
               {
                 name: 'gallery',
@@ -162,10 +164,10 @@ export const store = createStore<State>({
             ]
           break
         case 'field':
-          state.selector.value =
+          value =
             state.sections[position[0]].columns[position[1]].elements[
               position[2]
-            ].fields[position[2]]
+            ].fields[position[3]]
           break
 
         default:

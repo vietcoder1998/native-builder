@@ -4,7 +4,7 @@ import selector from '../../mixin/selector'
 import Accordion from '../ui/Accordion.vue'
 import DynamicInput from '../form/input/DynamicInput.vue'
 export default defineComponent({
-  name: 'element-selector',
+  name: 'selector-info',
   mixins: [selector()],
   components: { Accordion, DynamicInput },
   computed: {}

@@ -1,6 +1,6 @@
 <script lang="ts">
 import { defineComponent, PropType, shallowRef } from 'vue'
-import { ElementType } from '../../typing/index'
+import { ElementType, Position } from '../../typing/index'
 import FormContactVue from '../form-contact/FormContact.vue'
 import ImageGalleryVue from '../image-gallery/ImageGallery.vue'
 import SlidesVue from '../slides/Slides.vue'
