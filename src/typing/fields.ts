@@ -1,3 +1,4 @@
+import { Options } from '.'
 export type FieldType =
   | 'text'
   | 'textarea'
@@ -47,7 +48,7 @@ export type Field<T> = {
 }
 
 export type FieldOptions<T> = {
-  position: [number, number, number, number]
+  position: Options
   options: [T, Tag, T[]]
 }
 

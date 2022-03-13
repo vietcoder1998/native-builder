@@ -9,7 +9,7 @@ export default defineComponent({
     key: String,
     name: String,
     id: String,
-    class: String,
+    cls: String,
     isShow: Boolean,
     position: Array as PropType<number[]>
   },
@@ -37,7 +37,7 @@ export default defineComponent({
         {{ title }}
       </button>
     </div>
-    <div v-show="open" class="ml-2 pt-2">
+    <div v-show="open" v-bind:class="cls || ''">
       <slot />
     </div>
   </div>

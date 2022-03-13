@@ -10,24 +10,5 @@ interface GalleryInfo {
 }
 
 export interface State {
-  sections: Section[] 
-  gallery: {
-    gap: number
-    column: number
-    items: GalleryInfo[]
-  }
-  formContact: {
-    fields: Field[]
-  }
-  slidePage: {
-    pagination: string
-    navigation: string
-    itemsNumber: number
-    slides: SlideElement[]
-  },
-  collections: {
-    gap: number
-    column: number
-    items: BeaeCollection[]
-  }
+  sections: Section[]
 }

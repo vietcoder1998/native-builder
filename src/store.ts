@@ -1,4 +1,4 @@
-import { ElementType, SelectorType } from './typing/home'
+import { ElementType, SelectorType } from './typing/index'
 // store.ts
 import { InjectionKey, StyleHTMLAttributes } from 'vue'
 import { createStore } from 'vuex'
@@ -26,17 +26,20 @@ export const store = createStore<State>({
     sections: [
       {
         name: 'section1',
-        gap: 3,
-        quantity: 4,
-        total: 12,
+        options: {
+          gap: [1, 'number'],
+          column: [1, 'number']
+        },
         columns: [
           {
             name: 'column1',
+            quantity: [1, 'number'],
             elements: [
               {
                 name: 'gallery',
                 type: ElementType.gallery,
                 fields: gallery,
+                // options define
                 options: {
                   // foo: [value, type, options]
                   gap: [1, 'number'],
@@ -57,15 +60,19 @@ export const store = createStore<State>({
         columns: [
           {
             name: 'column1',
-            gap: 3,
-            quantity: 4,
+            options: {
+              gap: [1, 'number'],
+              quantity: [1, 'number']
+            },
             elements: [
               {
                 name: 'form',
                 type: ElementType.form,
                 fields: formContact,
-                gap: 1,
-                column: 4
+                options: {
+                  gap: [1, 'number'],
+                  quantity: [1, 'number']
+                }
               }
             ]
           }
@@ -81,12 +88,11 @@ export const store = createStore<State>({
                 name: 'slide',
                 type: ElementType.slide,
                 fields: slide,
-                gap: 1,
-                column: 4,
+                gap: [1, 'number'],
                 options: {
-                  pagination: 'on',
-                  navigation: 'on',
-                  itemsNumber: 3
+                  pagination: ['on', 'radio', ['on', 'off']],
+                  navigation: ['on', 'radio', ['on', 'off']],
+                  itemsNumber: [3, 'number', ['on', 'off']]
                 }
               }
             ]
@@ -137,10 +143,7 @@ export const store = createStore<State>({
     removeSection(state: State, id: number) {},
     onSelectUI(
       state: State,
-      {
-        type,
-        position
-      }: { type: SelectorType; position: [number, number, number, number] }
+      { type, position }: { type: SelectorType; position: Position }
     ) {
       let value = {}
       switch (type) {
