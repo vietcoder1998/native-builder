@@ -18,6 +18,10 @@ export const key: InjectionKey<Store<State>> = Symbol()
 
 export const store = createStore<State>({
   state: {
+    selector: {
+      type: null,
+      value: {}
+    },
     sections: [
       {
         name: 'section1',
@@ -94,7 +98,6 @@ export const store = createStore<State>({
         state = setValueFromMultipleKey(keys, state, vl)
       }
     },
-
     pushFieldContact(state: State, item: Field) {
       state.formContact.fields.push(item)
     },
@@ -117,16 +120,76 @@ export const store = createStore<State>({
     pushCollection(state: State, collection: BeaeCollection) {
       console.groupCollapsed(collection)
       state.collections.items.push(collection)
+    },
+    addSection(state: State) {
+      const section: Sections = {}
+      state.sections.push(section)
+    },
+    removeSection(state: State, id: number) {},
+    onSelectUI(
+      state: State,
+      {
+        type,
+        position
+      }: { type: ElementType; position: [number, number, number, number] }
+    ) {
+      state.selector.type = type
+      switch (type) {
+        case ElementType.sections:
+          state.selector.value = getters.sections({
+            sid: position[0]
+          })
+          break
+        case ElementType.column:
+          state.selector.value = getters.column({
+            sid: position[0],
+            cid: position[0]
+          })
+          break
+        case ElementType.element:
+          state.selector.value = getters.element({
+            sid: position[0],
+            cid: position[0],
+            eid: position[0]
+          })
+          break
+        case ElementType.field:
+          state.selector.value = getters.field({
+            sid: position[0],
+            cid: position[0],
+            eid: position[0],
+            fid: position[0]
+          })
+          break
+
+        default:
+          state.selector = {
+            type: '',
+            value: {}
+          }
+          break
+      }
+      state.selector
     }
   },
   getters: {
     // get value of fields in store
     element:
       (state) =>
-      ({ sid, cid, eid }) => {
-        console.log(sid, cid, eid)
-        return state.sections[sid].columns[cid].elements[eid]
-      }
+      ({ sid, cid, eid }) =>
+        state.sections[sid].columns[cid].elements[eid],
+    column:
+      (state) =>
+      ({ sid, cid }) =>
+        state.sections[sid].columns[cid],
+    sections:
+      (state) =>
+      ({ sid }) =>
+        state.sections[sid],
+    field:
+      (state) =>
+      ({ sid, cid, eid, fid }) =>
+        state.sections[sid].columns[cid].elements[eid].fields[eid]
   }
 })
 

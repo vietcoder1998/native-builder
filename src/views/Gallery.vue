@@ -2,11 +2,8 @@
 import { defineComponent } from 'vue'
 import MultiFixer from '../components/form/fixer/MultiFixer.vue'
 import ImageGallery from '../components/image-gallery/ImageGallery.vue'
-import MultiColumnInfo from '../components/image-gallery/right-section/MultiColumnInfo.vue'
-import SingleColumnInfoVue from '../components/image-gallery/right-section/SingleColumnInfo.vue'
 import Add from '../components/layout/Add.vue'
 import Accordion from '../components/ui/Accordion.vue'
-import { FieldName } from '../typing/fields'
 import { GalleryItem } from '../typing/gallery'
 
 export default defineComponent({
@@ -16,8 +13,6 @@ export default defineComponent({
     Accordion,
     Add,
     MultiFixer,
-    MultiColumnInfo,
-    SingleColumnInfoVue
   },
   data(): {
     newItem: GalleryItem

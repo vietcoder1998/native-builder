@@ -4,6 +4,8 @@ import DynamicElement from '../components/layout/DynamicElement.vue'
 import Accordion from '../components/ui/Accordion.vue'
 import Tab from '../components/ui/Tab.vue'
 import Tabs from '../components/ui/Tabs.vue'
+import SectionUI from '../components/layout/SectionUI.vue'
+import ElementUI from '../components/layout/ElementUI.vue'
 
 export default defineComponent({
   setup() {},
@@ -12,7 +14,16 @@ export default defineComponent({
     Tabs,
     Tab,
     Accordion,
-    DynamicElement
+    DynamicElement,
+    SectionUI,
+    ElementUI
+  },
+  data(): {
+    selectPropertiesId: [number, number, number, number]
+  } {
+    return {
+      selectPropertiesId: [-1, -1, -1, -1]
+    }
   },
   computed: {
     sections() {
@@ -20,6 +31,11 @@ export default defineComponent({
     },
     position() {
       return (sid: number, cid: number, eid: number) => [sid, cid, eid]
+    }
+  },
+  methods: {
+    onSelectElement(position: [number, number, number, number]) {
+      this.selectPropertiesId = position
     }
   }
 })
@@ -60,8 +76,13 @@ export default defineComponent({
         <Tab title="Element">Element</Tab>
       </Tabs>
     </div>
-    <div class="content">
-      <div v-for="(section, sid) in sections" :key="sid">
+    <div class="content bg-white mb-2">
+      <div
+        v-for="(section, sid) in sections"
+        :key="sid"
+        @click="onSelect(sid)"
+        :class="sid === selectPropertiesId[0] && 'selected'"
+      >
         <div v-for="(column, cid) in section.columns" :key="cid">
           <div v-for="(element, eid) in column.elements" :key="eid">
             <DynamicElement
@@ -72,8 +93,15 @@ export default defineComponent({
         </div>
       </div>
     </div>
-    <div class="w-250 p-2">
-      {{'ehello world'}}
+    <div class="w-250 p-2 bg-white ml-2">
+      <SectionUI />
+      <ElementUI />
     </div>
   </div>
 </template>
+
+<style scoped>
+.selected {
+  border: solid blue 1px;
+}
+</style>

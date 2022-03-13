@@ -50,13 +50,15 @@ export default defineComponent({
       return `w-full p-${this.gap} `
     },
     imageFlexing() {
+      //@ts-ignore
+      let column: number = this.column
       let matrix: any[][] = []
-      for (let i = 0; i < this.column; i++) {
+      for (let i = 0; i < column; i++) {
         matrix.push([])
       }
       console.log(this.items, this.items.length, this.column)
       this.items.forEach((item, i) => {
-        let t = i % this.column
+        let t = i % column 
         matrix[t].push(item)
       })
       return matrix
@@ -64,12 +66,18 @@ export default defineComponent({
   },
   methods: {
     onShowLightBox(item: GalleryItem, index: number) {
-      this.showLightBox = !this.showLightBox
+      this.showLightBox = true
       this.fixingItem = { ...item, index }
     },
     onShowModal() {
-      this.showModal = false
+      this.showModal = true
       this.lastIndex = this.fixingItem?.index
+    },
+    onCloseLightBox() {
+      this.showLightBox = false
+    },
+    onCloseModal() {
+      this.showModal = false
     }
   }
 })
@@ -80,7 +88,7 @@ export default defineComponent({
     <LightBox
       :show="showLightBox"
       :src="fixingItem?.src"
-      @close="$emit('on-show-light-box')"
+      @close="onCloseLightBox"
     />
     <!--modal-->
     <modal
@@ -89,7 +97,7 @@ export default defineComponent({
       :src="fixingItem?.src"
       :thumbnail="fixingItem?.thumbnail"
       :index="fixingItem?.index"
-      @close="onShowModal"
+      @close="onCloseLightBox"
     >
       <h3>Fix item {{ itemIndex }}</h3>
     </modal>
