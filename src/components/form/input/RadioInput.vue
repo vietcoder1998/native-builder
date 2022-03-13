@@ -9,7 +9,7 @@ export default defineComponent({
   },
   computed: {
     HTMLInputName() {
-      return (...args: string[]): string => {
+      return (...args: (string | any)[]): string => {
         return Array.from(args).reduce(
           (a: string | undefined, b: string | undefined) => a + '-' + b
         )
@@ -25,14 +25,14 @@ export default defineComponent({
   >
     <input
       type="radio"
-      v-bind:id="HTMLInputName(field?.customHTMLAttributes.name, option)"
+      v-bind:id="HTMLInputName(field?.customHTMLAttributes?.name, option)"
       v-bind:name="field?.customHTMLAttributes.name"
       v-bind:required="field?.customHTMLAttributes.required"
       v-bind:value="option"
       :checked="option === field?.value"
       @click="$emit('change', option)"
     />
-    <label :for="HTMLInputName(field?.customHTMLAttributes.name, option)">
+    <label :for="HTMLInputName(field?.customHTMLAttributes?.name, option)">
       {{ option }}
     </label>
   </div>

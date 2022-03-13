@@ -6,7 +6,7 @@ export default defineComponent({
   name: 'upload',
   setup() {},
   props: {
-    field: {} as PropType<Field>
+    field: {} as PropType<Field<string>>
   }
 })
 </script>

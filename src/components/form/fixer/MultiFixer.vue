@@ -1,6 +1,6 @@
 <script lang="ts">
 import { defineComponent, PropType } from 'vue'
-import { FieldFixer } from '../../../typing/fields'
+import { Field } from '../../../typing/fields'
 import Accordion from '../../ui/Accordion.vue'
 import InputFixer from './InputFixer.vue'
 
@@ -11,12 +11,12 @@ export default defineComponent({
     InputFixer
   },
   props: {
-    initParams: [] as PropType<FieldFixer[]>,
+    initParams: [] as PropType<Field[]>,
     initName: String
   },
-  data(): { params: FieldFixer[] | undefined; element?: String } {
+  data(): { params: Field[] | undefined; element?: String } {
     return {
-      params: this.initParams as FieldFixer[],
+      params: this.initParams as Field[],
       element: this.initName as String
     }
   },

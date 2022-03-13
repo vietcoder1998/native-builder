@@ -5,7 +5,7 @@ import { Field } from '../../../typing/fields'
 export default defineComponent({
   name: 'select-input',
   props: {
-    field: Object as PropType<Field>
+    field: Object as PropType<Field<string | number>>
   },
   emits: ['change']
 })
@@ -13,10 +13,10 @@ export default defineComponent({
 
 <template>
   <select
-    :value="field?.value"
-    :name="field?.customHTMLAttributes.name"
-    class="w-full p-3 border"
-    :required="field?.customHTMLAttributes.required"
+    v-bind:value="field?.value"
+    v-bind:name="field?.customHTMLAttributes.name"
+    class="w-full p-1 border rounded"
+    v-bind:required="field?.customHTMLAttributes.required"
     @change="$emit('change')"
   >
     <option value="" disabled selected>

@@ -46,6 +46,7 @@ export default defineComponent({
       if (this.items) {
         let field: Field = {
           title: 'New Item',
+          tag: 'input',
           type: FieldName.text,
           index: this.items.length,
           customHTMLAttributes: {

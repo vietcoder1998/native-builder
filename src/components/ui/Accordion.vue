@@ -1,39 +1,42 @@
 <script lang="ts">
-import { defineComponent } from 'vue'
+import { defineComponent, PropType } from 'vue'
 export default defineComponent({
   name: 'accordion',
   setup() {},
-  components: {
-
-  },
+  components: {},
   props: {
     title: String,
     key: String,
     name: String,
     id: String,
     class: String,
-    isShow: Boolean
+    isShow: Boolean,
+    position: Array as PropType<number[]>
   },
-  data(): {open:boolean} {
+  data(): { open: boolean } {
     return {
-      open: this.isShow 
+      open: this.isShow
     }
   },
-  methods: {}
+  methods: {},
+  watch: {
+    isShow(n, o) {
+      this.open = n
+    }
+  }
 })
 </script>
 <template>
-  <div class="relative">
-    <div :class="open ? 'bg-blue-200' : ''">
+  <div class="relative mb-2">
+    <div :class="open && 'bg-blue-200' + ' rounded'">
       <font-awesome-icon icon="bicycle"></font-awesome-icon>
       <button
-        class="px-2 py-1 my-1 relative w-full text-left"
-        @click="open = !open, $emit('open')"
+        :class="'px-2 py-1 relative w-full text-left rounded border'"
+        @click=";(open = !open), $emit('open')"
       >
         {{ title }}
       </button>
     </div>
-    <hr />
     <div v-show="open" class="ml-2 pt-2">
       <slot />
     </div>

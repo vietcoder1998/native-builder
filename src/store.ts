@@ -20,7 +20,8 @@ export const store = createStore<State>({
   state: {
     selector: {
       type: null,
-      value: {}
+      value: {},
+      position: [-1, -1, -1, -1]
     },
     sections: [
       {
@@ -36,8 +37,16 @@ export const store = createStore<State>({
                 name: 'gallery',
                 type: ElementType.gallery,
                 fields: gallery,
-                gap: 1,
-                column: 3
+                options: {
+                  // foo: [value, type, options]
+                  gap: [1, 'number'],
+                  column: [1, 'number'],
+                  type: [
+                    ElementType.gallery,
+                    'select',
+                    ['gallery', 'slide', 'form']
+                  ]
+                }
               }
             ]
           }
@@ -133,36 +142,23 @@ export const store = createStore<State>({
         position
       }: { type: SelectorType; position: [number, number, number, number] }
     ) {
-      console.log('select', type, position)
       let value = {}
       switch (type) {
         case 'section':
-          console.log('section', type, position)
-
           value = state.sections[position[0]]
 
           break
         case 'column':
-          console.log('column', type, position)
           value = state.sections[position[0]].columns[position[1]]
 
           break
         case 'element':
-          console.log('element', type, position)
-
           value =
             state.sections[position[0]].columns[position[1]].elements[
               position[2]
             ]
-          console.log(
-            state.sections[position[0]].columns[position[1]].elements[
-              position[2]
-            ]
-          )
-
           break
         case 'field':
-          console.log('field', type, position)
           state.selector.value =
             state.sections[position[0]].columns[position[1]].elements[
               position[2]
@@ -175,9 +171,9 @@ export const store = createStore<State>({
 
       state.selector = {
         type,
-        value
+        value,
+        position
       }
-      console.log(state.selector)
     }
   },
   getters: {
@@ -197,7 +193,8 @@ export const store = createStore<State>({
     field:
       (state) =>
       ({ sid, cid, eid, fid }) =>
-        state.sections[sid].columns[cid].elements[eid].fields[fid]
+        state.sections[sid].columns[cid].elements[eid].fields[fid],
+    selector: (state) => state.selector
   }
 })
 

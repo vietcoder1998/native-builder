@@ -2,7 +2,7 @@ export type FieldType =
   | 'text'
   | 'textarea'
   | 'checkbox'
-  | 'dropdown'
+  | 'select'
   | 'button'
   | 'date'
   | 'radio'
@@ -12,7 +12,7 @@ export enum FieldName {
   text = 'text',
   textarea = 'textarea',
   checkbox = 'checkbox',
-  dropdown = 'dropdown',
+  select = 'select',
   button = 'button',
   date = 'date',
   radio = 'radio',
@@ -20,11 +20,10 @@ export enum FieldName {
   upload = 'upload'
 }
 
-export type FieldFixer = {
-  title: string
-  fieldType: string
-  customHTMLAttributes: Object
-  options?: FieldName[]
+export enum Tag {
+  input = 'input',
+  select = 'select',
+  img = 'img'
 }
 
 export enum HTMLInputCustomAttributes {
@@ -39,12 +38,17 @@ export enum HTMLInputCustomAttributes {
   options = 'options'
 }
 
-export type Field = {
+export type Field<T> = {
   title?: string
   type?: FieldName
-  value?: string
+  value?: T
   index: number
   customHTMLAttributes: CustomHTMLAttributes
+}
+
+export type FieldOptions<T> = {
+  position: [number, number, number, number]
+  options: [T, Tag, T[]]
 }
 
 export type CustomHTMLAttributes = {

@@ -28,7 +28,7 @@ export default defineComponent({
     }
   },
   props: {
-    field: {} as PropType<Field>
+    field: {} as PropType<Field<string | number>>
   },
 
   // called on init
@@ -38,7 +38,7 @@ export default defineComponent({
   // watch: listen props, change on change props
   watch: {
     field: {
-      handler(nValue: Field, oValue: Field) {
+      handler(n: Field<string | number>, o: Field<string | number>) {
         this.forceRender()
       },
       deep: true
@@ -55,10 +55,10 @@ export default defineComponent({
           break
 
         case FieldName.textarea:
-          this.current = textIn
+          this.current = areaIn
           break
 
-        case FieldName.dropdown:
+        case FieldName.select:
           this.current = seleIn
           break
 

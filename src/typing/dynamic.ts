@@ -1,5 +1,5 @@
-import { FieldType, FieldFixer } from './fields'
-export type DynamicInputField = FieldFixer
+import { FieldType, Field } from './fields'
+export type DynamicInputField = Field
 
 export enum DynamicSupportHTMLType {
   input = 'input',

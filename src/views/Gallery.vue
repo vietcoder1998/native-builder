@@ -21,7 +21,6 @@ export default defineComponent({
     isAdd: boolean
     lastIndex?: number
     showLightBox: boolean
-    selected: number
   } {
     return {
       newItem: { src: '', title: '', thumbnail: '' },
@@ -30,7 +29,6 @@ export default defineComponent({
       isAdd: false,
       lastIndex: 0,
       showLightBox: false,
-      selected: null
     }
   },
   methods: {
@@ -87,41 +85,13 @@ export default defineComponent({
 </script>
 <template>
   <div class="flex">
-    <div class="w-250">
-      <p class="text-lg bold border-bottom mb-2">Gallery</p>
-      <hr />
-      <Accordion title="MultiColumn">
-        <div
-          v-for="(img, key) in imageFlexing"
-          v-bind:key="key"
-          class="ml-2 w-full text-left"
-        >
-          <button
-            :class="
-              selected == key
-                ? 'text-blue-400 bg-blue-200 p-3 w-full text-left'
-                : ' p-3  w-full text-left'
-            "
-            @click="selected = key"
-          >
-            [] Columns
-          </button>
-        </div>
-      </Accordion>
-    </div>
     <div class="content">
       <ImageGallery
-        v-bind:cls="cls"
-        v-bind:childCls="childCls"
-        v-bind:column="column"
         v-bind:imageFlexing="imageFlexing"
-        v-bind:gap="gap"
         v-bind:newItem="newItem"
         v-bind:items="items"
         v-bind:showLightBox="showLightBox"
         v-bind:imgCls="imgCls"
-        @on-show-light-box="onShowLightBox"
-        @on-show-modal="onShowModal"
       />
     </div>
   </div>

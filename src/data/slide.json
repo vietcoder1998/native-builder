@@ -2,21 +2,25 @@
   {
     "src": "https://picsum.photos/200/300",
     "title": "Just add your desired ",
-    "thumbnail": "https://picsum.photos/200/300"
+    "thumbnail": "https://picsum.photos/200/300",
+    "customHTMLAttributes": {}
   },
   {
     "src": "https://picsum.photos/200/300",
     "title": "Just add your desired ",
-    "thumbnail": "https://picsum.photos/200/300"
+    "thumbnail": "https://picsum.photos/200/300",
+    "customHTMLAttributes": {}
   },
   {
     "src": "https://picsum.photos/200/300",
     "title": "Just add your desired ",
-    "thumbnail": "https://picsum.photos/200/300"
+    "thumbnail": "https://picsum.photos/200/300",
+    "customHTMLAttributes": {}
   },
   {
     "src": "https://picsum.photos/200/300",
     "title": "Just add your desired ",
-    "thumbnail": "https://picsum.photos/200/300"
+    "thumbnail": "https://picsum.photos/200/300",
+    "customHTMLAttributes": {}
   }
 ]

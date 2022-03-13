@@ -43,14 +43,14 @@ export default defineComponent({
   // watch: listen props, change on change props
   methods: {},
   computed: {
-    sid() {
-      return this.position[0]
+    sid(): number {
+      return this.position[0] || 0
     },
-    cid() {
-      return this.position[1]
+    cid(): number {
+      return this.position[1] || 0
     },
-    eid() {
-      return this.position[2]
+    eid(): number {
+      return this.position[2] || 0
     }
   }
 })

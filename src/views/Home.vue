@@ -4,8 +4,8 @@ import DynamicElement from '../components/layout/DynamicElement.vue'
 import Accordion from '../components/ui/Accordion.vue'
 import Tab from '../components/ui/Tab.vue'
 import Tabs from '../components/ui/Tabs.vue'
-import SectionUI from '../components/layout/SectionUI.vue'
-import ElementUI from '../components/layout/ElementUI.vue'
+import SectionSelector from '../components/layout/SectionSelector.vue'
+import ElementSelector from '../components/layout/ElementSelector.vue'
 import { Section, ElementType, SelectorType } from '../typing/home'
 import { mapMutations } from 'vuex'
 export default defineComponent({
@@ -16,8 +16,8 @@ export default defineComponent({
     Tab,
     Accordion,
     DynamicElement,
-    SectionUI,
-    ElementUI
+    SectionSelector,
+    ElementSelector
   },
   data(): {
     selectPropertiesId: [number, number, number, number]
@@ -34,7 +34,6 @@ export default defineComponent({
       return (sid: number, cid: number, eid: number) => [sid, cid, eid]
     },
     selector(): any {
-      console.log(this.$store.state.selector)
       return this.$store.state.selector
     }
   },
@@ -59,26 +58,27 @@ export default defineComponent({
             <Accordion
               v-for="(section, sid) in sections"
               v-bind:title="section.name"
-              v-bind:key="sid"
+              v-bind:key="sid.toString()"
             >
               <Accordion
                 v-for="(column, cid) in section.columns"
                 v-bind:title="column.name"
-                v-bind:key="cid"
+                v-bind:key="cid.toString()"
               >
                 <Accordion
                   v-for="(element, eid) in column.elements"
                   v-bind:title="element.name"
                   @open="onSelect([sid, cid, eid, -1], 'element')"
-                  v-bind:key="eid"
+                  v-bind:key="eid.toString()"
                 >
-                  <div
+                  <Accordion
                     v-for="(field, fid) in element.fields"
-                    v-bind:title="element.name"
-                    :key="fid"
+                    v-bind:key="fid.toString()"
+                    v-bind:title="field.type + fid.toString()"
+                    :class="'w-full rounded text-left p-2 m-1 hover:bg-slate-300'"
+                    @open="onSelect([sid, cid, eid, fid], 'element')"
                   >
-                    {{ field.type }}
-                  </div>
+                  </Accordion>
                 </Accordion>
               </Accordion>
             </Accordion>
@@ -92,7 +92,7 @@ export default defineComponent({
         v-for="(section, sid) in sections"
         :key="sid"
         @click="onSelect([sid, -1, -1, -1], 'section')"
-        :class="sid === selectPropertiesId[0] && 'selected'"
+        :class="selector.position[0] === sid && 'selected'"
       >
         <div v-for="(column, cid) in section.columns" :key="cid">
           <div v-for="(element, eid) in column.elements" :key="eid">
@@ -106,8 +106,9 @@ export default defineComponent({
     </div>
     <div class="w-250 p-2 bg-white ml-2">
       <button>{{ selector?.type }}</button>
-      <SectionUI />
-      <ElementUI />
+      <hr />
+      <SelectSelector />
+      <ElementSelector />
     </div>
   </div>
 </template>

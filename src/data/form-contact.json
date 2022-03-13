@@ -4,6 +4,7 @@
     "type": "text",
     "index": 0,
     "value": null,
+    "tag": "input",
     "customHTMLAttributes": {
       "width": 120,
       "required": true,
@@ -19,6 +20,7 @@
     "type": "text",
     "index": 1,
     "value": null,
+    "tag": "input",
     "customHTMLAttributes": {
       "width": 120,
       "required": true,
@@ -34,6 +36,7 @@
     "width": 120,
     "index": 2,
     "value": null,
+    "tag": "input",
     "customHTMLAttributes": {
       "required": true,
       "placeholder": "must longer than 8",
@@ -44,9 +47,10 @@
   },
   {
     "title": "Select",
-    "type": "dropdown",
+    "type": "select",
     "index": 3,
     "value": null,
+    "tag": "input",
     "customHTMLAttributes": {
       "width": 120,
       "required": true,
@@ -62,6 +66,7 @@
     "type": "checkbox",
     "index": 4,
     "value": null,
+    "tag": "input",
     "customHTMLAttributes": {
       "width": 120,
       "required": true,
@@ -78,6 +83,7 @@
     "width": 120,
     "index": 5,
     "value": null,
+    "tag": "input",
     "customHTMLAttributes": {
       "required": true,
       "placeholder": "must longer than 8",
@@ -92,6 +98,7 @@
     "type": "textarea",
     "value": "",
     "index": 6,
+    "tag": "input",
     "customHTMLAttributes": {
       "width": 120,
       "required": true,
@@ -106,6 +113,7 @@
     "type": "upload",
     "value": "",
     "index": 7,
+    "tag": "input",
     "customHTMLAttributes": {
       "width": 120,
       "required": true,
