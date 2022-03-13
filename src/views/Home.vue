@@ -6,7 +6,7 @@ import Tab from '../components/ui/Tab.vue'
 import Tabs from '../components/ui/Tabs.vue'
 import SectionUI from '../components/layout/SectionUI.vue'
 import ElementUI from '../components/layout/ElementUI.vue'
-import { Section } from '../typing/home'
+import { Section, ElementType, SelectorType } from '../typing/home'
 import { mapMutations } from 'vuex'
 export default defineComponent({
   setup() {},
@@ -27,18 +27,23 @@ export default defineComponent({
     }
   },
   computed: {
-    sections(): Section[] {
+    sections(): Section<any>[] {
       return this.$store.state.sections
     },
     position() {
       return (sid: number, cid: number, eid: number) => [sid, cid, eid]
     },
     selector(): any {
+      console.log(this.$store.state.selector)
       return this.$store.state.selector
     }
   },
   methods: {
-    onSelect(position: [number, number, number, number], type) {
+    onSelect(
+      position: [number, number, number, number],
+      type: SelectorType | string
+    ) {
+      console.log('ok', position, type)
       this.$store.commit('onSelectUI', { position, type })
     },
     ...mapMutations(['onSelectUI'])
@@ -64,21 +69,16 @@ export default defineComponent({
                 <Accordion
                   v-for="(element, eid) in column.elements"
                   v-bind:title="element.name"
-                  @clind="
-                    onSelectUI({
-                      type: 'element',
-                      position: [sid, cid, eid, -1]
-                    })
-                  "
+                  @open="onSelect([sid, cid, eid, -1], 'element')"
                   v-bind:key="eid"
                 >
-                  <label
+                  <div
                     v-for="(field, fid) in element.fields"
                     v-bind:title="element.name"
                     :key="fid"
                   >
                     {{ field.type }}
-                  </label>
+                  </div>
                 </Accordion>
               </Accordion>
             </Accordion>
@@ -112,7 +112,7 @@ export default defineComponent({
   </div>
 </template>
 
-<style scoped>
+<style>
 .selected {
   border: solid blue 1px;
 }

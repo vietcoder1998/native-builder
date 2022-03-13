@@ -28,7 +28,7 @@ export default defineComponent({
       <font-awesome-icon icon="bicycle"></font-awesome-icon>
       <button
         class="px-2 py-1 my-1 relative w-full text-left"
-        @click="open = !open"
+        @click="open = !open, $emit('open')"
       >
         {{ title }}
       </button>

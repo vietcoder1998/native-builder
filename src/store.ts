@@ -1,4 +1,4 @@
-import { ElementType } from './typing/home'
+import { ElementType, SelectorType } from './typing/home'
 // store.ts
 import { InjectionKey, StyleHTMLAttributes } from 'vue'
 import { createStore } from 'vuex'
@@ -131,45 +131,53 @@ export const store = createStore<State>({
       {
         type,
         position
-      }: { type: ElementType; position: [number, number, number, number] }
+      }: { type: SelectorType; position: [number, number, number, number] }
     ) {
-      state.selector.type = type
+      console.log('select', type, position)
+      let value = {}
       switch (type) {
-        case ElementType.sections:
-          state.selector.value = getters.sections({
-            sid: position[0]
-          })
+        case 'section':
+          console.log('section', type, position)
+
+          value = state.sections[position[0]]
+
           break
-        case ElementType.column:
-          state.selector.value = getters.column({
-            sid: position[0],
-            cid: position[0]
-          })
+        case 'column':
+          console.log('column', type, position)
+          value = state.sections[position[0]].columns[position[1]]
+
           break
-        case ElementType.element:
-          state.selector.value = getters.element({
-            sid: position[0],
-            cid: position[0],
-            eid: position[0]
-          })
+        case 'element':
+          console.log('element', type, position)
+
+          value =
+            state.sections[position[0]].columns[position[1]].elements[
+              position[2]
+            ]
+          console.log(
+            state.sections[position[0]].columns[position[1]].elements[
+              position[2]
+            ]
+          )
+
           break
-        case ElementType.field:
-          state.selector.value = getters.field({
-            sid: position[0],
-            cid: position[0],
-            eid: position[0],
-            fid: position[0]
-          })
+        case 'field':
+          console.log('field', type, position)
+          state.selector.value =
+            state.sections[position[0]].columns[position[1]].elements[
+              position[2]
+            ].fields[position[2]]
           break
 
         default:
-          state.selector = {
-            type: '',
-            value: {}
-          }
           break
       }
-      state.selector
+
+      state.selector = {
+        type,
+        value
+      }
+      console.log(state.selector)
     }
   },
   getters: {
@@ -182,14 +190,14 @@ export const store = createStore<State>({
       (state) =>
       ({ sid, cid }) =>
         state.sections[sid].columns[cid],
-    sections:
+    section:
       (state) =>
       ({ sid }) =>
         state.sections[sid],
     field:
       (state) =>
       ({ sid, cid, eid, fid }) =>
-        state.sections[sid].columns[cid].elements[eid].fields[eid]
+        state.sections[sid].columns[cid].elements[eid].fields[fid]
   }
 })
 
