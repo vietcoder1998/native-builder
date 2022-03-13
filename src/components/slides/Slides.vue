@@ -4,7 +4,7 @@ import { SlideElement } from '../../typing/sliders'
 import { Swiper, SwiperSlide } from 'swiper/vue'
 import { Navigation, Pagination, Scrollbar, A11y } from 'swiper'
 import Accordion from '../ui/Accordion.vue'
-import RadioInput from '../form/input/RadioInput.vue'
+import RadioInput from '../ui/input/RadioInput.vue'
 import dynamicElement from '../../mixin/dynamicElement'
 
 export default defineComponent({

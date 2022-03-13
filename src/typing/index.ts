@@ -1,7 +1,7 @@
 import { ElementType } from './home'
 import { Field } from './fields'
 
-export type Options = [any, HTMLInputCustomAttributes, any[]]
+export type Option = [any, HTMLInputCustomAttributes, any[]]
 
 export interface Column {
   elements: Element[]
@@ -9,20 +9,29 @@ export interface Column {
   width: number
 }
 
+export type Field<T> = {
+  title?: string
+  type?: FieldName
+  value?: T
+  index: number
+  customHTMLAttributes: CustomHTMLAttributes
+  options: Option[]
+}
+
 export interface Element {
   name: string
   fields: Field[]
   type: ElementType
   // foo: baz => baz[0] is value, baz[1] is type, baz[2] is options(ex: gap: [1, number, [2, 3, 4 ] )
-  options?: Options
+  options?: Option[]
 }
 
 export interface Section {
   columns: Column[]
   name: string
   id: string | number | undefined
-  quantity: Options
-  gap: Options
+  quantity: Option[]
+  gap: Option[]
 }
 
 export type Position = [number, number, number, number]

@@ -1,6 +1,7 @@
 <script lang="ts">
 import { defineComponent, PropType, shallowRef } from 'vue'
-import { Field, FieldName } from '../../../typing/fields'
+import { FieldName } from '../../../typing/fields'
+import { Field } from '../../../typing/index'
 import CheckBoxVue from './CheckBox.vue'
 import DateInputVue from './DateInput.vue'
 import NumberInputVue from './NumberInput.vue'

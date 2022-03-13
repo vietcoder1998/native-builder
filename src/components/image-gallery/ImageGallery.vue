@@ -1,10 +1,10 @@
 <script lang="ts">
 import { defineComponent, PropType } from 'vue'
 import dynamicElement from '../../mixin/dynamicElement'
-import { Field } from '../../typing/fields'
 import { GalleryItem } from '../../typing/gallery'
 import LightBox from '../ui/LightBox.vue'
 import Modal from '../ui/Modal.vue'
+import { Field, Option } from '../../typing/index'
 
 export default defineComponent({
   name: 'image-gallery',
@@ -23,8 +23,11 @@ export default defineComponent({
   data() {
     return {
       fixingItem: {
-        index: 0
-      },
+        index: 0,
+        src: '',
+        title: '',
+        thumbnail: ''
+      } as GalleryItem,
       showLightBox: false,
       isAdd: false,
       lastIndex: 0,
@@ -32,7 +35,7 @@ export default defineComponent({
       newItem: {}
     }
   },
-  mixins: [dynamicElement<{}, {}, GalleryItem>()],
+  mixins: [dynamicElement<{}, {}, Field<string>>()],
   computed: {
     itemIndex(): number {
       return this.fixingItem?.index || 0
@@ -49,7 +52,7 @@ export default defineComponent({
       //@ts-ignore
       return `w-full p-${this.gap} `
     },
-    imageFlexing() {
+    imageFlexing(): GalleryItem[][] {
       //@ts-ignore
       let column: number = this.column
       let matrix: any[][] = []
@@ -57,8 +60,13 @@ export default defineComponent({
         matrix.push([])
       }
       this.items.forEach((item, i) => {
-        let t = i % column 
-        matrix[t].push(item)
+        let t = i % column
+        const converItem = {}
+        Object.entries(item.options).map((entry) => {
+          Object.assign(converItem, { [entry[0]]: entry[1][0] })
+        })
+        matrix[t].push(converItem)
+        console.log(matrix[i])
       })
       return matrix
     }
@@ -70,7 +78,7 @@ export default defineComponent({
     },
     onShowModal() {
       this.showModal = true
-      this.lastIndex = this.fixingItem?.index
+      this.lastIndex = Number(this.fixingItem.index)
     },
     onCloseLightBox() {
       this.showLightBox = false

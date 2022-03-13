@@ -2,7 +2,7 @@
 import { defineComponent } from 'vue'
 import selector from '../../mixin/selector'
 import Accordion from '../ui/Accordion.vue'
-import DynamicInput from '../form/input/DynamicInput.vue'
+import DynamicInput from '../ui/input/DynamicInput.vue'
 export default defineComponent({
   name: 'selector-info',
   mixins: [selector()],

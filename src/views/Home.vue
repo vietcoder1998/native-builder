@@ -80,6 +80,7 @@ export default defineComponent({
                     v-bind:title="field.type + fid.toString()"
                     v-bind:class="'w-full rounded text-left hover:bg-slate-300'"
                     v-bind:cls="'ml-2 my-1'"
+                    v-bind:isShow="[sid, cid, eid, fid] === selector.position"
                     @open="onSelect([sid, cid, eid, fid], 'field')"
                   >
                   </Accordion>

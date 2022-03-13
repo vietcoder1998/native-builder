@@ -200,7 +200,7 @@ export const store = createStore<State>({
       ({ sid, cid, eid, fid }) =>
         state.sections[sid].columns[cid].elements[eid].fields[fid],
     selector: (state) => state.selector
-  }
+  },
 })
 
 function setValueFromMultipleKey(

@@ -2,7 +2,7 @@
 import { defineComponent, onMounted, ref, PropType } from 'vue'
 import dynamicElement from '../../mixin/dynamicElement'
 import { Field, CustomHTMLAttributes, FieldName } from '../../typing/fields'
-import DymamicInput from '../form/input/DynamicInput.vue'
+import DymamicInput from '../ui/input/DynamicInput.vue'
 import Accordion from '../ui/Accordion.vue'
 
 export default defineComponent({

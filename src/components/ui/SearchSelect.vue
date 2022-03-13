@@ -1,6 +1,6 @@
 <script lang="ts">
 import { defineComponent, PropType } from 'vue'
-import TextInput from '../form/input/TextInput.vue'
+import TextInput from '../ui/input/TextInput.vue'
 
 export default defineComponent({
   setup() {},

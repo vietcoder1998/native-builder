@@ -1,6 +1,6 @@
 <script lang="ts">
 import { defineComponent } from 'vue'
-import MultiFixer from '../components/form/fixer/MultiFixer.vue'
+import MultiFixer from '../components/ui/fixer/MultiFixer.vue'
 import ImageGallery from '../components/image-gallery/ImageGallery.vue'
 import Add from '../components/layout/Add.vue'
 import Accordion from '../components/ui/Accordion.vue'

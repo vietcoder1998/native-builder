@@ -1,7 +1,7 @@
 <script lang="ts">
 import { defineComponent, PropType, ref } from 'vue'
 import { FieldName } from '../../typing/fields'
-import DynamicInput from '../form/input/DynamicInput.vue'
+import DynamicInput from '../ui/input/DynamicInput.vue'
 
 type FieldProps = Record<
   string,

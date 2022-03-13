@@ -75,6 +75,9 @@
       "options": ["The title 1", "The title 2"],
       "name": "check-box",
       "error": ""
+    },
+    "options": {
+      
     }
   },
   {

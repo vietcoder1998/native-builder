@@ -3,7 +3,7 @@ import { defineComponent } from 'vue'
 import Slides from '../components/slides/Slides.vue'
 import { SlideElement } from '../typing/sliders'
 import Accordion from '../components/ui/Accordion.vue'
-import RadioInput from '../components/form/input/RadioInput.vue'
+import RadioInput from '../components/ui/input/RadioInput.vue'
 
 export default defineComponent({
   name: 'slide',

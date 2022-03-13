@@ -1,3 +1,5 @@
+import { Position } from './home'
+import { Option } from './index'
 import { Options } from '.'
 export type FieldType =
   | 'text'
@@ -39,17 +41,9 @@ export enum HTMLInputCustomAttributes {
   options = 'options'
 }
 
-export type Field<T> = {
-  title?: string
-  type?: FieldName
-  value?: T
-  index: number
-  customHTMLAttributes: CustomHTMLAttributes
-}
-
 export type FieldOptions<T> = {
-  position: Options
-  options: [T, Tag, T[]]
+  position: Position
+  options: Option[]
 }
 
 export type CustomHTMLAttributes = {
