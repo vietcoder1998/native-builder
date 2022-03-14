@@ -1,3 +1,4 @@
+import { OptionType } from './typing/index'
 // store.ts
 import { InjectionKey } from 'vue'
 import { createStore, Store } from 'vuex'
@@ -152,13 +153,9 @@ export const store = createStore<State>({
         customHTMLAttributes
       }
     },
-    onUpdateSelector(state: State, nOptions: Option[]): void {
+    onUpdateSelector(state: State, nOptions: Record<OptionType, Option>): void {
       try {
         const { position, type } = state.selector
-        const options = nOptions.reduce((reactive, item: Option) => ({
-          ...reactive,
-          [Object.keys(item)[0]]: Object.values(item)[0]
-        }))
         let selectorOp: Record<string, Option> | undefined = {}
 
         switch (type) {

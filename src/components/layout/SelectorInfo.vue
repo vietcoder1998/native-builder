@@ -2,7 +2,7 @@
 import { defineComponent } from 'vue'
 import { mapGetters, mapMutations } from 'vuex'
 import ulti from '../../mixin/ulti'
-import { Option } from '../../typing/index'
+import { Option, OptionType } from '../../typing/index'
 import Accordion from '../ui/Accordion.vue'
 import TextArea from '../ui/input/TextArea.vue'
 import TextInput from '../ui/input/TextInput.vue'
@@ -23,24 +23,25 @@ export default defineComponent({
   methods: {
     ...mapMutations(['onUpdateSelector']),
     onSaveOption() {
-      // transform Form into Array<{[name, option]: value }> int
+      // transform Form into Array<{[name, option]: value }>  => { [key: OptionType] : [value, tag, type, options[]]}
       console.log(this.selector)
-      const nOptions: object[] = Array.from(
+      const nOptions: Record<OptionType, Option> = this.selector.options
+      Array.from(
         //@ts-ignore
         this.$refs?.selectorRef?.getElementsByTagName(
           'input'
         ) as HTMLInputElement[],
-        (item: HTMLInputElement) => ({
-          [item?.name]: [
-            item?.value,
-            this.selector?.options?.[item.name][1],
-            this.selector?.options?.[item.name][2],
-            this.selector?.options?.[item.name][3] || []
-          ]
-        })
+        // Array.from(x, item => function)// that is item of x like for (int i = 0,i < x.lengtg, i++); item = x[o])
+        (item: HTMLInputElement) => {
+          const options: Option = this.selector.options[item.name]
+          Object.assign(nOptions, {
+            [item?.name]: [item?.value, options[1], options[2], options[3]]
+          })
+        }
       )
+      console.log(nOptions)
 
-      this.onUpdateSelector(nOptions)
+      this.onUpdateSelector({ nOptions })
       alert('Alert success')
     }
   }
@@ -57,6 +58,7 @@ export default defineComponent({
             v-bind:type="option[1][2] || 'text'"
             v-bind:value="option[1][0]"
             v-bind:id="'element-selector' + key"
+            v-bind:name="option[0]"
           />
         </div>
         <div v-if="selector.customHTMLAttributes">
