@@ -1,15 +1,11 @@
-import { ElementType, SelectorType } from './typing/index'
 // store.ts
-import { InjectionKey, StyleHTMLAttributes } from 'vue'
-import { createStore } from 'vuex'
-import { State } from './typing/store'
-import { Field } from './typing/fields'
-import { Store } from 'vuex'
-import { BeaeCollection } from './typing/beae-element'
-import collections from './data/collections'
+import { InjectionKey } from 'vue'
+import { createStore, Store } from 'vuex'
 import formContact from './data/form-contact'
 import gallery from './data/gallery'
 import slide from './data/slide'
+import { ElementType, Option, Position, SelectorType } from './typing/index'
+import { State } from './typing/store'
 
 // define your typings for the store state
 
@@ -104,43 +100,6 @@ export const store = createStore<State>({
     ]
   },
   mutations: {
-    setValue(
-      state: State,
-      { vl, keys }: { vl: any | State; keys: (keyof State)[] }
-    ) {
-      console.log(vl, keys)
-      if (!keys) {
-        state = vl
-      } else {
-        state = setValueFromMultipleKey(keys, state, vl)
-      }
-    },
-    pushFieldContact(state: State, item: Field) {
-      state.formContact.fields.push(item)
-    },
-    changeItemsNumber(state: State, itemsNumber: number) {
-      state.slidePage.itemsNumber = itemsNumber
-    },
-    changeNavigation(state: State, navigation: string) {
-      state.slidePage.navigation = navigation
-    },
-    changePagination(state: State, pagination: string) {
-      state.slidePage.pagination = pagination
-    },
-    changeSlideSrc(state: State, { id, vl }: { id: number; vl: string }) {
-      state.slidePage.slides[id].src = vl
-    },
-    changeSlideText(state: State, { id, vl }: { id: number; vl: string }) {
-      state.slidePage.slides[id].text = vl
-    },
-    pushCollection(state: State, collection: BeaeCollection) {
-      console.groupCollapsed(collection)
-      state.collections.items.push(collection)
-    },
-    addSection(state: State) {
-      const section: Sections = {}
-      state.sections.push(section)
-    },
     removeSection(state: State, id: number) {},
     onSelectUI(
       state: State,
@@ -179,23 +138,23 @@ export const store = createStore<State>({
         position
       }
     },
-    onUpdateSelector(state, nOptions: Option[]): void {
+    onUpdateSelector(state, nOptions:  Option[]): void {
       const { position, type } = state.selector
       const options = nOptions.reduce((reactive, item: Option) => ({
         ...reactive,
         [Object.keys(item)[0]]: Object.values(item)[0]
       }))
-      let selectorOp = {}
+      let selectorOp: (Option[] | undefined) = []
 
       switch (type) {
-        case 'section':
+        case SelectorType.section:
           selectorOp = state.sections[position[0]].options
 
           break
-        case 'column':
+        case SelectorType.column:
           selectorOp = state.sections[position[0]].columns[position[1]].options
           break
-        case 'element':
+        case SelectorType.element:
           selectorOp =
             state.sections[position[0]].columns[position[1]].elements[
               position[2]
@@ -219,45 +178,20 @@ export const store = createStore<State>({
     // get value of fields in store
     element:
       (state) =>
-      ({ sid, cid, eid }) =>
+      ({ sid, cid, eid }: {sid: number, cid: number, eid: number}) =>
         state.sections[sid].columns[cid].elements[eid],
     column:
       (state) =>
-      ({ sid, cid }) =>
+      ({ sid, cid }: {sid: number, cid: number}) =>
         state.sections[sid].columns[cid],
     section:
       (state) =>
-      ({ sid }) =>
+      ({ sid }: {sid: number}) =>
         state.sections[sid],
     field:
       (state) =>
-      ({ sid, cid, eid, fid }) =>
+      ({ sid, cid, eid, fid }:  {sid: number, cid: number, eid: number, fid: number}) =>
         state.sections[sid].columns[cid].elements[eid].fields[fid],
     selector: (state) => state.selector
   }
 })
-
-function setValueFromMultipleKey(
-  keys: (keyof typeof ob)[],
-  ob: State,
-  value: unknown
-) {
-  try {
-    var temp = ob
-    let len = keys.length
-    for (let i = 0; i < len - 1; i++) {
-      const key = keys[i]
-      if (!temp[key]) {
-        console.log('no key')
-      } else {
-        //@ts-check
-        temp = temp[key]
-      }
-    }
-    //@ts-ignore
-    temp[keys[len - 1]] = value
-    return ob
-  } catch (error) {
-    console.log('error in temp')
-  }
-}

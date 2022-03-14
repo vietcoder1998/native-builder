@@ -1,14 +1,18 @@
-import { Section } from './home';
-import { Field } from './fields'
-import { SlideElement } from './sliders'
-import { BeaeCollection } from './beae-element';
+import { ElementType, Option, Position, Section, SelectorType } from './index';
 
-interface GalleryInfo {
+export interface GalleryInfo {
   src: string
   title: string
   thumbnail: string
 }
 
+export interface Selector {
+  type: SelectorType,
+  value: Record<string, Option>,
+  position: Position
+}
+
 export interface State {
-  sections: Section[]
+  sections: Section[],
+  selector: Selector,
 }
