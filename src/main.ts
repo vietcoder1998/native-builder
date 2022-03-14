@@ -14,4 +14,4 @@ import * as faAdd from '@fortawesome/free-solid-svg-icons'
 import AppIcon from './components/ui/Icon.vue'
 
 const app = createApp(App)
-app.use('app-icon', AppIcon).use(router).use(store).mount('#app')
+app.component('app-icon', AppIcon).use(router).use(store).mount('#app')

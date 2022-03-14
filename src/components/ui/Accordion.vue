@@ -30,7 +30,7 @@ export default defineComponent({
 <template>
   <div class="relative mb-2">
     <div :class="open && 'bg-blue-200' + ' rounded'">
-      <!-- <IconVue icon="angle-up"/> -->
+      <app-icon icon="angle-up" />
       <button
         :class="'px-2 py-1 relative w-full text-left rounded border'"
         @click=";(open = !open), $emit('open')"

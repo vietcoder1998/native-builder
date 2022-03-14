@@ -189,7 +189,7 @@ export const store = createStore<State>({
 
       switch (type) {
         case 'section':
-          selectorOp = state.sections[position[0]].options.bind(...options)
+          selectorOp = state.sections[position[0]].options
 
           break
         case 'column':
@@ -202,9 +202,10 @@ export const store = createStore<State>({
             ].options
           break
         case 'field':
-          selectorOp = state.sections[position[0]].columns[
-            position[1]
-          ].elements[position[2]].fields[position[3]].options.bind(...options)
+          selectorOp =
+            state.sections[position[0]].columns[position[1]].elements[
+              position[2]
+            ].fields[position[3]].options
           break
 
         default:
