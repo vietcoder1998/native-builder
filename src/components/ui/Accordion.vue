@@ -37,7 +37,7 @@ export default defineComponent({
         v-bind:class="'px-2 py-1 relative w-full text-left rounded border flex'"
         @click="(open = !open), $emit('open')"
       >
-        <IconVue v-bind:icon="!open ? 'angle-down' : 'angle-up'" class="w-6 h-6" />
+        <app-icon v-bind:icon="!open ? 'angle-down' : 'angle-up'" class="w-6 h-6" />
         {{ title }}
       </button>
     </div>

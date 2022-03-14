@@ -1,13 +1,13 @@
 <script lang="ts">
 import { defineComponent, PropType } from "vue";
-import { AngleDown, AngleUp } from "../../assets/icons/index";
-export type Icon = "angle-up" | "angle-down";
+import { AngleDown, AngleUp, Image } from "../../assets/icons/index";
+export type Icon = "angle-up" | "angle-down" | "img";
 
 export default defineComponent({
   name: "app-icon",
   props: {
     icon: String as PropType<Icon>,
-    cls: String,
+    class: String,
   },
   computed: {
     src() {
@@ -16,6 +16,8 @@ export default defineComponent({
           return AngleUp;
         case "angle-down":
           return AngleDown;
+        case "img":
+          return Image;
         default:
           return AngleUp;
       }

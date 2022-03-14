@@ -27,7 +27,8 @@ export default defineComponent({
 });
 </script>
 <template>
-  <button v-bind:class="itemClass">
+  <button v-bind:class="itemClass + ' flex'">
+    <app-icon :icon="label" cls="w-6 h-6" />
     {{ label }}
   </button>
 </template>
