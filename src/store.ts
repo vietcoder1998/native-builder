@@ -1,7 +1,7 @@
 // store.ts
 import { InjectionKey } from 'vue'
 import { createStore, Store } from 'vuex'
-import formContact from './data/form-contact'
+import  formContact from './data/form-contact'
 import gallery from './data/gallery'
 import slide from './data/slide'
 import { ElementType, Option, Position, SelectorType } from './typing/index'

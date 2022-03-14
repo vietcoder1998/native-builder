@@ -1,6 +1,7 @@
 [
   {
     "tag": "img",
+    "type": "text",
     "options": {
       "src": [
         "https://picsum.photos/200/300",
@@ -19,6 +20,7 @@
   },
   {
     "tag": "img",
+    "type": "text",
     "options": {
       "src": [
         "https://picsum.photos/200/300",
@@ -37,6 +39,7 @@
   },
   {
     "tag": "img",
+    "type": "text",
     "options": {
       "src": [
         "https://picsum.photos/200/300",
@@ -55,6 +58,7 @@
   },
   {
     "tag": "img",
+    "type": "text",
     "options": {
       "src": [
         "https://picsum.photos/200/300",

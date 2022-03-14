@@ -68,7 +68,7 @@ export default defineComponent({
       for (let i = 0; i < column; i++) {
         matrix.push([]);
       }
-      this.items.forEach((item: GalleryItem, i) => {
+      this.fields.forEach((item: GalleryItem, i: number) => {
         let t = i % column;
         const converItem = {};
         Object.entries(item.options).map(([key, value]: [string, Option]) => {
@@ -82,9 +82,9 @@ export default defineComponent({
     },
   },
   methods: {
-    onShowLightBox(item: object, index: number) {
+    onShowLightBox(item: any, index: number) {
       this.showLightBox = true;
-      this.fixingItem = { ...item, index };
+      this.fixingItem = item;
     },
     onShowModal() {
       this.showModal = true;

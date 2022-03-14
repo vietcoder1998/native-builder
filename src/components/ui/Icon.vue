@@ -1,38 +1,32 @@
 <script lang="ts">
-import { defineComponent, PropType } from 'vue'
-import { AngleDown, AngleUp } from '../../assets/icons/index'
-export type Icon = 'angle-up' | 'angle-down'
-export default {
-  name: 'app-icon',
+import { defineComponent, PropType } from "vue";
+import { AngleDown, AngleUp } from "../../assets/icons/index";
+export type Icon = "angle-up" | "angle-down";
+
+export default defineComponent({
+  name: "app-icon",
   props: {
     icon: String as PropType<Icon>,
-    cls: String
+    cls: String,
   },
-  data() {
-    return {
-      src: ''
-    }
-  },
-  watch: {
-    icon(nvl: Icon) {
-      switch (nvl) {
-        case 'angle-up':
-          this.src = AngleUp
-          break
-        case 'angle-down':
-          this.src = AngleDown
-          break
+  computed: {
+    src() {
+      switch (this.icon) {
+        case "angle-up":
+          return AngleUp;
+        case "angle-down":
+          return AngleDown;
         default:
-          break
+          return AngleUp;
       }
-    }
-  }
-}
+    },
+  },
+});
 </script>
 <template>
-  <img v-bind:src="src" v-bind="icon" :class="cls || 'app-icon'" />
+  <img v-bind:src="src" :class="cls || 'app-icon'" />
 </template>
-<style scoped>
+<style>
 .app-icon {
   width: 20px;
   height: 20px;

@@ -8,6 +8,7 @@ export default defineComponent({
   props: {
     item: {} as PropType<Field>,
     itemClass: String,
+    label: String,
     position: Array as PropType<number[]>,
   },
   data() {
@@ -27,7 +28,7 @@ export default defineComponent({
 </script>
 <template>
   <button v-bind:class="itemClass">
-    {{ item?.type }}
+    {{ label }}
   </button>
 </template>
 <style scoped></style>

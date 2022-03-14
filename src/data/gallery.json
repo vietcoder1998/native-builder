@@ -1,109 +1,264 @@
 [
   {
-    "type": "img",
+    "type": "text",
+    "tag": "img",
+    "options": {
+      "src": [
+        "https://picsum.photos/200/220",
+        "text",
+        []
+      ],
+      "title": [
+        "https://picsum.photos/200/320",
+        "text",
+        []
+      ],
+      "thumbnail": [
+        "https://picsum.photos/200/100",
+        "text",
+        []
+      ]
+    },
+    "customHTMLAttributes": {}
+  },
+  {
+    "type": "text",
+    "tag": "img",
     "customHTMLAttributes": {},
     "options": {
-      "src": ["https://picsum.photos/200/220", "text", []],
-      "title": ["https://picsum.photos/200/320", "text", []],
-      "thumbnail": ["https://picsum.photos/200/100", "text", []]
+      "src": [
+        "https://picsum.photos/200/120",
+        "text",
+        []
+      ],
+      "title": [
+        "https://picsum.photos/200/320",
+        "text",
+        []
+      ],
+      "thumbnail": [
+        "https://picsum.photos/200/110",
+        "text",
+        []
+      ]
     }
   },
   {
-    "type": "img",
+    "type": "text",
+    "tag": "img",
     "customHTMLAttributes": {},
     "options": {
-      "src": ["https://picsum.photos/200/120", "text", []],
-      "title": ["https://picsum.photos/200/320", "text", []],
-      "thumbnail": ["https://picsum.photos/200/110", "text", []]
+      "src": [
+        "https://picsum.photos/200/270",
+        "text",
+        []
+      ],
+      "title": [
+        "https://picsum.photos/200/320",
+        "text",
+        []
+      ],
+      "thumbnail": [
+        "https://picsum.photos/200/150",
+        "text",
+        []
+      ]
     }
   },
   {
-    "tag": "image",
-    "type": "img",
+    "type": "text",
+    "tag": "img",
     "customHTMLAttributes": {},
     "options": {
-      "src": ["https://picsum.photos/200/270", "text", []],
-      "title": ["https://picsum.photos/200/320", "text", []],
-      "thumbnail": ["https://picsum.photos/200/150", "text", []]
+      "src": [
+        "https://picsum.photos/200/300",
+        "text",
+        []
+      ],
+      "title": [
+        "https://picsum.photos/200/320",
+        "text",
+        []
+      ],
+      "thumbnail": [
+        "https://picsum.photos/200/170",
+        "text",
+        []
+      ]
     }
   },
   {
-    "type": "img",
+    "type": "text",
+    "tag": "img",
     "customHTMLAttributes": {},
     "options": {
-      "src": ["https://picsum.photos/200/300", "text", []],
-      "title": ["https://picsum.photos/200/320", "text", []],
-      "thumbnail": ["https://picsum.photos/200/170", "text", []]
+      "src": [
+        "https://picsum.photos/200/80",
+        "text",
+        []
+      ],
+      "title": [
+        "https://picsum.photos/200/320",
+        "text",
+        []
+      ],
+      "thumbnail": [
+        "https://picsum.photos/200/320",
+        "text",
+        []
+      ]
     }
   },
   {
-    "type": "img",
+    "type": "text",
+    "tag": "img",
     "customHTMLAttributes": {},
     "options": {
-      "src": ["https://picsum.photos/200/80", "text", []],
-      "title": ["https://picsum.photos/200/320", "text", []],
-      "thumbnail": ["https://picsum.photos/200/320", "text", []]
+      "src": [
+        "https://picsum.photos/200/100",
+        "text",
+        []
+      ],
+      "title": [
+        "https://picsum.photos/200/320",
+        "text",
+        []
+      ],
+      "thumbnail": [
+        "https://picsum.photos/200/90",
+        "text",
+        []
+      ]
     }
   },
   {
-    "type": "img",
+    "type": "text",
+    "tag": "img",
     "customHTMLAttributes": {},
     "options": {
-      "src": ["https://picsum.photos/200/100", "text", []],
-      "title": ["https://picsum.photos/200/320", "text", []],
-      "thumbnail": ["https://picsum.photos/200/90", "text", []]
+      "src": [
+        "https://picsum.photos/200/70",
+        "text",
+        []
+      ],
+      "title": [
+        "https://picsum.photos/200/320",
+        "text",
+        []
+      ],
+      "thumbnail": [
+        "https://picsum.photos/200/320",
+        "text",
+        []
+      ]
     }
   },
   {
-    "type": "img",
+    "type": "text",
+    "tag": "img",
     "customHTMLAttributes": {},
     "options": {
-      "src": ["https://picsum.photos/200/70", "text", []],
-      "title": ["https://picsum.photos/200/320", "text", []],
-      "thumbnail": ["https://picsum.photos/200/320", "text", []]
+      "src": [
+        "https://picsum.photos/200/90",
+        "text",
+        []
+      ],
+      "title": [
+        "https://picsum.photos/200/320",
+        "text",
+        []
+      ],
+      "thumbnail": [
+        "https://picsum.photos/200/60",
+        "text",
+        []
+      ]
     }
   },
   {
-    "type": "img",
+    "type": "text",
+    "tag": "img",
     "customHTMLAttributes": {},
     "options": {
-      "src": ["https://picsum.photos/200/90", "text", []],
-      "title": ["https://picsum.photos/200/320", "text", []],
-      "thumbnail": ["https://picsum.photos/200/60", "text", []]
+      "src": [
+        "https://picsum.photos/200/320",
+        "text",
+        []
+      ],
+      "title": [
+        "https://picsum.photos/200/320",
+        "text",
+        []
+      ],
+      "thumbnail": [
+        "https://picsum.photos/200/320",
+        "text",
+        []
+      ]
     }
   },
   {
-    "type": "img",
+    "type": "text",
+    "tag": "img",
     "customHTMLAttributes": {},
     "options": {
-      "src": ["https://picsum.photos/200/320", "text", []],
-      "title": ["https://picsum.photos/200/320", "text", []],
-      "thumbnail": ["https://picsum.photos/200/320", "text", []]
+      "src": [
+        "https://picsum.photos/200/320",
+        "text",
+        []
+      ],
+      "title": [
+        "https://picsum.photos/200/320",
+        "text",
+        []
+      ],
+      "thumbnail": [
+        "https://picsum.photos/200/320",
+        "text",
+        []
+      ]
     }
   },
   {
-    "type": "img",
-    "customHTMLAttributes": {},
+    "type": "text",
+    "tag": "img",
     "options": {
-      "src": ["https://picsum.photos/200/320", "text", []],
-      "title": ["https://picsum.photos/200/320", "text", []],
-      "thumbnail": ["https://picsum.photos/200/320", "text", []]
+      "src": [
+        "https://picsum.photos/200/320",
+        "text",
+        []
+      ],
+      "title": [
+        "https://picsum.photos/200/320",
+        "text",
+        []
+      ],
+      "thumbnail": [
+        "https://picsum.photos/200/80",
+        "text",
+        []
+      ]
     }
   },
   {
-    "type": "img",
+    "type": "text",
+    "tag": "img",
     "options": {
-      "src": ["https://picsum.photos/200/320", "text", []],
-      "title": ["https://picsum.photos/200/320", "text", []],
-      "thumbnail": ["https://picsum.photos/200/80", "text", []]
-    }
-  },
-  {
-    "type": "img",
-    "options": {
-      "src": ["https://picsum.photos/200/120", "text", []],
-      "title": ["https://picsum.photos/200/320", "text", []],
-      "thumbnail": ["https://picsum.photos/200/320", "text", []]
+      "src": [
+        "https://picsum.photos/200/120",
+        "text",
+        []
+      ],
+      "title": [
+        "https://picsum.photos/200/320",
+        "text",
+        []
+      ],
+      "thumbnail": [
+        "https://picsum.photos/200/320",
+        "text",
+        []
+      ]
     }
   }
 ]

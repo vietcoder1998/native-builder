@@ -14,6 +14,7 @@ export interface Field {
   index: number
   customHTMLAttributes: CustomHTMLAttributes
   options: Record<string, Option>
+  tag: Tag
 }
 
 export interface Element {
@@ -46,6 +47,8 @@ export enum SelectorType {
   column = 'column',
   field = 'field'
 }
+
+export type Tag = 'img' | 'div' | 'input' | 'h1' | 'h2' | 'button'
 
 export type HTMLInputOptions =
   | 'button'

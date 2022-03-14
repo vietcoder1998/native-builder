@@ -89,6 +89,7 @@ export default defineComponent({
                     v-for="(field, fid) in element.fields"
                     v-bind:itemClass="itemNavigatorClass([sid, cid, eid, fid])"
                     v-bind:item="field"
+                    v-bind:label="field?.tag"
                     v-bind:position="[sid, cid, eid, fid]"
                     @click="onSelect([sid, cid, eid, fid], 'field')"
                   >

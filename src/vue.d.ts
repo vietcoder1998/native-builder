@@ -1,12 +1,14 @@
-
-import { Store } from '@/store';
+import {Store} from 'vuex'
+import { Element, Section } from './typing/index';
+import { Selector } from './typing/store';
 declare module '@vue/runtime-core' {
-  interface ComponentCustomProperties {
-    $store: Store
-  }
 
   interface State {
-    count: number
+    sections: Section[],
+    selector: Selector[],
+    getters: {
+      element: Element
+    }
   }
 
   // provide typings for `this.$store`
