@@ -1,13 +1,4 @@
 import { Option, Position } from './index'
-export type FieldType =
-  | 'text'
-  | 'textarea'
-  | 'checkbox'
-  | 'select'
-  | 'button'
-  | 'date'
-  | 'radio'
-  | 'textarea'
 
 export enum FieldName {
   text = 'text',

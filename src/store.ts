@@ -1,9 +1,9 @@
 // store.ts
 import { InjectionKey } from 'vue'
 import { createStore, Store } from 'vuex'
-import formContact from './data/form-contact'
-import gallery from './data/gallery'
-import slide from './data/slide'
+import formContact from './data/form-contact.json'
+import gallery from './data/gallery.json'
+import slide from './data/slide.json'
 import { ElementType, Option, Position, SelectorType, OptionType } from './typing/index';
 import { State } from './typing/store'
 import { CustomHTMLAttributes } from './typing/fields';
@@ -20,7 +20,7 @@ let customHTMLAttributes: CustomHTMLAttributes
 export const store = createStore<State>({
   state: {
     selector: {
-      type: null,
+      type: undefined,
       options: {},
       position: [-1, -1, -1, -1],
       customHTMLAttributes: {}
@@ -79,10 +79,10 @@ export const store = createStore<State>({
                     'text',
                     ['gallery', 'slide', 'form']
                   ],
-                  gap: [1, 'input', 'number'],
-                  quantity: [1, 'input', 'number']
+                  gap: [1, 'input', 'number', []],
+                  quantity: [1, 'input', 'number', []]
                 },
-                fields: formContact,
+                fields: formContact
               }
             ]
           }
@@ -112,13 +112,11 @@ export const store = createStore<State>({
     ]
   },
   mutations: {
-    removeSection(state: State, id: number) { },
+    removeSection(state: State, id: number) {},
     onSelectUI(
       state: State,
       { type, position }: { type: SelectorType; position: Position }
     ) {
-
-
       switch (type) {
         case 'section':
           options = state.sections[position[0]].options
@@ -139,9 +137,10 @@ export const store = createStore<State>({
             state.sections[position[0]].columns[position[1]].elements[
               position[2]
             ].fields[position[3]].options
-          customHTMLAttributes = state.sections[position[0]].columns[position[1]].elements[
-            position[2]
-          ].fields[position[3]].customHTMLAttributes
+          customHTMLAttributes =
+            state.sections[position[0]].columns[position[1]].elements[
+              position[2]
+            ].fields[position[3]].customHTMLAttributes
 
           break
         default:
@@ -170,7 +169,8 @@ export const store = createStore<State>({
 
             break
           case SelectorType.column:
-            selectorOp = state.sections[position[0]].columns[position[1]]?.options
+            selectorOp =
+              state.sections[position[0]].columns[position[1]]?.options
             break
           case SelectorType.element:
             selectorOp =
@@ -199,20 +199,30 @@ export const store = createStore<State>({
     // get value of fields in store
     element:
       (state) =>
-        ({ sid, cid, eid }: { sid: number, cid: number, eid: number }) =>
-          state.sections[sid].columns[cid].elements[eid],
+      ({ sid, cid, eid }: { sid: number; cid: number; eid: number }) =>
+        state.sections[sid].columns[cid].elements[eid],
     column:
       (state) =>
-        ({ sid, cid }: { sid: number, cid: number }) =>
-          state.sections[sid].columns[cid],
+      ({ sid, cid }: { sid: number; cid: number }) =>
+        state.sections[sid].columns[cid],
     section:
       (state) =>
-        ({ sid }: { sid: number }) =>
-          state.sections[sid],
+      ({ sid }: { sid: number }) =>
+        state.sections[sid],
     field:
       (state) =>
-        ({ sid, cid, eid, fid }: { sid: number, cid: number, eid: number, fid: number }) =>
-          state.sections[sid].columns[cid].elements[eid].fields[fid],
+      ({
+        sid,
+        cid,
+        eid,
+        fid
+      }: {
+        sid: number
+        cid: number
+        eid: number
+        fid: number
+      }) =>
+        state.sections[sid].columns[cid].elements[eid].fields[fid],
     selector: (state) => state.selector
   }
 })

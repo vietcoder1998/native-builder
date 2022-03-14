@@ -13,7 +13,6 @@ export default defineComponent({
   computed: {
     ...mapGetters(['selector']),
     optionLabels(): [string, Option][] {
-      console.log(Object.entries(this.selector.options))
       return Object.entries(this.selector.options)
     },
     options() {
@@ -24,7 +23,7 @@ export default defineComponent({
   methods: {
     ...mapMutations(['onUpdateSelector']),
     onSaveOption() {
-      // transform Form into Array<{[key: string]: value }>
+      // transform Form into Array<{[name, option]: value }> int
       console.log(this.selector)
       const nOptions: object[] = Array.from(
         //@ts-ignore

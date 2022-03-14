@@ -60,7 +60,7 @@ export default defineComponent({
         <label
           class="border rounded absolute right-2"
           @dragstart="onDragStart(id)"
-          @drop="onDrop(id)"
+          @dragenter="onDrop(id)"
         >
           <app-icon icon="sort" class="w-6 h-6" @click="open = !open" />
         </label>

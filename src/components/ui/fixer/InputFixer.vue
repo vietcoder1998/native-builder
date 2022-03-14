@@ -1,10 +1,11 @@
 <script lang="ts">
 import { defineComponent, PropType } from 'vue'
-import { FieldName, Field } from '../../../typing/fields'
+import { Field } from '../../../typing/index'
+import { FieldName } from '../../../typing/fields'
 export default defineComponent({
   name: 'input-fixer',
   props: {
-    initInfo: {} as PropType<Field<any>>
+    initInfo: {} as PropType<Field>
   },
   data() {
     return {

@@ -11,6 +11,7 @@ export default defineComponent({
     };
   },
   beforeMount() {
+    //@ts-ignore
     this.$data.tabs = this.$slots
       .default()
       .filter((children: any) => children.type.name === "Tab");
@@ -46,7 +47,7 @@ export default defineComponent({
       <button
         v-for="(tab, index) in tabs"
         :key="index"
-        @click="selectTab(index)"
+        @click="selectTab(Number(index))"
         :class="{ 'tab-selected': index === selectedIndex }"
         class="tab"
       >

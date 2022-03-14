@@ -1,4 +1,4 @@
-import { CustomHTMLAttributes, FieldName } from './fields';
+import { CustomHTMLAttributes } from './fields'
 
 // option[0] is value, options[1] is type of field in tag,  options[2] is tag, options[3] is selection
 // ex: { gap: [ 1, 'number', 'input', [] ]} => none options selected
@@ -6,36 +6,56 @@ import { CustomHTMLAttributes, FieldName } from './fields';
 // tag is required: Required => 'input' | 'select' | 'img' | h1, ... ( HTMLElement )
 // field of tag: Required => 'checkbox' | 'text' | 'number' | 'date' ... ( HTMLInputValue)
 
-export type Option = [string | number, Tag, HTMLInputOptions, string[] | number[] | boolean[] | undefined]
-export type OptionType = 'gap' | 'col' | 'type' | 'title' | 'src' | 'required' | 'tag' | 'quantity'
+export type FieldType =
+  | 'text'
+  | 'textarea'
+  | 'checkbox'
+  | 'select'
+  | 'button'
+  | 'date'
+  | 'radio'
+  | 'textarea'
+  | 'range'
 
-export interface Column {
-  name: string
+export type Option = [
+  string | number,
+  Tag,
+  HTMLInputOptions,
+  string[] | number[] | boolean[] | undefined
+]
+
+export type OptionType =
+  | 'gap'
+  | 'col'
+  | 'type'
+  | 'title'
+  | 'src'
+  | 'required'
+  | 'tag'
+  | 'quantity'
+
+export interface NestedComponent<T> {
+  type?: T
   options: Record<OptionType, Option>
+  name: string
+  id?: string | number | undefined
+}
+export interface Column extends NestedComponent<any> {
   elements: Element[]
 }
 
-export interface Field {
-  type?: FieldName
-  value?: string | number
-  index: number
+export interface Field extends NestedComponent<FieldType> {
+  value?: string | number | boolean 
   tag: Tag
-  options: Record<OptionType, Option>
   customHTMLAttributes: CustomHTMLAttributes
 }
 
 // foo: baz => baz[0] is value, baz[1] is type, baz[2] is options(ex: gap: [1, number, [2, 3, 4 ]] )
-export interface Element {
-  name: string
-  type: ElementType
+export interface Element extends NestedComponent<ElementType> {
   fields: Field[]
-  options: Record<OptionType, Option>
 }
 
-export interface Section {
-  name: string
-  id: string | number | undefined
-  options: Record<OptionType, Option>
+export interface Section extends NestedComponent<any> {
   columns: Column[]
 }
 

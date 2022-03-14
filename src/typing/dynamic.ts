@@ -1,4 +1,4 @@
-import { FieldType, Field } from './fields'
+import { Field } from './index'
 export type DynamicInputField = Field
 
 export enum DynamicSupportHTMLType {

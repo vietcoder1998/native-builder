@@ -17,14 +17,10 @@ export default defineComponent({
     }
   },
   computed: {
-    filterKey(): String[] {
-      return this.searchkey
-        ? this.fields.filter((item) => item.includes(this.searchkey))
-        : this.fields
-    }
+    filterKey() {return []}
   },
   methods: {
-    onSelect(key: String)  {
+    onSelect(key: String) {
       this.selected = String(key)
       this.$emit('on-select', key)
     }
@@ -39,7 +35,7 @@ export default defineComponent({
     </div>
     <input
       v-model="searchkey"
-      class="w-full "
+      class="w-full"
       type="search"
       placeholder="Search..."
     />

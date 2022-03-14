@@ -1,24 +1,24 @@
 <script lang="ts">
-import { defineComponent, PropType } from "vue";
-import { Field } from "../../../typing/index";
+import { defineComponent, PropType } from 'vue'
+import { Field } from '../../../typing/index'
 
 export default defineComponent({
-  name: "text-input",
+  name: 'text-input',
   props: {
-    field: {} as PropType<Field>,
+    field: {} as PropType<Field>
   },
-  emits: ["change"],
-});
+  emits: ['change']
+})
 </script>
 <template>
   <textarea
     class="w-full text-left border"
     type="text"
-    v-model="field.value"
-    :key="field?.customHTMLAttributes?.key"
-    :placeholder="field?.customHTMLAttributes?.placeholder"
-    :id="field?.customHTMLAttributes?.id"
-    :name="field?.customHTMLAttributes?.name"
+    v-bind:value="field?.value"
+    v-bind:key="field?.customHTMLAttributes?.key"
+    v-bind:placeholder="field?.customHTMLAttributes?.placeholder"
+    v-bind:id="field?.customHTMLAttributes?.id"
+    v-bind:name="field?.customHTMLAttributes?.name"
     rows="3"
     :required="field?.customHTMLAttributes?.required"
     @input="$emit('change')"
