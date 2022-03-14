@@ -1,6 +1,4 @@
-import { Position } from './home'
-import { Option } from './index'
-import { Options } from '.'
+import { Option, Position } from './index'
 export type FieldType =
   | 'text'
   | 'textarea'

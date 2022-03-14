@@ -9,9 +9,6 @@ import './index.css'
 import './mixin.css'
 import router from './router'
 import { store } from './store'
-import { library } from '@fortawesome/fontawesome'
-import * as faAdd from '@fortawesome/free-solid-svg-icons'
-import AppIcon from './components/ui/Icon.vue'
 
 const app = createApp(App)
-app.use('app-icon', AppIcon).use(router).use(store).mount('#app')
+app.use(router).use(store).mount('#app')
