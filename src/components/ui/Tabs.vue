@@ -1,44 +1,43 @@
 <script lang="ts">
-import { defineComponent, VNode } from 'vue'
-import { TabProps } from '../../interfaces/tabs'
+import { defineComponent, VNode } from "vue";
+import { TabProps } from "../../interfaces/tabs";
 export default defineComponent({
-  name: 'Tabs',
+  name: "Tabs",
   data(): { tabs: any; count: number; selectedIndex: number } {
     return {
       tabs: [] as VNode<TabProps>[],
       count: 0,
-      selectedIndex: 0
-    }
+      selectedIndex: 0,
+    };
   },
   beforeMount() {
-    //@ts-ingore
     this.$data.tabs = this.$slots
       .default()
-      .filter((children: any) => children.type.name === 'Tab')
+      .filter((children: any) => children.type.name === "Tab");
   },
   method: {
     selectTab(i: number) {
-      this.selectedIndex = i
-    }
+      this.selectedIndex = i;
+    },
   },
   provide() {
     return {
-      TabsProvider: this.$data
-    }
+      TabsProvider: this.$data,
+    };
   },
   methods: {
     selectTab(i: number) {
-      console.log(i)
-      this.selectedIndex = i
-      console.log('update new value,', i)
-    }
+      console.log(i);
+      this.selectedIndex = i;
+      console.log("update new value,", i);
+    },
   },
   watch: {
     state(n, o) {
-      console.log(n)
-    }
-  }
-})
+      console.log(n);
+    },
+  },
+});
 </script>
 
 <template>
@@ -70,10 +69,10 @@ export default defineComponent({
 
 .tab-selected {
   background-color: azure;
-  border-bottom: 2px solid gray ;
+  border-bottom: 2px solid gray;
 }
 
-button[class~='tab'] {
+button[class~="tab"] {
   padding: 5px 10px;
   margin: 2px;
 }

@@ -1,105 +1,108 @@
 <script lang="ts">
-import { defineComponent, PropType } from 'vue'
-import dynamicElement from '../../mixin/dynamicElement'
-import { GalleryItem } from '../../typing/gallery'
-import LightBox from '../ui/LightBox.vue'
-import Modal from '../ui/Modal.vue'
-import { Field, Option } from '../../typing/index'
+import { defineComponent, PropType } from "vue";
+import dynamicElement from "../../mixin/dynamicElement";
+import { GalleryItem } from "../../typing/gallery";
+import LightBox from "../ui/LightBox.vue";
+import Modal from "../ui/Modal.vue";
+import { Field, Option } from "../../typing/index";
 
 export default defineComponent({
-  name: 'image-gallery',
+  name: "image-gallery",
   components: {
     Modal,
-    LightBox
+    LightBox,
   },
   props: {
     sid: Number,
     cid: Number,
-    eid: Number
+    eid: Number,
   },
   created() {
-    console.log(this.$props)
+    console.log(this.$props);
   },
   data() {
     return {
       fixingItem: {
         index: 0,
-        src: '',
-        title: '',
-        thumbnail: ''
-      } as GalleryItem,
+        src: "",
+        title: "",
+        alt: "",
+        thumbnail: "",
+      },
       showLightBox: false,
       isAdd: false,
       lastIndex: 0,
       showModal: false,
-      newItem: {}
-    }
+      newItem: {},
+    };
   },
   mixins: [dynamicElement<Option, Record<string, Option>, GalleryItem>()],
   computed: {
     itemIndex(): number {
-      return this.fixingItem?.index || 0
+      return this.fixingItem?.index || 0;
     },
     cls() {
       //@ts-ignore
-      return `fgrid-${this.column} `
+      return `fgrid-${this.column} `;
     },
     childCls() {
       //@ts-ignore
-      return `w-${this.column}`
+      return `w-${this.column}`;
     },
     imgCls() {
       //@ts-ignore
-      return `w-full p-${this.gap} `
+      return `w-full p-${this.gap} `;
     },
 
     // convert image to matrix 2x2 :D too easy to use masonry
-    imageFlexing(): GalleryItem[][] {
+    imageFlexing(): {
+      src: string;
+      alt: string;
+      title: string;
+      thumnail: string;
+      index: number;
+    }[][] {
       //@ts-ignore
-      let column: number = this.column
-      let matrix: any[][] = []
+      let column: number = this.column;
+      let matrix: any[][] = [];
       for (let i = 0; i < column; i++) {
-        matrix.push([])
+        matrix.push([]);
       }
       this.items.forEach((item: GalleryItem, i) => {
-        let t = i % column
-        const converItem = {}
+        let t = i % column;
+        const converItem = {};
         Object.entries(item.options).map(([key, value]: [string, Option]) => {
-          // image with value first value will return src of value exple: options: {src: ["abc.xyz", "text"]} => options: {src: "abc.xyz"}}
-          Object.assign(converItem, { [key]: value[0] })
-        })
-        matrix[t].push(converItem)
-        console.log(matrix[i])
-      })
-      return matrix
-    }
+          // image with value first value will return src of value exple: {src: ["abc.xyz", "text"]} => {src: "abc.xyz"}}
+          Object.assign(converItem, { [key]: value[0] });
+        });
+        matrix[t].push(converItem);
+        console.log(matrix[i]);
+      });
+      return matrix;
+    },
   },
   methods: {
-    onShowLightBox(item: GalleryItem, index: number) {
-      this.showLightBox = true
-      this.fixingItem = { ...item, index }
+    onShowLightBox(item: object, index: number) {
+      this.showLightBox = true;
+      this.fixingItem = { ...item, index };
     },
     onShowModal() {
-      this.showModal = true
-      this.lastIndex = Number(this.fixingItem.index)
+      this.showModal = true;
+      this.lastIndex = Number(this.fixingItem.index);
     },
     onCloseLightBox() {
-      this.showLightBox = false
+      this.showLightBox = false;
     },
     onCloseModal() {
-      this.showModal = false
-    }
-  }
-})
+      this.showModal = false;
+    },
+  },
+});
 </script>
 
 <template>
   <div class="fgrid selected-cpn">
-    <LightBox
-      :show="showLightBox"
-      :src="fixingItem?.src"
-      @close="onCloseLightBox"
-    />
+    <LightBox :show="showLightBox" :src="fixingItem?.src" @close="onCloseLightBox" />
     <!--modal-->
     <modal
       :show="showModal"

@@ -105,6 +105,7 @@ export const store = createStore<State>({
       state: State,
       { type, position }: { type: SelectorType; position: Position }
     ) {
+      console.log(type, position)
       let value = {}
       switch (type) {
         case 'section':
@@ -139,39 +140,43 @@ export const store = createStore<State>({
       }
     },
     onUpdateSelector(state, nOptions: Option[]): void {
-      const { position, type } = state.selector
-      const options = nOptions.reduce((reactive, item: Option) => ({
-        ...reactive,
-        [Object.keys(item)[0]]: Object.values(item)[0]
-      }))
-      let selectorOp: Record<string, Option> | undefined = {}
+      try {
+        const { position, type } = state.selector
+        const options = nOptions.reduce((reactive, item: Option) => ({
+          ...reactive,
+          [Object.keys(item)[0]]: Object.values(item)[0]
+        }))
+        let selectorOp: Record<string, Option> | undefined = {}
 
-      switch (type) {
-        case SelectorType.section:
-          selectorOp = state.sections[position[0]].options
+        switch (type) {
+          case SelectorType.section:
+            selectorOp = state.sections[position[0]].options
 
-          break
-        case SelectorType.column:
-          selectorOp = state.sections[position[0]].columns[position[1]]?.options
-          break
-        case SelectorType.element:
-          selectorOp =
-            state.sections[position[0]].columns[position[1]].elements[
-              position[2]
-            ].options
-          break
-        case 'field':
-          selectorOp =
-            state.sections[position[0]].columns[position[1]].elements[
-              position[2]
-            ].fields[position[3]].options
-          break
+            break
+          case SelectorType.column:
+            selectorOp = state.sections[position[0]].columns[position[1]]?.options
+            break
+          case SelectorType.element:
+            selectorOp =
+              state.sections[position[0]].columns[position[1]].elements[
+                position[2]
+              ].options
+            break
+          case 'field':
+            selectorOp =
+              state.sections[position[0]].columns[position[1]].elements[
+                position[2]
+              ].fields[position[3]].options
+            break
 
-        default:
-          break
+          default:
+            break
+        }
+
+        Object.assign(selectorOp, { ...options })
+      } catch (error) {
+        alert('error in update selector' + String(error))
       }
-
-      Object.assign(selectorOp, { ...options })
     }
   },
   getters: {

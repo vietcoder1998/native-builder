@@ -9,7 +9,6 @@ export interface Column {
 }
 
 export interface Field {
-  title?: string
   type?: FieldName
   value?: string | number
   index: number

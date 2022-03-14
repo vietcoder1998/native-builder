@@ -1,8 +1,8 @@
 <script lang="ts">
-import { defineComponent, PropType } from 'vue'
-import IconVue from './Icon.vue'
+import { defineComponent, PropType } from "vue";
+import IconVue from "./Icon.vue";
 export default defineComponent({
-  name: 'accordion',
+  name: "accordion",
   setup() {},
   components: { IconVue },
   props: {
@@ -12,20 +12,20 @@ export default defineComponent({
     id: String,
     cls: String,
     isShow: Boolean,
-    position: Array as PropType<number[]>
+    position: Array as PropType<number[]>,
   },
   data(): { open: boolean } {
     return {
-      open: this.isShow
-    }
+      open: this.isShow,
+    };
   },
   methods: {},
   watch: {
     isShow(n, o) {
-      this.open = n
-    }
-  }
-})
+      this.open = n;
+    },
+  },
+});
 </script>
 <template>
   <div class="relative mb-2">
@@ -33,7 +33,7 @@ export default defineComponent({
       <app-icon icon="angle-up" />
       <button
         :class="'px-2 py-1 relative w-full text-left rounded border'"
-        @click=";(open = !open), $emit('open')"
+        @click="(open = !open), $emit('open')"
       >
         {{ title }}
       </button>

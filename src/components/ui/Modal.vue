@@ -1,8 +1,8 @@
 <script lang="ts">
-import { defineComponent } from '@vue/runtime-core'
+import { defineComponent } from "@vue/runtime-core";
 
 export default defineComponent({
-  name: 'modal',
+  name: "modal",
   components: {},
   props: {
     title: String,
@@ -10,9 +10,8 @@ export default defineComponent({
     src: String,
     thumbnail: String,
     show: Boolean,
-  }
-})
-
+  },
+});
 </script>
 
 <template>
