@@ -83,7 +83,7 @@ export default defineComponent({
                   v-bind:title="element.name"
                   v-bind:cls="'ml-2 my-1'"
                   v-bind:key="eid.toString()"
-                  @open="onSelect([sid, cid, eid, -1], 'element')"
+                  @on-select="onSelect([sid, cid, eid, -1], 'element')"
                 >
                   <Item
                     v-for="(field, fid) in element.fields"

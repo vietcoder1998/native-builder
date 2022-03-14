@@ -2,13 +2,6 @@ import { mapGetters } from 'vuex';
 import { Element } from './../typing/index';
 
 
-interface DinamicElement {
-  props: any,
-  computed: {
-  },
-  method: any
-}
-// T as Type of Opstion, T1 as 
 function dynamicElement<T, T1, T2>() {
   return {
     props: {

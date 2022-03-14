@@ -28,17 +28,23 @@ export default defineComponent({
       this.open = n;
     },
   },
+  emits: ["onSelect"],
 });
 </script>
 <template>
   <div class="relative mb-2">
     <div v-bind:class="open && 'bg-blue-200' + ' rounded'">
-      <button
-        v-bind:class="'px-2 py-1 relative w-full text-left rounded border flex'"
-        @click="(open = !open), $emit('open')"
-      >
-        <app-icon v-bind:icon="!open ? 'angle-down' : 'angle-up'" class="w-6 h-6" />
-        {{ title }}
+      <button v-bind:class="'px-2 py-1 relative w-full text-left rounded border flex'">
+        <label class="border rounded">
+          <app-icon
+            v-bind:icon="!open ? 'angle-right' : 'angle-down'"
+            class="w-6 h-6"
+            @click="open = !open"
+          />
+        </label>
+        <button class="ml-2 hover:cursor-pointed px-2 rounded" @click="$emit('onSelect')">
+          {{ title }}
+        </button>
       </button>
     </div>
     <div v-show="open" v-bind:class="cls || ''">

@@ -60,7 +60,7 @@ export default defineComponent({
       class="grid grid-cols-2 gap-4 mx-3 my-5"
       @submit.prevent=""
     >
-      <div v-for="(field, id) in fields" :key="id" class="col-span-1 sm:col-span-2">
+      <div v-for="(field, id) in fields" :key="id" class="md:col-span-1 sm:col-span-2">
         <DymamicInput v-bind:field="field" @on-input-field="" />
       </div>
       <button type="submit" class="border p-2 rounded bg-blue-500 text-blue-50">
