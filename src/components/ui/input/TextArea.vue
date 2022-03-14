@@ -14,7 +14,7 @@ export default defineComponent({
   <textarea
     class="w-full text-left border"
     type="text"
-    v-bind:value="field?.value"
+    v-bind:value="String(field?.value)"
     v-bind:key="field?.customHTMLAttributes?.key"
     v-bind:placeholder="field?.customHTMLAttributes?.placeholder"
     v-bind:id="field?.customHTMLAttributes?.id"

@@ -16,67 +16,12 @@ export type FieldType =
   | 'radio'
   | 'textarea'
   | 'range'
+  | 'upload'
+  | 'number'
 
-export type Option = [
-  string | number,
-  Tag,
-  HTMLInputOptions,
-  string[] | number[] | boolean[] | undefined
-]
-
-export type OptionType =
-  | 'gap'
-  | 'col'
-  | 'type'
-  | 'title'
-  | 'src'
-  | 'required'
-  | 'tag'
-  | 'quantity'
-
-export interface NestedComponent<T> {
-  type?: T
-  options: Record<OptionType, Option>
-  name: string
-  id?: string | number | undefined
-}
-export interface Column extends NestedComponent<any> {
-  elements: Element[]
-}
-
-export interface Field extends NestedComponent<FieldType> {
-  value?: string | number | boolean 
-  tag: Tag
-  customHTMLAttributes: CustomHTMLAttributes
-}
-
-// foo: baz => baz[0] is value, baz[1] is type, baz[2] is options(ex: gap: [1, number, [2, 3, 4 ]] )
-export interface Element extends NestedComponent<ElementType> {
-  fields: Field[]
-}
-
-export interface Section extends NestedComponent<any> {
-  columns: Column[]
-}
-
-export type Position = [number, number, number, number]
-
-export enum ElementType {
-  gallery = 'gallery',
-  form = 'form',
-  slide = 'slide',
-  default = 'unknown'
-}
-
-export enum SelectorType {
-  element = 'element',
-  section = 'section',
-  column = 'column',
-  field = 'field'
-}
-
+export type ElementType = 'gallery' | 'form' | 'slide' | 'unknown'
+export type SelectorType = 'element' | 'section' | 'column' | 'field'
 export type Tag = 'img' | 'div' | 'input' | 'h1' | 'h2' | 'button' | 'select'
-
 export type HTMLInputOptions =
   | 'button'
   | 'checkbox'
@@ -100,3 +45,47 @@ export type HTMLInputOptions =
   | 'time'
   | 'url'
   | 'week'
+
+export type OptionType =
+  | 'gap'
+  | 'col'
+  | 'type'
+  | 'title'
+  | 'src'
+  | 'required'
+  | 'tag'
+  | 'quantity'
+
+export type Option = [
+  string | number,
+  Tag,
+  HTMLInputOptions,
+  string[] | number[] | boolean[] | undefined
+]
+
+export interface NestedComponent<T> {
+  type?: T
+  options: Record<OptionType, Option>
+  name: string
+  id: string | number
+}
+export interface Column extends NestedComponent<any> {
+  elements: Element[]
+}
+
+export interface Field extends NestedComponent<FieldType> {
+  value?: string | number | boolean
+  tag: Tag
+  customHTMLAttributes: CustomHTMLAttributes
+}
+
+// foo: baz => baz[0] is value, baz[1] is type, baz[2] is options(ex: gap: [1, number, [2, 3, 4 ]] )
+export interface Element extends NestedComponent<ElementType> {
+  fields: Field[]
+}
+
+export interface Section extends NestedComponent<any> {
+  columns: Column[]
+}
+
+export type Position = [number, number, number, number]

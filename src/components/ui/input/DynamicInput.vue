@@ -57,33 +57,33 @@ export default defineComponent({
   methods: {
     forceRender(): void {
       switch (this.field?.type) {
-        case FieldName.upload:
+        case 'upload':
           this.current = uploIn
           break
 
-        case FieldName.textarea:
+        case 'textarea':
           this.current = areaIn
           break
 
-        case FieldName.select:
+        case 'select':
           this.current = seleIn
           break
 
-        case FieldName.number:
+        case 'number':
           this.current = numbIn
           break
-        case FieldName.radio:
+        case 'radio':
           this.current = radiIn
           break
 
-        case FieldName.date:
+        case 'date':
           this.current = dateIn
           break
 
-        case FieldName.checkbox:
+        case 'checkbox':
           this.current = checIn
           break
-        case FieldName.range:
+        case 'range':
           this.current = checIn
           break
 
@@ -94,17 +94,17 @@ export default defineComponent({
     },
 
     onChange(e: any) {
-      if (this.field?.index && e) {
+      if (this.field.index && e) {
         if (e?.target?.files[0]) {
           const image = e.target.files[0]
           const reader = new FileReader()
           reader.readAsDataURL(image)
           reader.onload = (e: ProgressEvent<FileReader>) => {
             const previewImage = e?.target?.result
-            this.$emit('on-input-field', this.field?.index, previewImage)
+            this.$emit('on-input-field', this.field.index, previewImage)
           }
         } else {
-          this.$emit('on-input-field', this.field?.index, e?.target?.value)
+          this.$emit('on-input-field', this.field.index, e?.target?.value)
         }
       }
     }
