@@ -1,48 +1,51 @@
 <script lang="ts">
-import { defineComponent } from "vue";
-import { mapGetters, mapMutations } from "vuex";
-import ulti from "../../mixin/ulti";
-import { Option } from "../../typing/index";
-import Accordion from "../ui/Accordion.vue";
-import TextArea from "../ui/input/TextArea.vue";
-import TextInput from "../ui/input/TextInput.vue";
+import { defineComponent } from 'vue'
+import { mapGetters, mapMutations } from 'vuex'
+import ulti from '../../mixin/ulti'
+import { Option } from '../../typing/index'
+import Accordion from '../ui/Accordion.vue'
+import TextArea from '../ui/input/TextArea.vue'
+import TextInput from '../ui/input/TextInput.vue'
 
 export default defineComponent({
-  name: "selector-info",
+  name: 'selector-info',
   components: { Accordion, TextInput, TextArea },
   computed: {
-    ...mapGetters(["selector"]),
+    ...mapGetters(['selector']),
     optionLabels(): [string, Option][] {
-      return Object.entries(this.selector.options);
+      console.log(Object.entries(this.selector.options))
+      return Object.entries(this.selector.options)
     },
     options() {
-      return this.selector.options;
-    },
+      return this.selector.options
+    }
   },
   mixins: [ulti],
   methods: {
-    ...mapMutations(["onUpdateSelector"]),
+    ...mapMutations(['onUpdateSelector']),
     onSaveOption() {
       // transform Form into Array<{[key: string]: value }>
-      console.log(this.selector);
+      console.log(this.selector)
       const nOptions: object[] = Array.from(
         //@ts-ignore
-        this.$refs?.selectorRef?.getElementsByTagName("input") as HTMLInputElement[],
+        this.$refs?.selectorRef?.getElementsByTagName(
+          'input'
+        ) as HTMLInputElement[],
         (item: HTMLInputElement) => ({
           [item?.name]: [
             item?.value,
             this.selector?.options?.[item.name][1],
             this.selector?.options?.[item.name][2],
-            this.selector?.options?.[item.name][3] || [],
-          ],
+            this.selector?.options?.[item.name][3] || []
+          ]
         })
-      );
+      )
 
-      this.onUpdateSelector(nOptions);
-      alert("Alert success");
-    },
-  },
-});
+      this.onUpdateSelector(nOptions)
+      alert('Alert success')
+    }
+  }
+})
 </script>
 <template>
   <div>
@@ -50,8 +53,9 @@ export default defineComponent({
       <form ref="selectorRef" @submit.prevent="onSaveOption">
         <div v-for="(option, key) in optionLabels" v-bind:key="key">
           <label>{{ option[0] }}</label>
-          <TextInput
+          <input
             class="w-full"
+            v-bind:type="option[1][2] || text"
             v-bind:value="option[1][0]"
             v-bind:id="'element-selector' + key"
           />
@@ -60,6 +64,7 @@ export default defineComponent({
           <label> customHTMLAttributes </label>
           <textarea
             class="w-full border"
+            rows="8"
             v-bind:value="convertJSONtoString(selector?.customHTMLAttributes)"
           >
           </textarea>

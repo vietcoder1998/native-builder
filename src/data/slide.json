@@ -3,18 +3,9 @@
     "tag": "img",
     "type": "text",
     "options": {
-      "src": [
-        "https://picsum.photos/200/300",
-        "text"
-      ],
-      "thumbnail": [
-        "https://picsum.photos/200/300",
-        "text"
-      ],
-      "title": [
-        "https://picsum.photos/200/300",
-        "text"
-      ]
+      "src": ["https://picsum.photos/200/300", "input", "text", []],
+      "thumbnail": ["https://picsum.photos/200/300", "input", "text", []],
+      "title": ["https://picsum.photos/200/300", "input", "text", []]
     },
     "customHTMLAttributes": {}
   },
@@ -22,18 +13,9 @@
     "tag": "img",
     "type": "text",
     "options": {
-      "src": [
-        "https://picsum.photos/200/300",
-        "text"
-      ],
-      "thumbnail": [
-        "https://picsum.photos/200/300",
-        "text"
-      ],
-      "title": [
-        "https://picsum.photos/200/300",
-        "text"
-      ]
+      "src": ["https://picsum.photos/200/300", "input", "text", []],
+      "thumbnail": ["https://picsum.photos/200/300", "input", "text", []],
+      "title": ["https://picsum.photos/200/300", "input", "text", []]
     },
     "customHTMLAttributes": {}
   },
@@ -41,18 +23,9 @@
     "tag": "img",
     "type": "text",
     "options": {
-      "src": [
-        "https://picsum.photos/200/300",
-        "text"
-      ],
-      "thumbnail": [
-        "https://picsum.photos/200/300",
-        "text"
-      ],
-      "title": [
-        "https://picsum.photos/200/300",
-        "text"
-      ]
+      "src": ["https://picsum.photos/200/300", "input", "text", []],
+      "thumbnail": ["https://picsum.photos/200/300", "input", "text", []],
+      "title": ["https://picsum.photos/200/300", "input", "text", []]
     },
     "customHTMLAttributes": {}
   },
@@ -60,18 +33,9 @@
     "tag": "img",
     "type": "text",
     "options": {
-      "src": [
-        "https://picsum.photos/200/300",
-        "text"
-      ],
-      "thumbnail": [
-        "https://picsum.photos/200/300",
-        "text"
-      ],
-      "title": [
-        "https://picsum.photos/200/300",
-        "text"
-      ]
+      "src": ["https://picsum.photos/200/300", "input", "text", []],
+      "thumbnail": ["https://picsum.photos/200/300", "input", "text", []],
+      "title": ["https://picsum.photos/200/300", "input", "text", []]
     },
     "customHTMLAttributes": {}
   }

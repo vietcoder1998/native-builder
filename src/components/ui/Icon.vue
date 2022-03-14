@@ -6,8 +6,9 @@ import {
   Image,
   AngleLeft,
   AngleRight,
+ObjectUnGroup,
 } from "../../assets/icons/index";
-export type Icon = "angle-up" | "angle-down" | "img" | "angle-left" | "angle-right";
+export type Icon = "angle-up" | "angle-down" | "img" | "angle-left" | "angle-right" | "sort";
 
 export default defineComponent({
   name: "app-icon",
@@ -26,6 +27,8 @@ export default defineComponent({
           return AngleRight;
         case "angle-left":
           return AngleLeft;
+        case "sort":
+          return ObjectUnGroup;
         case "img":
           return Image;
         default:

@@ -1,111 +1,116 @@
 <script lang="ts">
-import { defineComponent, PropType, shallowRef } from "vue";
-import { FieldName } from "../../../typing/fields";
-import { Field } from "../../../typing/index";
-import CheckBoxVue from "./CheckBox.vue";
-import DateInputVue from "./DateInput.vue";
-import NumberInputVue from "./NumberInput.vue";
-import RadioInputVue from "./RadioInput.vue";
-import SelectInputVue from "./SelectInput.vue";
-import TextAreaVue from "./TextArea.vue";
-import TextInputVue from "./TextInput.vue";
-import UploadVue from "./Upload.vue";
+import { defineComponent, PropType, shallowRef } from 'vue'
+import { FieldName } from '../../../typing/fields'
+import { Field } from '../../../typing/index'
+import CheckBoxVue from './CheckBox.vue'
+import DateInputVue from './DateInput.vue'
+import NumberInputVue from './NumberInput.vue'
+import RadioInputVue from './RadioInput.vue'
+import SelectInputVue from './SelectInput.vue'
+import TextAreaVue from './TextArea.vue'
+import TextInputVue from './TextInput.vue'
+import RangeInput from './RangeInput.vue'
+import UploadVue from './Upload.vue'
 
-const numbIn = shallowRef(NumberInputVue);
-const uploIn = shallowRef(UploadVue);
-const textIn = shallowRef(TextInputVue);
-const seleIn = shallowRef(SelectInputVue);
-const radiIn = shallowRef(RadioInputVue);
-const areaIn = shallowRef(TextAreaVue);
-const dateIn = shallowRef(DateInputVue);
-const checIn = shallowRef(CheckBoxVue);
+const numbIn = shallowRef(NumberInputVue)
+const uploIn = shallowRef(UploadVue)
+const textIn = shallowRef(TextInputVue)
+const seleIn = shallowRef(SelectInputVue)
+const radiIn = shallowRef(RadioInputVue)
+const areaIn = shallowRef(TextAreaVue)
+const dateIn = shallowRef(DateInputVue)
+const checIn = shallowRef(CheckBoxVue)
+const rangeIn = shallowRef(RangeInput)
 
 export default defineComponent({
-  name: "validate-field",
+  name: 'validate-field',
   data() {
     return {
       current: {},
-      files: [],
-    };
+      files: []
+    }
   },
   props: {
-    field: {} as PropType<Field>,
+    field: {} as PropType<Field>
   },
 
   created() {
-    console.log(this.field);
+    console.log(this.field)
   },
 
   // called on init
   activated() {
-    console.log("hello world");
+    console.log('hello world')
   },
   // watch: listen props, change on change props
   watch: {
     field: {
       handler(n: Field, o: Field) {
-        this.forceRender();
+        this.forceRender()
       },
-      deep: true,
-    },
+      deep: true
+    }
   },
   mounted() {
-    this.forceRender();
+    this.forceRender()
   },
   methods: {
     forceRender(): void {
       switch (this.field?.type) {
         case FieldName.upload:
-          this.current = uploIn;
-          break;
+          this.current = uploIn
+          break
 
         case FieldName.textarea:
-          this.current = areaIn;
-          break;
+          this.current = areaIn
+          break
 
         case FieldName.select:
-          this.current = seleIn;
-          break;
+          this.current = seleIn
+          break
 
         case FieldName.number:
-          this.current = numbIn;
-          break;
+          this.current = numbIn
+          break
         case FieldName.radio:
-          this.current = radiIn;
-          break;
+          this.current = radiIn
+          break
 
         case FieldName.date:
-          this.current = dateIn;
-          break;
+          this.current = dateIn
+          break
 
         case FieldName.checkbox:
-          this.current = checIn;
-          break;
+          this.current = checIn
+          break
+        case FieldName.range:
+          this.current = checIn
+          break
 
         default:
-          this.current = textIn;
-          break;
+          this.current = textIn
+          break
       }
     },
 
     onChange(e: any) {
       if (this.field?.index && e) {
         if (e?.target?.files[0]) {
-          const image = e.target.files[0];
-          const reader = new FileReader();
-          reader.readAsDataURL(image);
+          const image = e.target.files[0]
+          const reader = new FileReader()
+          reader.readAsDataURL(image)
           reader.onload = (e: ProgressEvent<FileReader>) => {
-            const previewImage = e?.target?.result;
-            this.$emit("on-input-field", this.field?.index, previewImage);
-          };
+            const previewImage = e?.target?.result
+            this.$emit('on-input-field', this.field?.index, previewImage)
+          }
         } else {
-          this.$emit("on-input-field", this.field?.index, e?.target?.value);
+          this.$emit('on-input-field', this.field?.index, e?.target?.value)
         }
       }
-    },
+    }
   },
-  emits: ["on-input-field"],
-});
+  emits: ['on-input-field']
+})
 </script>
 
 <template>
@@ -119,13 +124,17 @@ export default defineComponent({
       >
     </label>
     <keep-alive include="field" max="10">
-      <component v-bind:is="current" v-bind:field="field" @change="onChange"></component>
+      <component
+        v-bind:is="current"
+        v-bind:field="field"
+        @change="onChange"
+      ></component>
     </keep-alive>
     <p
       v-show="field?.customHTMLAttributes?.showError"
       class="text-red-400 text-sm absolute bottom-0 left-0"
     >
-      {{ field?.customHTMLAttributes?.error || "" }}
+      {{ field?.customHTMLAttributes?.error || '' }}
     </p>
   </div>
 </template>

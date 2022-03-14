@@ -168,29 +168,14 @@
     "value": null,
     "tag": "input",
     "options": {
-      "required": [
-        true,
-        "text",
-        "input",
-        []
-      ],
-      "title": [
-        "Checkbox",
-        "date",
-        "input",
-        []
-      ],
+      "required": [true, "input", "text", []],
+      "width": [120, "input", "range", []],
+      "title": ["Checkbox", "date", "input", []],
       "tag": [
         "select",
         "text",
         "select",
-        [
-          "group",
-          "text",
-          "textarea",
-          "image-upload",
-          "checkbox"
-        ]
+        ["group", "text", "textarea", "image-upload", "checkbox"]
       ]
     },
     "customHTMLAttributes": {

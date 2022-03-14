@@ -18,7 +18,8 @@ export enum FieldName {
   date = 'date',
   radio = 'radio',
   number = 'number',
-  upload = 'upload'
+  upload = 'upload',
+  range = 'range'
 }
 
 export enum Tag {
