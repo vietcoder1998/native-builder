@@ -6,12 +6,14 @@
     "dev": "vite",
     "build": "vue-tsc --noEmit && vite build",
     "preview": "vite preview",
-    "prepare": "husky install"
+    "prepare": "husky install",
+    "lint": "prettier --check .",
+    "format": "prettier --write ."
   },
   "husky": {
     "hooks": {
-      "pre-commit": "echo ”[Husky] pre-commit”",
-      "check-build": "npm run build"
+      "description": "echo ”[Husky] pre-commit”",
+      "pre-commit": "npm run build && prettier --write . && git add -A "
     }
   },
   "dependencies": {
