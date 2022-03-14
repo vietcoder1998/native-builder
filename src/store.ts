@@ -86,8 +86,8 @@ export const store = createStore<State>({
                 name: 'slide',
                 type: ElementType.slide,
                 fields: slide,
-                gap: [1, 'number'],
                 options: {
+                  gap: [1, 'number'],
                   pagination: ['on', 'radio', ['on', 'off']],
                   navigation: ['on', 'radio', ['on', 'off']],
                   itemsNumber: [3, 'number', ['on', 'off']]
@@ -100,7 +100,7 @@ export const store = createStore<State>({
     ]
   },
   mutations: {
-    removeSection(state: State, id: number) {},
+    removeSection(state: State, id: number) { },
     onSelectUI(
       state: State,
       { type, position }: { type: SelectorType; position: Position }
@@ -118,7 +118,7 @@ export const store = createStore<State>({
         case 'element':
           value =
             state.sections[position[0]].columns[position[1]].elements[
-              position[2]
+            position[2]
             ]
           break
         case 'field':
@@ -138,13 +138,13 @@ export const store = createStore<State>({
         position
       }
     },
-    onUpdateSelector(state, nOptions:  Option[]): void {
+    onUpdateSelector(state, nOptions: Option[]): void {
       const { position, type } = state.selector
       const options = nOptions.reduce((reactive, item: Option) => ({
         ...reactive,
         [Object.keys(item)[0]]: Object.values(item)[0]
       }))
-      let selectorOp: (Option[] | undefined) = []
+      let selectorOp: Record<string, Option> | undefined = {}
 
       switch (type) {
         case SelectorType.section:
@@ -152,7 +152,7 @@ export const store = createStore<State>({
 
           break
         case SelectorType.column:
-          selectorOp = state.sections[position[0]].columns[position[1]].options
+          selectorOp = state.sections[position[0]].columns[position[1]]?.options
           break
         case SelectorType.element:
           selectorOp =
@@ -178,20 +178,20 @@ export const store = createStore<State>({
     // get value of fields in store
     element:
       (state) =>
-      ({ sid, cid, eid }: {sid: number, cid: number, eid: number}) =>
-        state.sections[sid].columns[cid].elements[eid],
+        ({ sid, cid, eid }: { sid: number, cid: number, eid: number }) =>
+          state.sections[sid].columns[cid].elements[eid],
     column:
       (state) =>
-      ({ sid, cid }: {sid: number, cid: number}) =>
-        state.sections[sid].columns[cid],
+        ({ sid, cid }: { sid: number, cid: number }) =>
+          state.sections[sid].columns[cid],
     section:
       (state) =>
-      ({ sid }: {sid: number}) =>
-        state.sections[sid],
+        ({ sid }: { sid: number }) =>
+          state.sections[sid],
     field:
       (state) =>
-      ({ sid, cid, eid, fid }:  {sid: number, cid: number, eid: number, fid: number}) =>
-        state.sections[sid].columns[cid].elements[eid].fields[fid],
+        ({ sid, cid, eid, fid }: { sid: number, cid: number, eid: number, fid: number }) =>
+          state.sections[sid].columns[cid].elements[eid].fields[fid],
     selector: (state) => state.selector
   }
 })

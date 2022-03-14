@@ -35,7 +35,7 @@ export default defineComponent({
       newItem: {}
     }
   },
-  mixins: [dynamicElement<Option, Record<string, Option>,GalleryItem>()],
+  mixins: [dynamicElement<Option, Record<string, Option>, GalleryItem>()],
   computed: {
     itemIndex(): number {
       return this.fixingItem?.index || 0
@@ -52,6 +52,8 @@ export default defineComponent({
       //@ts-ignore
       return `w-full p-${this.gap} `
     },
+
+    // convert image to matrix 2x2 :D too easy to use masonry
     imageFlexing(): GalleryItem[][] {
       //@ts-ignore
       let column: number = this.column
@@ -59,11 +61,12 @@ export default defineComponent({
       for (let i = 0; i < column; i++) {
         matrix.push([])
       }
-      this.items.forEach((item, i) => {
+      this.items.forEach((item: GalleryItem, i) => {
         let t = i % column
         const converItem = {}
-        Object.entries(item.options).map((entry) => {
-          Object.assign(converItem, { [entry[0]]: entry[1][0] })
+        Object.entries(item.options).map(([key, value]: [string, Option]) => {
+          // image with value first value will return src of value exple: options: {src: ["abc.xyz", "text"]} => options: {src: "abc.xyz"}}
+          Object.assign(converItem, { [key]: value[0] })
         })
         matrix[t].push(converItem)
         console.log(matrix[i])

@@ -1,26 +1,74 @@
 [
   {
-    "src": "https://picsum.photos/200/300",
-    "title": "Just add your desired ",
-    "thumbnail": "https://picsum.photos/200/300",
+    "tag": "img",
+    "options": {
+      "src": [
+        "https://picsum.photos/200/300",
+        "text"
+      ],
+      "thumbnail": [
+        "https://picsum.photos/200/300",
+        "text"
+      ],
+      "title": [
+        "https://picsum.photos/200/300",
+        "text"
+      ]
+    },
     "customHTMLAttributes": {}
   },
   {
-    "src": "https://picsum.photos/200/300",
-    "title": "Just add your desired ",
-    "thumbnail": "https://picsum.photos/200/300",
+    "tag": "img",
+    "options": {
+      "src": [
+        "https://picsum.photos/200/300",
+        "text"
+      ],
+      "thumbnail": [
+        "https://picsum.photos/200/300",
+        "text"
+      ],
+      "title": [
+        "https://picsum.photos/200/300",
+        "text"
+      ]
+    },
     "customHTMLAttributes": {}
   },
   {
-    "src": "https://picsum.photos/200/300",
-    "title": "Just add your desired ",
-    "thumbnail": "https://picsum.photos/200/300",
+    "tag": "img",
+    "options": {
+      "src": [
+        "https://picsum.photos/200/300",
+        "text"
+      ],
+      "thumbnail": [
+        "https://picsum.photos/200/300",
+        "text"
+      ],
+      "title": [
+        "https://picsum.photos/200/300",
+        "text"
+      ]
+    },
     "customHTMLAttributes": {}
   },
   {
-    "src": "https://picsum.photos/200/300",
-    "title": "Just add your desired ",
-    "thumbnail": "https://picsum.photos/200/300",
+    "tag": "img",
+    "options": {
+      "src": [
+        "https://picsum.photos/200/300",
+        "text"
+      ],
+      "thumbnail": [
+        "https://picsum.photos/200/300",
+        "text"
+      ],
+      "title": [
+        "https://picsum.photos/200/300",
+        "text"
+      ]
+    },
     "customHTMLAttributes": {}
   }
 ]

@@ -1,11 +1,11 @@
 import { CustomHTMLAttributes, FieldName, HTMLInputCustomAttributes } from "./fields"
 
-export type Option = [any, HTMLInputCustomAttributes, any[]]
+export type Option = [string | number, HTMLInputCustomAttributes, (string | number)[]]
 
 export interface Column {
   elements: Element[]
   name: string
-  options?: Option[]
+  options?: Record<string, Option>
 }
 
 export interface Field {
@@ -14,21 +14,21 @@ export interface Field {
   value?: string | number
   index: number
   customHTMLAttributes: CustomHTMLAttributes
-  options: Option[]
+  options: Record<string, Option>
 }
 
 export interface Element {
   name: string
   fields: Field[]
   type: ElementType
-  // foo: baz => baz[0] is value, baz[1] is type, baz[2] is options(ex: gap: [1, number, [2, 3, 4 ] )
-  options?: Option[]
+  // foo: baz => baz[0] is value, baz[1] is type, baz[2] is options(ex: gap: [1, number, [2, 3, 4 ]] )
+  options?: Record<string, Option>
 }
 
 export interface Section {
   name: string
   id: string | number | undefined
-  options: Option[]
+  options: Record<string, Option>
   columns: Column[]
 }
 
