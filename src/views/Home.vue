@@ -44,13 +44,19 @@ export default defineComponent({
           ? " bg-blue-300 "
           : " error " + "rounded text-left hover:bg-slate-300 p-1 mt-1 ml-2 w-full ";
     },
+    type() {
+      return (name: SelectorType) => SelectorType[name];
+    },
   },
   methods: {
-    onSelect(position: Position, type: SelectorType | string) {
-      console.log("ok", position, type);
-      this.onSelectUI({ position, type });
-    },
     ...mapMutations(["onSelectUI"]),
+    onSelect(position: Position, type: string) {
+      console.log();
+      this.onSelectUI({
+        position,
+        type,
+      });
+    },
   },
 });
 </script>
@@ -84,6 +90,7 @@ export default defineComponent({
                     v-bind:itemClass="itemNavigatorClass([sid, cid, eid, fid])"
                     v-bind:item="field"
                     v-bind:position="[sid, cid, eid, fid]"
+                    @click="onSelect([sid, cid, eid, fid], 'field')"
                   >
                   </Item>
                 </Accordion>

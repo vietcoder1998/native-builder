@@ -26,7 +26,7 @@ export default defineComponent({
 });
 </script>
 <template>
-  <button @click="onSelectUI(position, 'field')" v-bind:class="itemClass">
+  <button v-bind:class="itemClass">
     {{ item?.type }}
   </button>
 </template>

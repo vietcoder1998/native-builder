@@ -65,12 +65,16 @@ export const store = createStore<State>({
             elements: [
               {
                 name: 'form',
-                type: ElementType.form,
-                fields: formContact,
                 options: {
+                  type: [
+                    ElementType.form,
+                    'select',
+                    ['gallery', 'slide', 'form']
+                  ],
                   gap: [1, 'number'],
                   quantity: [1, 'number']
-                }
+                },
+                fields: formContact,
               }
             ]
           }
