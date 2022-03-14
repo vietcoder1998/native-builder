@@ -1,28 +1,32 @@
 <script lang="ts">
-import { defineComponent, PropType } from 'vue'
-import { Field } from '../../../typing/fields'
+import { defineComponent, PropType } from "vue";
+import { Field } from "../../../typing/index";
 
 export default defineComponent({
-  name: 'select-input',
+  name: "select-input",
   props: {
-    field: Object as PropType<Field<string | number>>
+    field: Object as PropType<Field>,
   },
-  emits: ['change']
-})
+  emits: ["change"],
+});
 </script>
 
 <template>
   <select
     v-bind:value="field?.value"
-    v-bind:name="field?.customHTMLAttributes.name"
+    v-bind:name="field?.customHTMLAttributes?.name"
     class="w-full p-1 border rounded"
-    v-bind:required="field?.customHTMLAttributes.required"
+    v-bind:required="field?.customHTMLAttributes?.required"
     @change="$emit('change')"
   >
     <option value="" disabled selected>
-      {{ field?.customHTMLAttributes.placeholder }}
+      {{ field?.customHTMLAttributes?.placeholder }}
     </option>
-    <option v-for="(option, oid) in field?.customHTMLAttributes.options" :key="oid" :value="option">
+    <option
+      v-for="(option, oid) in field?.customHTMLAttributes?.options"
+      :key="oid"
+      :value="option"
+    >
       {{ option }}
     </option>
   </select>

@@ -2,15 +2,22 @@
 import { defineComponent } from "vue";
 import { mapGetters, mapMutations } from "vuex";
 import ulti from "../../mixin/ulti";
+import { Option } from "../../typing/index";
 import Accordion from "../ui/Accordion.vue";
-import DynamicInput from "../ui/input/DynamicInput.vue";
 import TextArea from "../ui/input/TextArea.vue";
+import TextInput from "../ui/input/TextInput.vue";
 
 export default defineComponent({
   name: "selector-info",
-  components: { Accordion, DynamicInput, TextArea },
+  components: { Accordion, TextInput, TextArea },
   computed: {
     ...mapGetters(["selector"]),
+    optionLabels(): [string, Option][] {
+      return Object.entries(this.selector.options);
+    },
+    options() {
+      return this.selector.options;
+    },
   },
   mixins: [ulti],
   methods: {
@@ -24,8 +31,9 @@ export default defineComponent({
         (item: HTMLInputElement) => ({
           [item?.name]: [
             item?.value,
-            this.selector?.value?.options?.[item.name][1],
-            this.selector?.value?.options?.[item.name][2] || [],
+            this.selector?.options?.[item.name][1],
+            this.selector?.options?.[item.name][2],
+            this.selector?.options?.[item.name][3] || [],
           ],
         })
       );
@@ -40,15 +48,20 @@ export default defineComponent({
   <div>
     <div v-show="selector.position[1] !== -1">
       <form ref="selectorRef" @submit.prevent="onSaveOption">
-        <div v-for="(options, k) in selector.value?.options" v-bind:key="k">
-          <DynamicInput
+        <div v-for="(option, key) in optionLabels" v-bind:key="key">
+          <label>{{ option[0] }}</label>
+          <TextInput
             class="w-full"
-            v-bind:id="'element-selector' + k.toString()"
-            v-bind:field="selector"
+            v-bind:value="option[1][0]"
+            v-bind:id="'element-selector' + key"
           />
         </div>
-        <div v-if="selector.value?.customHTMLAttributes">
-          <textarea v-bind:value="selector?.value?.customHTMLAttributes.toString()">
+        <div v-if="selector.customHTMLAttributes">
+          <label> customHTMLAttributes </label>
+          <textarea
+            class="w-full border"
+            v-bind:value="convertJSONtoString(selector?.customHTMLAttributes)"
+          >
           </textarea>
         </div>
         <div class="text-right">

@@ -1,59 +1,59 @@
 <script lang="ts">
-import { defineComponent, PropType, shallowRef } from 'vue'
-import { ElementType, Position } from '../../typing/index'
-import FormContactVue from '../form-contact/FormContact.vue'
-import ImageGalleryVue from '../image-gallery/ImageGallery.vue'
-import SlidesVue from '../slides/Slides.vue'
+import { defineComponent, PropType, shallowRef } from "vue";
+import { ElementType } from "../../typing/index";
+import FormContactVue from "../form-contact/FormContact.vue";
+import ImageGalleryVue from "../image-gallery/ImageGallery.vue";
+import SlidesVue from "../slides/Slides.vue";
 
-const imgGal = shallowRef(ImageGalleryVue)
-const slideVue = shallowRef(SlidesVue)
-const formCon = shallowRef(FormContactVue)
+const imgGal = shallowRef(ImageGalleryVue);
+const slideVue = shallowRef(SlidesVue);
+const formCon = shallowRef(FormContactVue);
 export default defineComponent({
-  name: 'dynamic-element',
+  name: "dynamic-element",
   props: {
     type: String as PropType<ElementType>,
-    position: Array as PropType<number[]>
+    position: Array as PropType<number[]>,
   },
   created() {},
   data(): { current: any } {
     return {
-      current: {}
-    }
+      current: {},
+    };
   },
 
   beforeMount() {
     switch (this.type) {
       case ElementType.gallery:
-        this.current = imgGal
-        break
+        this.current = imgGal;
+        break;
 
       case ElementType.form:
-        this.current = formCon
-        break
+        this.current = formCon;
+        break;
 
       case ElementType.slide:
-        this.current = slideVue
-        break
+        this.current = slideVue;
+        break;
 
       default:
-        this.current = formCon
-        break
+        this.current = formCon;
+        break;
     }
   },
   // watch: listen props, change on change props
   methods: {},
   computed: {
     sid(): number {
-      return this.position[0] || 0
+      return this.position ? this.position[0] : 0;
     },
     cid(): number {
-      return this.position[1] || 0
+      return this.position ? this.position[1] : 0;
     },
     eid(): number {
-      return this.position[2] || 0
-    }
-  }
-})
+      return this.position ? this.position[2] : 0;
+    },
+  },
+});
 </script>
 
 <template>

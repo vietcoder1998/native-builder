@@ -32,6 +32,10 @@ export default defineComponent({
     field: {} as PropType<Field>,
   },
 
+  created() {
+    console.log(this.field);
+  },
+
   // called on init
   activated() {
     console.log("hello world");
@@ -115,18 +119,13 @@ export default defineComponent({
       >
     </label>
     <keep-alive include="field" max="10">
-      <component
-        v-bind:is="current"
-        v-bind:field="field"
-        :key="field?.customHTMLAttributes.key"
-        @change="onChange"
-      ></component>
+      <component v-bind:is="current" v-bind:field="field" @change="onChange"></component>
     </keep-alive>
     <p
-      v-show="field?.customHTMLAttributes.showError"
+      v-show="field?.customHTMLAttributes?.showError"
       class="text-red-400 text-sm absolute bottom-0 left-0"
     >
-      {{ field?.customHTMLAttributes.error }}
+      {{ field?.customHTMLAttributes?.error || "" }}
     </p>
   </div>
 </template>

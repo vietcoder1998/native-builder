@@ -1,24 +1,24 @@
 <script lang="ts">
-import { defineComponent, PropType } from 'vue'
-import { Field } from '../../../typing/index'
+import { defineComponent, PropType } from "vue";
+import { Field } from "../../../typing/index";
 
 export default defineComponent({
-  name: 'text-input',
+  name: "text-input",
   props: {
-    field: {} as PropType<Field<string>>
+    field: {} as PropType<Field>,
   },
-  emits: ['change']
-})
+  emits: ["change"],
+});
 </script>
 <template>
   <input
     class="w-full text-left"
     type="text"
     v-bind:value="field?.value?.toString()"
-    v-bind:required="field?.customHTMLAttributes.required"
-    v-bind:placeholder="field?.customHTMLAttributes.placeholder"
-    v-bind:id="field?.customHTMLAttributes.id"
-    v-bind:name="field?.customHTMLAttributes.name"
+    v-bind:required="field?.customHTMLAttributes?.required"
+    v-bind:placeholder="field?.customHTMLAttributes?.placeholder"
+    v-bind:id="field?.customHTMLAttributes?.id"
+    v-bind:name="field?.customHTMLAttributes?.name"
   />
 </template>
 

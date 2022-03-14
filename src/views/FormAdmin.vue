@@ -1,16 +1,16 @@
 <script lang="ts">
-import { defineComponent } from 'vue'
-import BeaeElement from '../components/beae-element/BeaeElement.vue'
-import ImageGallery from '../components/image-gallery/ImageGallery.vue'
-import Slides from '../components/slides/Slides.vue'
-import FormContact from '../components/form-contact/FormContact.vue'
-import LiquidAdmin from '../components/form-admin/FormAdmin.vue'
-import Accordion from '../components/ui/Accordion.vue'
-import { State } from '../typing/store'
-import SearchSelect from '../components/ui/SearchSelect.vue'
+import { defineComponent } from "vue";
+import BeaeElement from "../components/beae-element/BeaeElement.vue";
+import ImageGallery from "../components/image-gallery/ImageGallery.vue";
+import Slides from "../components/slides/Slides.vue";
+import FormContact from "../components/form-contact/FormContact.vue";
+import LiquidAdmin from "../components/form-admin/FormAdmin.vue";
+import Accordion from "../components/ui/Accordion.vue";
+import { State } from "../typing/store";
+import SearchSelect from "../components/ui/SearchSelect.vue";
 
 export default defineComponent({
-  name: 'form-admin',
+  name: "form-admin",
   components: {
     ImageGallery,
     FormContact,
@@ -18,35 +18,31 @@ export default defineComponent({
     BeaeElement,
     LiquidAdmin,
     Accordion,
-    SearchSelect
+    SearchSelect,
   },
   data() {
     return {
-      tab: ''
-    }
+      tab: "",
+    };
   },
   computed: {
-    center(): State {
-      return this.$store.state
-    },
     keyStore(): String[] {
-      return Object.keys(this.$store.state)
+      return Object.keys(this.$store.state);
     },
     initSelect() {
-      return Object.keys(this.$store.state)[0]
-    }
+      return Object.keys(this.$store.state)[0];
+    },
   },
   mounted() {
-    console.log(this.center)
-    this.tab = this.initSelect
+    this.tab = this.initSelect;
   },
-  emits: ['on-select'],
+  emits: ["on-select"],
   methods: {
     onSelect(e: string) {
-      this.tab = e
-    }
-  }
-})
+      this.tab = e;
+    },
+  },
+});
 </script>
 <template>
   <div class="grid grid-cols-8">

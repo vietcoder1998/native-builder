@@ -13,21 +13,6 @@ const routes = [
     component: Home
   },
   {
-    path: '/gallery',
-    name: 'Gallery',
-    component: Gallery
-  },
-  {
-    path: '/form-contact',
-    name: 'FormContact',
-    component: FormContact
-  },
-  {
-    path: '/slider',
-    name: 'SlidePage',
-    component: SlidePage
-  },
-  {
     path: '/beae-collection',
     name: 'beae-collection',
     component: BeaeCollection

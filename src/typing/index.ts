@@ -6,30 +6,30 @@ import { CustomHTMLAttributes, FieldName } from './fields';
 // tag is required: Required => 'input' | 'select' | 'img' | h1, ... ( HTMLElement )
 // field of tag: Required => 'checkbox' | 'text' | 'number' | 'date' ... ( HTMLInputValue)
 
-export type Option = [string | number, Tag, HTMLInputOptions, (string | number)[]]
-export type OptionType = 'gap' | 'col' | 'type' | 'title' | 'src' | 'required' | 'tag'
+export type Option = [string | number, Tag, HTMLInputOptions, string[] | number[] | boolean[] | undefined]
+export type OptionType = 'gap' | 'col' | 'type' | 'title' | 'src' | 'required' | 'tag' | 'quantity'
 
 export interface Column {
-  elements: Element[]
   name: string
-  options?: Record<string, Option>
+  options: Record<OptionType, Option>
+  elements: Element[]
 }
 
 export interface Field {
   type?: FieldName
   value?: string | number
   index: number
-  customHTMLAttributes: CustomHTMLAttributes
-  options: Record<OptionType, Option>
   tag: Tag
+  options: Record<OptionType, Option>
+  customHTMLAttributes: CustomHTMLAttributes
 }
 
+// foo: baz => baz[0] is value, baz[1] is type, baz[2] is options(ex: gap: [1, number, [2, 3, 4 ]] )
 export interface Element {
   name: string
-  fields: Field[]
   type: ElementType
-  // foo: baz => baz[0] is value, baz[1] is type, baz[2] is options(ex: gap: [1, number, [2, 3, 4 ]] )
-  options?: Record<OptionType, Option>
+  fields: Field[]
+  options: Record<OptionType, Option>
 }
 
 export interface Section {
@@ -55,7 +55,7 @@ export enum SelectorType {
   field = 'field'
 }
 
-export type Tag = 'img' | 'div' | 'input' | 'h1' | 'h2' | 'button'
+export type Tag = 'img' | 'div' | 'input' | 'h1' | 'h2' | 'button' | 'select'
 
 export type HTMLInputOptions =
   | 'button'
@@ -80,4 +80,3 @@ export type HTMLInputOptions =
   | 'time'
   | 'url'
   | 'week'
-  | 'select'

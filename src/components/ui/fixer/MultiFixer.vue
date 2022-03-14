@@ -1,29 +1,29 @@
 <script lang="ts">
-import { defineComponent, PropType } from 'vue'
-import { Field } from '../../../typing/fields'
-import Accordion from '../../ui/Accordion.vue'
-import InputFixer from './InputFixer.vue'
+import { defineComponent, PropType } from "vue";
+import { Field } from "../../../typing/fields";
+import Accordion from "../../ui/Accordion.vue";
+import InputFixer from "./InputFixer.vue";
 
 export default defineComponent({
-  name: 'multi-fixer',
+  name: "multi-fixer",
   components: {
     Accordion,
-    InputFixer
+    InputFixer,
   },
   props: {
     initParams: [] as PropType<Field[]>,
-    initName: String
+    initName: String,
   },
   data(): { params: Field[] | undefined; element?: String } {
     return {
       params: this.initParams as Field[],
-      element: this.initName as String
-    }
+      element: this.initName as String,
+    };
   },
   mounted() {
-    console.log('receiver')
-  }
-})
+    console.log("receiver");
+  },
+});
 </script>
 
 <template>

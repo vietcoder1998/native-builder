@@ -1,36 +1,42 @@
 // store.ts
 import { InjectionKey } from 'vue'
 import { createStore, Store } from 'vuex'
-import  formContact from './data/form-contact'
+import formContact from './data/form-contact'
 import gallery from './data/gallery'
 import slide from './data/slide'
-import { ElementType, Option, Position, SelectorType } from './typing/index'
+import { ElementType, Option, Position, SelectorType, OptionType } from './typing/index';
 import { State } from './typing/store'
+import { CustomHTMLAttributes } from './typing/fields';
 
 // define your typings for the store state
 
 // define injection key
 export const key: InjectionKey<Store<State>> = Symbol()
 
+
+let options: Record<OptionType, Option>
+let customHTMLAttributes: CustomHTMLAttributes 
+
 export const store = createStore<State>({
   state: {
     selector: {
       type: null,
-      value: {},
-      position: [-1, -1, -1, -1]
+      options: {},
+      position: [-1, -1, -1, -1],
+      customHTMLAttributes: {}
     },
     sections: [
       {
         name: 'section1',
         options: {
-          gap: [1, 'number'],
-          column: [1, 'number']
+          gap: [1, 'input', 'number'],
+          column: [1, 'input', 'number']
         },
         columns: [
           {
             name: 'column1',
             options: {
-              quantity: [1, 'number']
+              quantity: [1, 'input', 'number']
             },
             elements: [
               {
@@ -40,11 +46,12 @@ export const store = createStore<State>({
                 // options define
                 options: {
                   // foo: [value, type, options]
-                  gap: [1, 'number'],
-                  column: [4, 'number'],
+                  gap: [1, 'input', 'number'],
+                  column: [4, 'input', 'number'],
                   type: [
                     ElementType.gallery,
                     'select',
+                    'text',
                     ['gallery', 'slide', 'form']
                   ]
                 }
@@ -59,8 +66,8 @@ export const store = createStore<State>({
           {
             name: 'column1',
             options: {
-              gap: [1, 'number'],
-              quantity: [1, 'number']
+              gap: [1, 'input', 'number', undefined],
+              quantity: [1, 'input', 'number', undefined]
             },
             elements: [
               {
@@ -69,10 +76,11 @@ export const store = createStore<State>({
                   type: [
                     ElementType.form,
                     'select',
+                    'text',
                     ['gallery', 'slide', 'form']
                   ],
-                  gap: [1, 'number'],
-                  quantity: [1, 'number']
+                  gap: [1, 'input', 'number'],
+                  quantity: [1, 'input', 'number']
                 },
                 fields: formContact,
               }
@@ -91,10 +99,10 @@ export const store = createStore<State>({
                 type: ElementType.slide,
                 fields: slide,
                 options: {
-                  gap: [1, 'number'],
-                  pagination: ['on', 'radio', ['on', 'off']],
-                  navigation: ['on', 'radio', ['on', 'off']],
-                  itemsNumber: [3, 'number', ['on', 'off']]
+                  gap: [1, 'input', 'number', []],
+                  pagination: ['on', 'input', 'radio', ['on', 'off']],
+                  navigation: ['on', 'input', 'radio', ['on', 'off']],
+                  itemsNumber: [3, 'input', 'number', ['on', 'off']]
                 }
               }
             ]
@@ -109,41 +117,45 @@ export const store = createStore<State>({
       state: State,
       { type, position }: { type: SelectorType; position: Position }
     ) {
-      console.log(type, position)
-      let value = {}
+
+
       switch (type) {
         case 'section':
-          value = state.sections[position[0]]
+          options = state.sections[position[0]].options
 
           break
         case 'column':
-          value = state.sections[position[0]].columns[position[1]]
+          options = state.sections[position[0]].columns[position[1]]?.options
 
           break
         case 'element':
-          value =
-            state.sections[position[0]].columns[position[1]].elements[
-            position[2]
-            ]
+          options =
+            state.sections[position[0]].columns[position[1]]?.elements[
+              position[2]
+            ]?.options
           break
         case 'field':
-          value =
+          options =
             state.sections[position[0]].columns[position[1]].elements[
               position[2]
-            ].fields[position[3]]
-          break
+            ].fields[position[3]].options
+          customHTMLAttributes = state.sections[position[0]].columns[position[1]].elements[
+            position[2]
+          ].fields[position[3]].customHTMLAttributes
 
+          break
         default:
           break
       }
 
       state.selector = {
         type,
-        value,
-        position
+        options,
+        position,
+        customHTMLAttributes
       }
     },
-    onUpdateSelector(state, nOptions: Option[]): void {
+    onUpdateSelector(state: State, nOptions: Option[]): void {
       try {
         const { position, type } = state.selector
         const options = nOptions.reduce((reactive, item: Option) => ({

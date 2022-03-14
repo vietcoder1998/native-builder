@@ -1,24 +1,24 @@
 <script lang="ts">
-import { defineComponent, PropType } from 'vue'
-import { Field } from '../../../typing/fields'
+import { defineComponent, PropType } from "vue";
+import { Field } from "../../../typing/index";
 
 export default defineComponent({
-  name: 'number-input',
+  name: "number-input",
   props: {
-    field: {} as PropType<Field>
+    field: {} as PropType<Field>,
   },
-  emits: ['change']
-})
+  emits: ["change"],
+});
 </script>
 <template>
   <input
     class="w-full text-left"
     type="number"
-    v-model="field.value"
-    v-bind:required="field?.customHTMLAttributes.required"
-    v-bind:placeholder="field?.customHTMLAttributes.placeholder"
-    v-bind:id="field?.customHTMLAttributes.id"
-    v-bind:name="field?.customHTMLAttributes.name"
+    v-bind:value="field?.value"
+    v-bind:required="field?.customHTMLAttributes?.required"
+    v-bind:placeholder="field?.customHTMLAttributes?.placeholder"
+    v-bind:id="field?.customHTMLAttributes?.id"
+    v-bind:name="field?.customHTMLAttributes?.name"
     min="0"
     @input="$emit('change')"
   />
