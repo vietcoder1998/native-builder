@@ -1,6 +1,6 @@
 <script lang="ts">
 import { defineComponent, PropType, shallowRef } from "vue";
-import { ElementType } from "../../typing/index";
+import { ElType } from "../../typing/index";
 import FormContactVue from "../form-contact/FormContact.vue";
 import ImageGalleryVue from "../image-gallery/ImageGallery.vue";
 import SlidesVue from "../slides/Slides.vue";
@@ -11,7 +11,7 @@ const formCon = shallowRef(FormContactVue);
 export default defineComponent({
   name: "dynamic-element",
   props: {
-    type: String as PropType<ElementType>,
+    type: String as PropType<ElType>,
     position: Array as PropType<number[]>,
   },
   created() {},
@@ -23,15 +23,15 @@ export default defineComponent({
 
   beforeMount() {
     switch (this.type) {
-      case ElementType.gallery:
+      case 'gallery':
         this.current = imgGal;
         break;
 
-      case ElementType.form:
+      case 'form':
         this.current = formCon;
         break;
 
-      case ElementType.slide:
+      case 'slide':
         this.current = slideVue;
         break;
 

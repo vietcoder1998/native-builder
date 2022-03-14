@@ -49,9 +49,7 @@ export default defineComponent({
           : ' error ' +
             'rounded text-left hover:bg-slate-300 p-1 mt-1 ml-2 w-full '
     },
-    type() {
-      return (name: SelectorType) => SelectorType[name]
-    },
+  
     selectorPosition(): string {
       //@ts-ingore
       return (

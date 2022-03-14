@@ -19,7 +19,7 @@ export type FieldType =
   | 'upload'
   | 'number'
 
-export type ElementType = 'gallery' | 'form' | 'slide' | 'unknown'
+export type ElType = 'gallery' | 'form' | 'slide' | 'unknown'
 export type SelectorType = 'element' | 'section' | 'column' | 'field'
 export type Tag = 'img' | 'div' | 'input' | 'h1' | 'h2' | 'button' | 'select'
 export type HTMLInputOptions =
@@ -64,7 +64,7 @@ export type Option = [
 ]
 
 export interface NestedComponent<T> {
-  type?: T
+  type: T
   options: Record<OptionType, Option>
   name: string
   id: string | number
@@ -80,7 +80,7 @@ export interface Field extends NestedComponent<FieldType> {
 }
 
 // foo: baz => baz[0] is value, baz[1] is type, baz[2] is options(ex: gap: [1, number, [2, 3, 4 ]] )
-export interface Element extends NestedComponent<ElementType> {
+export interface Element extends NestedComponent<ElType> {
   fields: Field[]
 }
 

@@ -4,18 +4,16 @@ import { createStore, Store } from 'vuex'
 import formContact from './data/form-contact.json'
 import gallery from './data/gallery.json'
 import slide from './data/slide.json'
-import { ElementType, Option, Position, SelectorType, OptionType } from './typing/index';
+import { Option, Position, SelectorType, OptionType } from './typing/index'
 import { State } from './typing/store'
-import { CustomHTMLAttributes } from './typing/fields';
+import { CustomHTMLAttributes } from './typing/fields'
 
 // define your typings for the store state
-
 // define injection key
 export const key: InjectionKey<Store<State>> = Symbol()
 
-
 let options: Record<OptionType, Option>
-let customHTMLAttributes: CustomHTMLAttributes 
+let customHTMLAttributes: CustomHTMLAttributes
 
 export const store = createStore<State>({
   state: {
@@ -40,8 +38,8 @@ export const store = createStore<State>({
             },
             elements: [
               {
-                name: 'gallery',
-                type: ElementType.gallery,
+                name: 'gallery1',
+                type: 'gallery',
                 fields: gallery,
                 // options define
                 options: {
@@ -49,7 +47,7 @@ export const store = createStore<State>({
                   gap: [1, 'input', 'number'],
                   column: [4, 'input', 'number'],
                   type: [
-                    ElementType.gallery,
+                    'gallery',
                     'select',
                     'text',
                     ['gallery', 'slide', 'form']
@@ -74,7 +72,7 @@ export const store = createStore<State>({
                 name: 'form',
                 options: {
                   type: [
-                    ElementType.form,
+                    'form',
                     'select',
                     'text',
                     ['gallery', 'slide', 'form']
@@ -95,8 +93,8 @@ export const store = createStore<State>({
             name: 'column1',
             elements: [
               {
-                name: 'slide',
-                type: ElementType.slide,
+                name: 'slide1',
+                type: 'slide',
                 fields: slide,
                 options: {
                   gap: [1, 'input', 'number', []],
@@ -164,15 +162,15 @@ export const store = createStore<State>({
         let selectorOp: Record<string, Option> | undefined = {}
 
         switch (type) {
-          case SelectorType.section:
+          case 'section':
             selectorOp = state.sections[position[0]].options
 
             break
-          case SelectorType.column:
+          case 'column':
             selectorOp =
               state.sections[position[0]].columns[position[1]]?.options
             break
-          case SelectorType.element:
+          case 'element':
             selectorOp =
               state.sections[position[0]].columns[position[1]].elements[
                 position[2]

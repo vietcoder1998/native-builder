@@ -1,5 +1,12 @@
-import { ElementType, Option, Position, Section, SelectorType, OptionType } from './index';
-import { CustomHTMLAttributes } from './fields';
+import {
+  ElType,
+  Option,
+  Position,
+  Section,
+  SelectorType,
+  OptionType
+} from './index'
+import { CustomHTMLAttributes } from './fields'
 
 export interface GalleryInfo {
   src: string
@@ -8,13 +15,13 @@ export interface GalleryInfo {
 }
 
 export interface Selector {
-  type?: SelectorType,
+  type?: SelectorType
   position: Position
-  options?: Record<OptionType, Option>,
-  customHTMLAttributes?: CustomHTMLAttributes,
+  options?: Record<OptionType, Option>
+  customHTMLAttributes?: CustomHTMLAttributes
 }
 
 export interface State {
-  sections: Section[],
-  selector: Selector,
+  sections: Section[]
+  selector: Selector
 }
