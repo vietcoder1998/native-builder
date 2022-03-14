@@ -55,7 +55,7 @@ export default defineComponent({
           <label>{{ option[0] }}</label>
           <input
             class="w-full"
-            v-bind:type="option[1][2] || text"
+            v-bind:type="option[1][2] || 'text'"
             v-bind:value="option[1][0]"
             v-bind:id="'element-selector' + key"
           />
