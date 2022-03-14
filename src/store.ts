@@ -41,7 +41,7 @@ export const store = createStore<State>({
                 options: {
                   // foo: [value, type, options]
                   gap: [1, 'number'],
-                  column: [1, 'number'],
+                  column: [4, 'number'],
                   type: [
                     ElementType.gallery,
                     'select',

@@ -1,0 +1,65 @@
+{
+    "img": {
+        "tag": "img",
+        "type": "text",
+        "option": {
+            "src": [
+                "",
+                "text",
+                ""
+            ],
+            "thumbnail": [
+                "",
+                "text",
+                ""
+            ],
+            "title": [
+                "",
+                "text",
+                ""
+            ]
+        }
+    },
+    "button": {
+        "tag": "button",
+        "type": "text",
+        "option": {
+            "src": [
+                "",
+                "text",
+                ""
+            ],
+            "thumbnail": [
+                "",
+                "text",
+                ""
+            ],
+            "title": [
+                "",
+                "text",
+                ""
+            ]
+        }
+    },
+    "h1": {
+        "tag": "h1",
+        "type": "text",
+        "option": {
+            "src": [
+                "",
+                "text",
+                ""
+            ],
+            "thumbnail": [
+                "",
+                "text",
+                ""
+            ],
+            "title": [
+                "",
+                "text",
+                ""
+            ]
+        }
+    }
+}

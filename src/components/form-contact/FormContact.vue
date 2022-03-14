@@ -35,20 +35,6 @@ export default defineComponent({
   methods: {
     // set value of CustomHTMLAttributes onchange textarea value
     onChangeAttributes(e: Event): void {},
-    addNewField() {
-      if (this.items) {
-        let field: Field = {
-          tag: "input",
-          type: FieldName.text,
-          index: this.items.length,
-          options: {},
-          customHTMLAttributes: {
-            placeholder: "new description",
-            name: "text",
-          },
-        };
-      }
-    },
   },
 });
 </script>
