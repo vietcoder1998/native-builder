@@ -3,7 +3,10 @@ import { mapGetters } from 'vuex'
 
 interface Dynamic<T, T1, T2> {
   computed: { elementDetail: () => T; options: () => T1; items: () => T2[] }
+  $props: any
 }
+
+// T as Type of Opstion, T1 as 
 function dynamicElement<T, T1, T2>(): Dynamic<T, T1, T2> {
   return {
     props: {
@@ -24,10 +27,10 @@ function dynamicElement<T, T1, T2>(): Dynamic<T, T1, T2> {
         return detail
       },
       column(): number {
-        return this.elementDetail.column || 1
+        return Number(this.elementDetail?.options.column[0]) || 1
       },
       gap(): number {
-        return this.elementDetail.gap || 1
+        return Number(this.elementDetail?.options.column[0]) || 1
       },
       options(): () => T1 {
         return this.elementDetail.options || {}

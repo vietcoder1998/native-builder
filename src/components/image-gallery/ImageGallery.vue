@@ -35,7 +35,7 @@ export default defineComponent({
       newItem: {}
     }
   },
-  mixins: [dynamicElement<{}, {}, Field<string>>()],
+  mixins: [dynamicElement<Option, Record<string, Option>,GalleryItem>()],
   computed: {
     itemIndex(): number {
       return this.fixingItem?.index || 0
