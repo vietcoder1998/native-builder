@@ -48,4 +48,5 @@ export type CustomHTMLAttributes = {
   key?: string | number | symbol | undefined
   showError?: boolean
   id?: string
+  rows?: number
 }

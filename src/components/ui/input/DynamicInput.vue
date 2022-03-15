@@ -1,15 +1,14 @@
 <script lang="ts">
 import { defineComponent, PropType, shallowRef } from 'vue'
-import { FieldName } from '../../../typing/fields'
-import { Field } from '../../../typing/index'
+import { Field, FieldType } from '../../../typing/index'
 import CheckBoxVue from './CheckBox.vue'
 import DateInputVue from './DateInput.vue'
 import NumberInputVue from './NumberInput.vue'
 import RadioInputVue from './RadioInput.vue'
+import RangeInput from './RangeInput.vue'
 import SelectInputVue from './SelectInput.vue'
 import TextAreaVue from './TextArea.vue'
 import TextInputVue from './TextInput.vue'
-import RangeInput from './RangeInput.vue'
 import UploadVue from './Upload.vue'
 
 const numbIn = shallowRef(NumberInputVue)
@@ -31,13 +30,13 @@ export default defineComponent({
     }
   },
   props: {
-    field: {} as PropType<Field>
+    field: {} as PropType<Field>,
+    index: Number as PropType<Number | String | Symbol>,
+    type: String as PropType<FieldType>,
+    label: String,
+    required: Boolean,
   },
   created() {},
-  // called on init
-  activated() {
-    console.log('hello world')
-  },
   // watch: listen props, change on change props
   watch: {
     field: {
@@ -52,7 +51,7 @@ export default defineComponent({
   },
   methods: {
     forceRender(): void {
-      switch (this.field?.type) {
+      switch (this.type) {
         case 'upload':
           this.current = uploIn
           break
@@ -80,7 +79,7 @@ export default defineComponent({
           this.current = checIn
           break
         case 'range':
-          this.current = checIn
+          this.current = rangeIn
           break
 
         default:
@@ -90,17 +89,17 @@ export default defineComponent({
     },
 
     onChange(e: any) {
-      if (this.field.index && e) {
+      if (e) {
         if (e?.target?.files[0]) {
           const image = e.target.files[0]
           const reader = new FileReader()
           reader.readAsDataURL(image)
           reader.onload = (e: ProgressEvent<FileReader>) => {
             const previewImage = e?.target?.result
-            this.$emit('on-input-field', this.field.index, previewImage)
+            this.$emit('on-input-field', this.index, previewImage)
           }
         } else {
-          this.$emit('on-input-field', this.field.index, e?.target?.value)
+          this.$emit('on-input-field', this.index, e?.target?.value)
         }
       }
     }
@@ -114,7 +113,7 @@ export default defineComponent({
     <label :for="field?.customHTMLAttributes?.id" class="w-full relative">
       {{ field?.options?.title[0] }}
       <span
-        v-show="field?.customHTMLAttributes?.required"
+        v-if="field?.options?.required[0]"
         class="text-red-500 absolute top-0 -right-2"
         >*</span
       >
@@ -127,7 +126,7 @@ export default defineComponent({
       ></component>
     </keep-alive>
     <p
-      v-show="field?.customHTMLAttributes?.showError"
+      v-if="field?.customHTMLAttributes?.showError"
       class="text-red-400 text-sm absolute bottom-0 left-0"
     >
       {{ field?.customHTMLAttributes?.error || '' }}

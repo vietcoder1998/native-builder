@@ -5,7 +5,7 @@
     "options": {
       "src": ["https://picsum.photos/200/300", "input", "text", []],
       "thumbnail": ["https://picsum.photos/200/300", "input", "text", []],
-      "title": ["https://picsum.photos/200/300", "input", "text", []]
+      "title": ["Img_0", "input", "text", []]
     },
     "customHTMLAttributes": {}
   },
@@ -15,7 +15,7 @@
     "options": {
       "src": ["https://picsum.photos/200/300", "input", "text", []],
       "thumbnail": ["https://picsum.photos/200/300", "input", "text", []],
-      "title": ["https://picsum.photos/200/300", "input", "text", []]
+      "title": ["Img_1", "input", "text", []]
     },
     "customHTMLAttributes": {}
   },
@@ -25,7 +25,7 @@
     "options": {
       "src": ["https://picsum.photos/200/300", "input", "text", []],
       "thumbnail": ["https://picsum.photos/200/300", "input", "text", []],
-      "title": ["https://picsum.photos/200/300", "input", "text", []]
+      "title": ["Img_2", "input", "text", []]
     },
     "customHTMLAttributes": {}
   },
@@ -35,7 +35,7 @@
     "options": {
       "src": ["https://picsum.photos/200/300", "input", "text", []],
       "thumbnail": ["https://picsum.photos/200/300", "input", "text", []],
-      "title": ["https://picsum.photos/200/300", "input", "text", []]
+      "title": ["Img_3", "input", "text", []]
     },
     "customHTMLAttributes": {}
   }

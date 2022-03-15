@@ -6,6 +6,7 @@ import { Option, OptionType } from '../../typing/index'
 import Accordion from '../ui/Accordion.vue'
 import TextArea from '../ui/input/TextArea.vue'
 import TextInput from '../ui/input/TextInput.vue'
+import DynamicInput from '../ui/input/DynamicInput.vue'
 
 export default defineComponent({
   name: 'selector-info',
@@ -24,8 +25,7 @@ export default defineComponent({
     ...mapMutations(['onUpdateSelector']),
     onSaveOption() {
       // transform Form into Array<{[name, option]: value }>  => { [key: OptionType] : [value, tag, type, options[]]}
-      console.log(this.selector)
-      const nOptions: Record<OptionType, Option> = this.selector.options
+      const options: Record<OptionType, Option> = this.selector.options
       Array.from(
         //@ts-ignore
         this.$refs?.selectorRef?.getElementsByTagName(
@@ -33,15 +33,16 @@ export default defineComponent({
         ) as HTMLInputElement[],
         // Array.from(x, item => function)// that is item of x like for (int i = 0,i < x.lengtg, i++); item = x[o])
         (item: HTMLInputElement) => {
-          const options: Option = this.selector.options[item.name]
-          Object.assign(nOptions, {
-            [item?.name]: [item?.value, options[1], options[2], options[3]]
+          console.log(item.name, item.value)
+          const nOptions: Option = this.selector.options[item.name]
+          Object.assign(options, {
+            [item?.name]: [item?.value, nOptions[1], nOptions[2], nOptions[3]]
           })
         }
       )
-      console.log(nOptions)
+      console.log(options)
 
-      this.onUpdateSelector({ nOptions })
+      this.onUpdateSelector({ options })
       alert('Alert success')
     }
   }
@@ -53,7 +54,7 @@ export default defineComponent({
       <form ref="selectorRef" @submit.prevent="onSaveOption">
         <div v-for="(option, key) in optionLabels" v-bind:key="key">
           <label>{{ option[0] }}</label>
-          <input
+          <DynamicInput
             class="w-full"
             v-bind:type="option[1][2] || 'text'"
             v-bind:value="option[1][0]"

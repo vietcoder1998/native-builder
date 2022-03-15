@@ -1,12 +1,13 @@
 <script lang="ts">
-import { defineComponent, PropType, ref } from 'vue'
-import { Field } from '../../../typing/index'
+import { defineComponent, PropType } from 'vue'
+import { CustomHTMLAttributes } from '../../../typing/fields'
 
 export default defineComponent({
   name: 'upload',
   setup() {},
   props: {
-    field: {} as PropType<Field>
+    customHTMLAttributes: {} as PropType<CustomHTMLAttributes>,
+    value: String
   }
 })
 </script>
@@ -21,9 +22,9 @@ export default defineComponent({
       @change="$emit('uploadImage')"
     />
     <img
-      v-show="field?.value && field?.value !== ''"
+      v-show="value && value !== ''"
       alt="pre-render"
-      v-bind:src="String(field?.value)"
+      v-bind:src="value"
     />
   </div>
 </template>

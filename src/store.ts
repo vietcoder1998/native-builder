@@ -15,6 +15,8 @@ export const key: InjectionKey<Store<State>> = Symbol()
 
 let options: Record<OptionType, Option>
 let customHTMLAttributes: CustomHTMLAttributes
+let selectorOp: Record<OptionType, Option> & Object
+
 interface DragItem {
   type: SelectorType
   position: Position
@@ -108,7 +110,7 @@ export const store = createStore<State>({
                   navigation: ['on', 'input', 'radio', ['on', 'off']],
                   itemsNumber: [3, 'input', 'number', ['on', 'off']]
                 },
-                fields: slide
+                fields: slide as Field[]
               }
             ]
           }
@@ -159,10 +161,12 @@ export const store = createStore<State>({
         customHTMLAttributes
       }
     },
-    onUpdateSelector(state: State, nOptions: Record<OptionType, Option>): void {
+    onUpdateSelector(
+      state: State,
+      { options }: { options: Record<OptionType, Option> & Object }
+    ): void {
       try {
         const { position, type } = state.selector
-        let selectorOp: Record<string, Option> | undefined = {}
 
         switch (type) {
           case 'section':
@@ -171,7 +175,7 @@ export const store = createStore<State>({
             break
           case 'column':
             selectorOp =
-              state.sections[position[0]].columns[position[1]]?.options
+              state.sections[position[0]].columns[position[1]].options
             break
           case 'element':
             selectorOp =
@@ -190,7 +194,7 @@ export const store = createStore<State>({
             break
         }
 
-        Object.assign(selectorOp, { ...nOptions })
+        Object.assign(selectorOp, { ...options })
       } catch (error) {
         alert('error in update selector' + String(error))
       }

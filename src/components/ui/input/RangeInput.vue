@@ -1,26 +1,31 @@
 <script lang="ts">
 import { defineComponent, PropType } from "vue";
+import { CustomHTMLAttributes } from "../../../typing/fields";
 import { Field } from "../../../typing/index";
 
 export default defineComponent({
-  name: "text-input",
+  name: 'range-input',
   props: {
-    field: {} as PropType<Field>,
+    customHTMLAttributes: {} as PropType<CustomHTMLAttributes>,
+    value: Number
   },
-  emits: ["change"],
-});
+  emits: ['change']
+})
 </script>
 <template>
   <input
     class="w-full text-left"
     type="range"
-    v-bind:value="field?.value?.toString()"
-    v-bind:required="field?.customHTMLAttributes?.required"
-    v-bind:placeholder="field?.customHTMLAttributes?.placeholder"
-    v-bind:id="field?.customHTMLAttributes?.id"
-    v-bind:name="field?.customHTMLAttributes?.name"
+    v-bind:value="value"
+    v-bind:required="customHTMLAttributes?.required"
+    v-bind:placeholder="customHTMLAttributes?.placeholder"
+    v-bind:id="customHTMLAttributes?.id"
+    v-bind:name="customHTMLAttributes?.name"
+    min="0"
+    @input="$emit('change')"
   />
 </template>
+
 
 <style>
 .err-container {

@@ -1,27 +1,32 @@
 <script lang="ts">
-import { defineComponent, PropType } from "vue";
-import { Field } from "../../../typing/index";
+import { defineComponent, PropType } from 'vue'
+import { CustomHTMLAttributes } from '../../../typing/fields'
+import { Field } from '../../../typing/index'
 
 export default defineComponent({
-  name: "checkbox-input",
+  name: 'checkbox-input',
   props: {
-    field: {} as PropType<Field>,
+    customHTMLAttributes: {} as PropType<CustomHTMLAttributes>,
+    value: String
   },
-  emits: ["change"],
-  data() {},
-});
+  emits: ['change'],
+  data() {}
+})
 </script>
 <template>
   <div class="form-group" required>
-    <div v-for="(option, oid) in field?.customHTMLAttributes?.options" :key="oid">
+    <div
+      v-for="(option, oid) in customHTMLAttributes?.options"
+      :key="oid"
+    >
       <input
         type="checkbox"
-        :name="field?.customHTMLAttributes?.name"
+        :name="customHTMLAttributes?.name"
         :value="option"
-        :id="field?.customHTMLAttributes?.name + option"
+        :id="customHTMLAttributes?.name + option"
         @change="$emit('change', option, name)"
       />
-      <label :for="field?.customHTMLAttributes?.name + option">
+      <label :for="customHTMLAttributes?.name + option">
         {{ option }}
       </label>
     </div>

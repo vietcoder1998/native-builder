@@ -1,11 +1,12 @@
 <script lang="ts">
 import { defineComponent, PropType } from 'vue'
-import { Field } from '../../../typing/index'
+import { CustomHTMLAttributes } from '../../../typing/fields'
 
 export default defineComponent({
   name: 'text-input',
   props: {
-    field: {} as PropType<Field>
+    customHTMLAttributes: {} as PropType<CustomHTMLAttributes>,
+    value: Number
   },
   emits: ['change']
 })
@@ -14,13 +15,13 @@ export default defineComponent({
   <textarea
     class="w-full text-left border"
     type="text"
-    v-bind:value="String(field?.value)"
-    v-bind:key="field?.customHTMLAttributes?.key"
-    v-bind:placeholder="field?.customHTMLAttributes?.placeholder"
-    v-bind:id="field?.customHTMLAttributes?.id"
-    v-bind:name="field?.customHTMLAttributes?.name"
-    rows="3"
-    :required="field?.customHTMLAttributes?.required"
+    v-bind:value="value"
+    v-bind:key="customHTMLAttributes?.key"
+    v-bind:placeholder="customHTMLAttributes?.placeholder"
+    v-bind:id="customHTMLAttributes?.id"
+    v-bind:name="customHTMLAttributes?.name"
+    :rows="customHTMLAttributes?.rows || 4"
+    :required="customHTMLAttributes?.required"
     @input="$emit('change')"
   >
   </textarea>

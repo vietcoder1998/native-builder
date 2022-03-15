@@ -55,6 +55,10 @@ export type OptionType =
   | 'required'
   | 'tag'
   | 'quantity'
+  | 'navigation'
+  | 'pagination'
+  | 'itemsNumber'
+  | 'quantity'
 
 export type Option = [
   string | number,
@@ -65,7 +69,7 @@ export type Option = [
 
 export interface NestedComponent<T> {
   type: T
-  options: { [key in OptionType]: Option } & Object
+  options: Record<OptionType, Option> & Object
   name: string
   id: string | number
 }
