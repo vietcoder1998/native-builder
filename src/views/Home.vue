@@ -66,7 +66,7 @@ export default defineComponent({
     }
   },
   methods: {
-    ...mapMutations(['onSelectUI', 'onDragChangePosition']),
+    ...mapMutations(['onSelectUI', 'onDragChangePosition', 'addSection']),
     onSelect(position: Position, type: string) {
       this.onSelectUI({
         position,
@@ -141,9 +141,19 @@ export default defineComponent({
                     @click="onSelect([sid, cid, eid, fid], 'field')"
                   >
                   </Item>
+                  <button class="append-el" @click="addSection">
+                    + Add Item
+                  </button>
                 </Accordion>
+                <button class="append-el" @click="addSection">
+                  + Add Element
+                </button>
               </Accordion>
+              <button class="append-el" @click="addSection">
+                + Add Column
+              </button>
             </Accordion>
+            <button class="append-el" @click="addSection">+ Add section</button>
           </div>
         </Tab>
         <Tab title="Element">Element</Tab>
@@ -177,5 +187,10 @@ export default defineComponent({
 <style>
 .selected {
   border: solid blue 1px;
+}
+.append-el {
+  border: solid gray 1px;
+  border-radius: 5px;
+  padding: 3px;
 }
 </style>

@@ -4,13 +4,12 @@ import { mapGetters, mapMutations } from 'vuex'
 import ulti from '../../mixin/ulti'
 import { Option, OptionType } from '../../typing/index'
 import Accordion from '../ui/Accordion.vue'
-import TextArea from '../ui/input/TextArea.vue'
-import TextInput from '../ui/input/TextInput.vue'
 import DynamicInput from '../ui/input/DynamicInput.vue'
+import TextArea from '../ui/input/TextArea.vue'
 
 export default defineComponent({
   name: 'selector-info',
-  components: { Accordion, TextInput, TextArea },
+  components: { Accordion, DynamicInput, TextArea },
   computed: {
     ...mapGetters(['selector']),
     optionLabels(): [string, Option][] {
@@ -53,13 +52,15 @@ export default defineComponent({
     <div v-show="selector.position[1] !== -1">
       <form ref="selectorRef" @submit.prevent="onSaveOption">
         <div v-for="(option, key) in optionLabels" v-bind:key="key">
-          <label>{{ option[0] }}</label>
           <DynamicInput
             class="w-full"
             v-bind:type="option[1][2] || 'text'"
-            v-bind:value="option[1][0]"
-            v-bind:id="'element-selector' + key"
-            v-bind:name="option[0]"
+            :value="option[1][0]"
+            :id="'element-selector' + key"
+            :name="option[0]"
+            :type="option[1][2]"
+            :options="option[1][3]"
+            :title="option[0]"
           />
         </div>
         <div v-if="selector.customHTMLAttributes">

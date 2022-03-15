@@ -1,6 +1,7 @@
 <script lang="ts">
 import { defineComponent, PropType, shallowRef } from 'vue'
-import { Field, FieldType } from '../../../typing/index'
+import { Field, FieldType, Options } from '../../../typing/index'
+import { CustomHTMLAttributes } from '../../../typing/fields'
 import CheckBoxVue from './CheckBox.vue'
 import DateInputVue from './DateInput.vue'
 import NumberInputVue from './NumberInput.vue'
@@ -30,11 +31,14 @@ export default defineComponent({
     }
   },
   props: {
-    field: {} as PropType<Field>,
     index: Number as PropType<Number | String | Symbol>,
     type: String as PropType<FieldType>,
-    label: String,
+    title: String,
     required: Boolean,
+    name: String,
+    value: String as PropType<Number | String | Boolean>,
+    customHTMLAttributes: Object as PropType<CustomHTMLAttributes>,
+    options: Object as PropType<String[] | Number[] | Boolean[]>
   },
   created() {},
   // watch: listen props, change on change props
@@ -110,10 +114,10 @@ export default defineComponent({
 
 <template>
   <div class="validate form mb-2">
-    <label :for="field?.customHTMLAttributes?.id" class="w-full relative">
-      {{ field?.options?.title[0] }}
+    <label :for="customHTMLAttributes?.id" class="w-full relative">
+      {{ title }}
       <span
-        v-if="field?.options?.required[0]"
+        v-if="customHTMLAttributes?.required"
         class="text-red-500 absolute top-0 -right-2"
         >*</span
       >
@@ -121,15 +125,17 @@ export default defineComponent({
     <keep-alive include="field" max="10">
       <component
         v-bind:is="current"
-        v-bind:field="field"
+        v-bind:value="value"
+        v-bind:customHTMLAttributes="customHTMLAttributes"
+        v-bind:options="options"
         @change="onChange"
       ></component>
     </keep-alive>
     <p
-      v-if="field?.customHTMLAttributes?.showError"
+      v-if="customHTMLAttributes?.showError"
       class="text-red-400 text-sm absolute bottom-0 left-0"
     >
-      {{ field?.customHTMLAttributes?.error || '' }}
+      {{ customHTMLAttributes?.error || '' }}
     </p>
   </div>
 </template>

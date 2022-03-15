@@ -63,7 +63,7 @@ export type OptionType =
 export type Option = [
   string | number,
   Tag,
-  HTMLInputOptions,
+  HTMLInputOptions | FieldType,
   string[] | number[] | boolean[] | undefined
 ]
 
@@ -73,6 +73,8 @@ export interface NestedComponent<T> {
   name: string
   id: string | number
 }
+
+export type Options = Record<OptionType, Option> & Object
 export interface Column extends NestedComponent<any> {
   elements: Element[]
 }

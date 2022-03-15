@@ -53,9 +53,13 @@ export default defineComponent({
         class="md:col-span-1 sm:col-span-2"
       >
         <DymamicInput
-          v-bind:field="field"
           v-bind:type="field.type"
           v-bind:index="id"
+          :required="field?.options?.required[0] || false"
+          :title="field?.options?.title[0]"
+          :customHTMLAttributes="field?.customHTMLAttributes"
+          :options="field?.options"
+          :name="field?.name"
         />
       </div>
       <button type="submit" class="border p-2 rounded bg-blue-500 text-blue-50">

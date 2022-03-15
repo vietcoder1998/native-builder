@@ -1,4 +1,4 @@
-import { Field } from './typing/index'
+import { Column, Field, Section } from './typing/index'
 // store.ts
 import { InjectionKey } from 'vue'
 import { createStore, Store } from 'vuex'
@@ -261,6 +261,108 @@ export const store = createStore<State>({
       }
 
       console.log('state update from drag & drop', state)
+    },
+    addEl<T>(
+      state: State,
+      {
+        type,
+        position,
+        value
+      }: { type: SelectorType; position: Position; value: T }
+    ) {
+      switch (type) {
+        case 'section':
+          let section: Section = {
+            name: 'section' + state.sections.length,
+            type: 'gallery',
+            customHTMLAttributes: {},
+            options: {},
+            columns: [
+              {
+                name: 'column1',
+                elements: [
+                  {
+                    name: 'slide1',
+                    type: 'slide',
+                    options: {
+                      gap: [1, 'input', 'number', []],
+                      col: [1, 'input', 'number', []],
+                      pagination: ['on', 'input', 'radio', ['on', 'off']],
+                      navigation: ['on', 'input', 'radio', ['on', 'off']],
+                      itemsNumber: [3, 'input', 'number', ['on', 'off']]
+                    },
+                    fields: slide as Field[]
+                  }
+                ]
+              }
+            ]
+          }
+          state.sections.push(section)
+          break
+
+        case 'column':
+          let column: Column = {
+            name: 'section' + state.sections.length,
+            type: 'gallery',
+            customHTMLAttributes: {},
+            options: {},
+            fields: [
+              {
+                name: 'column1',
+                elements: [
+                  {
+                    name: 'slide1',
+                    type: 'slide',
+                    options: {
+                      gap: [1, 'input', 'number', []],
+                      col: [1, 'input', 'number', []],
+                      pagination: ['on', 'input', 'radio', ['on', 'off']],
+                      navigation: ['on', 'input', 'radio', ['on', 'off']],
+                      itemsNumber: [3, 'input', 'number', ['on', 'off']]
+                    },
+                    fields: slide as Field[]
+                  }
+                ]
+              }
+            ]
+          }
+
+          state.sections[position[0]].columns.push(column)
+          break
+
+        case 'field':
+          let field: Column = {
+            name: 'section' + state.sections.length,
+            type: 'gallery',
+            customHTMLAttributes: {},
+            options: {},
+            columns: [
+              {
+                name: 'column1',
+                elements: [
+                  {
+                    name: 'slide1',
+                    type: 'slide',
+                    options: {
+                      gap: [1, 'input', 'number', []],
+                      col: [1, 'input', 'number', []],
+                      pagination: ['on', 'input', 'radio', ['on', 'off']],
+                      navigation: ['on', 'input', 'radio', ['on', 'off']],
+                      itemsNumber: [3, 'input', 'number', ['on', 'off']]
+                    },
+                    fields: slide as Field[]
+                  }
+                ]
+              }
+            ]
+          }
+
+          state.sections[position[0]].columns.push(column)
+          break
+
+        default:
+          break
+      }
     }
   },
   getters: {
