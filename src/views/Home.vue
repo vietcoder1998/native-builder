@@ -35,6 +35,14 @@ export default defineComponent({
       }
     }
   },
+  watch: {
+    sections: {
+      handler() {
+        console.log('sections change')
+      },
+      deep: true
+    }
+  },  
   computed: {
     ...mapGetters(['selector']),
     sections(): Section[] {
@@ -85,10 +93,10 @@ export default defineComponent({
     },
     onDrop(type: string, position: Position) {
       this.dropItem = { type, position }
-      console.log('drop ->', this.dropItem)
+      console.log('drop ->', type, position)
       this.onDragChangePosition({
         dragOnItem: this.dragItem,
-        dropEnterItem: this.dropItem
+        dropEnterItem: { type, position }
       })
     },
     onDragOver() {
@@ -113,8 +121,6 @@ export default defineComponent({
               v-bind:type="'section'"
               @on-drag-start="onDragStart"
               @on-drop="onDrop"
-              @on-drag-enter="onDragEnter"
-              @on-drag-over="onDragOver"
             >
               <Accordion
                 v-for="(column, cid) in section.columns"
