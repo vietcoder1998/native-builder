@@ -65,7 +65,7 @@ export type Option = [
 
 export interface NestedComponent<T> {
   type: T
-  options: Record<OptionType, Option>
+  options: { [key in OptionType]: Option } & Object
   name: string
   id: string | number
 }

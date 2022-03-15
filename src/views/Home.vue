@@ -42,19 +42,11 @@ export default defineComponent({
       },
       deep: true
     }
-  },  
+  },
   computed: {
     ...mapGetters(['selector']),
     sections(): Section[] {
       return this.$store.state.sections
-    },
-    position() {
-      return (sid: number, cid: number, eid: number, fid: number) => [
-        sid,
-        cid,
-        eid,
-        fid
-      ]
     },
     itemNavigatorClass() {
       return (position: Position) =>
@@ -83,13 +75,7 @@ export default defineComponent({
     },
     onDragStart(type: string, position: Position) {
       this.dragItem = { type, position }
-      console.log('dragItem ->', this.dragItem)
-    },
-    onDragEnter(type: string, position: Position) {
-      // setTimeout(() => {
-      //   this.dropItem = { type, position }
-      //   console.log('dragItem enter ->', this.dragItem)
-      // }, 1000)
+      console.log('dragItem ->', { type, position })
     },
     onDrop(type: string, position: Position) {
       this.dropItem = { type, position }
@@ -123,21 +109,27 @@ export default defineComponent({
               @on-drop="onDrop"
             >
               <Accordion
-                v-for="(column, cid) in section.columns"
-                v-bind:title="column.name"
+                v-for="(col, cid) in section.columns"
+                v-bind:title="col.name"
                 v-bind:cls="'ml-2 my-1'"
                 v-bind:key="cid.toString()"
                 v-bind:id="'column_' + sid + '_' + cid"
                 v-bind:position="[sid, -1, -1, -1]"
+                v-bind:type="'column'"
+                @on-drag-start="onDragStart"
+                @on-drop="onDrop"
               >
                 <Accordion
-                  v-for="(element, eid) in column.elements"
+                  v-for="(element, eid) in col.elements"
                   v-bind:title="element.name"
                   v-bind:cls="'ml-2 my-1'"
                   v-bind:key="eid.toString()"
                   @on-select="onSelect([sid, cid, eid, -1], 'element')"
                   v-bind:id="'column_' + sid + '_' + cid"
                   v-bind:position="[sid, -1, -1, -1]"
+                  v-bind:type="'element'"
+                  @on-drag-start="onDragStart"
+                  @on-drop="onDrop"
                 >
                   <Item
                     v-for="(field, fid) in element.fields"
@@ -164,10 +156,10 @@ export default defineComponent({
         @click="onSelect([sid, -1, -1, -1], 'section')"
         :class="selector.position[0] === sid && 'selected'"
       >
-        <div v-for="(column, cid) in section.columns" :key="cid">
-          <div v-for="(element, eid) in column.elements" :key="eid">
+        <div v-for="(col, cid) in section.columns" :key="cid">
+          <div v-for="(element, eid) in col.elements" :key="eid">
             <DynamicElement
-              v-bind:position="position(sid, cid, eid, -1)"
+              v-bind:position="[sid, cid, eid, -1]"
               v-bind:type="element.type"
             />
           </div>

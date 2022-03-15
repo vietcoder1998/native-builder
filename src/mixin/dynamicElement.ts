@@ -13,7 +13,6 @@ function dynamicElement<T, T1, T2>() {
       // mix the getters into computed with object spread operator
       ...mapGetters(['element']),
       elementDetail(): Element {
-
         //@ts-ignore
         return this.element({
           //@ts-ignore
@@ -22,26 +21,21 @@ function dynamicElement<T, T1, T2>() {
           eid: this.eid,
           //@ts-ignore
           cid: this.cid
-        })
+        }) as Element
       },
-      column(): number {
-        //@ts-ignore
-        return Number(this.elementDetail?.options?.column[0]) || 1
+      col(): number {
+        return this.elementDetail.options.col[0] || 1
       },
       gap(): number {
-        //@ts-ignore
-
-        return Number(this.elementDetail?.options?.column[0]) || 1
+        return this.elementDetail.options.col[0] || 1
       },
       options() {
-        //@ts-ignore
-        return this.elementDetail?.options
+        return this.elementDetail.options
       },
       fields() {
-        //@ts-ignore
-        return this.elementDetail?.fields
+        return this.elementDetail.fields
       }
-    },
+    }
   }
 }
 

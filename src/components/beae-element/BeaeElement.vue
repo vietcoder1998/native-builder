@@ -41,7 +41,7 @@ export default defineComponent({
   },
   computed: {
     itemCls(): string {
-      return `grid grid-cols-${this.$props.col} gap-${this.$props.gap}`
+      return `grid grid-columns-${this.$props.col} gap-${this.$props.gap}`
     }
   }
 })

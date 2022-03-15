@@ -43,11 +43,11 @@ export default defineComponent({
     },
     cls() {
       //@ts-ignore
-      return `fgrid-${this.column} `;
+      return `fgrid-${this.col} `;
     },
     childCls() {
       //@ts-ignore
-      return `w-${this.column}`;
+      return `w-${this.col}`;
     },
     imgCls() {
       //@ts-ignore
@@ -63,13 +63,13 @@ export default defineComponent({
       index: number;
     }[][] {
       //@ts-ignore
-      let column: number = this.column;
+      let col: number = this.col;
       let matrix: any[][] = [];
-      for (let i = 0; i < column; i++) {
+      for (let i = 0; i < col; i++) {
         matrix.push([]);
       }
       this.fields.forEach((item: GalleryItem, i: number) => {
-        let t = i % column;
+        let t = i % col;
         const converItem = {};
         Object.entries(item.options).map(([key, value]: [string, Option]) => {
           // image with value first value will return src of value exple: {src: ["abc.xyz", "text"]} => {src: "abc.xyz"}}

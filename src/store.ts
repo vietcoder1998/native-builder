@@ -32,8 +32,8 @@ export const store = createStore<State>({
       {
         name: 'section1',
         options: {
-          gap: [1, 'input', 'number'],
-          column: [1, 'input', 'number']
+          gap: [1, 'input', 'number', [1, 2]],
+          col: [1, 'input', 'number', [1, 2]]
         },
         columns: [
           {
@@ -49,8 +49,8 @@ export const store = createStore<State>({
                 // options define
                 options: {
                   // foo: [value, type, options]
-                  gap: [1, 'input', 'number'],
-                  column: [4, 'input', 'number'],
+                  gap: [1, 'input', 'number', []],
+                  col: [4, 'input', 'number', []],
                   type: [
                     'gallery',
                     'select',
@@ -76,6 +76,7 @@ export const store = createStore<State>({
               {
                 name: 'form',
                 options: {
+                  col: [1, 'input', 'text', []],
                   type: [
                     'form',
                     'select',
@@ -85,7 +86,7 @@ export const store = createStore<State>({
                   gap: [1, 'input', 'number', []],
                   quantity: [1, 'input', 'number', []]
                 },
-                fields: formContact
+                fields: formContact as Field[]
               }
             ]
           }
@@ -100,13 +101,14 @@ export const store = createStore<State>({
               {
                 name: 'slide1',
                 type: 'slide',
-                fields: slide,
                 options: {
                   gap: [1, 'input', 'number', []],
+                  col: [1, 'input', 'number', []],
                   pagination: ['on', 'input', 'radio', ['on', 'off']],
                   navigation: ['on', 'input', 'radio', ['on', 'off']],
                   itemsNumber: [3, 'input', 'number', ['on', 'off']]
-                }
+                },
+                fields: slide
               }
             ]
           }

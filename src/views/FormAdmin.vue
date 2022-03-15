@@ -45,7 +45,7 @@ export default defineComponent({
 });
 </script>
 <template>
-  <div class="grid grid-cols-8">
+  <div class="grid grid-columns-8">
     <section class="col-span-2">
       Section
       <SearchSelect

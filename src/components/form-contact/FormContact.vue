@@ -43,7 +43,7 @@ export default defineComponent({
     <form
       id="form-1"
       ref="form1"
-      class="grid grid-cols-2 gap-4 mx-3 my-5"
+      class="grid grid-columns-2 gap-4 mx-3 my-5"
       @submit.prevent=""
     >
       <div v-for="(field, id) in fields" :key="id" class="md:col-span-1 sm:col-span-2">

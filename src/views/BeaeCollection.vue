@@ -59,14 +59,14 @@ export default defineComponent({
 })
 </script>
 <template>
-  <div class="grid grid-cols-8">
+  <div class="grid grid-columns-8">
     <div class="col-span-2">
       <Accordion title="Columns">
         <input
           type="number"
           v-model="col"
           class="w-full"
-          id="cols-quantity"
+          id="columns-quantity"
           min="0"
         />
       </Accordion>
@@ -75,7 +75,7 @@ export default defineComponent({
           type="number"
           v-model="gap"
           class="w-full"
-          id="cols-quantity"
+          id="columns-quantity"
           min="0"
         />
       </Accordion>
