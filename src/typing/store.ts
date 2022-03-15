@@ -15,10 +15,10 @@ export interface GalleryInfo {
 }
 
 export interface Selector {
-  type?: SelectorType
+  type?: SelectorType | undefined
   position: Position
-  options?: Record<OptionType, Option>
-  customHTMLAttributes?: CustomHTMLAttributes
+  options?: Record<OptionType, Option> | {}
+  customHTMLAttributes?: CustomHTMLAttributes | {}
 }
 
 export interface State {

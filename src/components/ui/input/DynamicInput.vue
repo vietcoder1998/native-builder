@@ -33,11 +33,7 @@ export default defineComponent({
   props: {
     field: {} as PropType<Field>
   },
-
-  created() {
-    console.log(this.field)
-  },
-
+  created() {},
   // called on init
   activated() {
     console.log('hello world')

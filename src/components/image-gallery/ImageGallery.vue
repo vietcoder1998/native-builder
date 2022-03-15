@@ -76,7 +76,6 @@ export default defineComponent({
           Object.assign(converItem, { [key]: value[0] });
         });
         matrix[t].push(converItem);
-        console.log(matrix[i]);
       });
       return matrix;
     },

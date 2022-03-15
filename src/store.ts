@@ -1,4 +1,4 @@
-import { OptionType } from './typing/index'
+import { Field } from './typing/index'
 // store.ts
 import { InjectionKey } from 'vue'
 import { createStore, Store } from 'vuex'
@@ -15,6 +15,10 @@ export const key: InjectionKey<Store<State>> = Symbol()
 
 let options: Record<OptionType, Option>
 let customHTMLAttributes: CustomHTMLAttributes
+interface DragItem {
+  type: SelectorType
+  position: Position
+}
 
 export const store = createStore<State>({
   state: {
@@ -41,7 +45,7 @@ export const store = createStore<State>({
               {
                 name: 'gallery1',
                 type: 'gallery',
-                fields: gallery,
+                fields: gallery as Field,
                 // options define
                 options: {
                   // foo: [value, type, options]
@@ -184,10 +188,73 @@ export const store = createStore<State>({
             break
         }
 
-        Object.assign(selectorOp, { ...options })
+        Object.assign(selectorOp, { ...nOptions })
       } catch (error) {
         alert('error in update selector' + String(error))
       }
+    },
+    onDragChangePosition(
+      state: State,
+      {
+        dragOnItem,
+        dropEnterItem
+      }: { dragOnItem: DragItem; dropEnterItem: DragItem }
+    ) {
+      if (dragOnItem.type === dropEnterItem.type) {
+        const position = dragOnItem.position
+        const positionDrop = dropEnterItem.position
+        const type = dragOnItem.type
+
+        let temp: any
+        switch (type) {
+          case 'section':
+            temp = state.sections[position[0]]
+            state.sections[position[0]] = state.sections[positionDrop[0]]
+            state.sections[positionDrop[0]] = temp
+
+          case 'column':
+            temp = state.sections[position[0]].columns[position[1]]
+            //
+            state.sections[position[0]].columns[position[1]] =
+              state.sections[positionDrop[0]].columns[positionDrop[1]]
+            //
+            state.sections[positionDrop[0]].columns[positionDrop[1]] = temp
+
+            break
+          case 'element':
+            temp =
+              state.sections[position[0]].columns[position[1]].elements[
+                position[2]
+              ]
+
+            //
+            state.sections[position[0]].columns[position[1]].elements[
+              position[2]
+            ] =
+              state.sections[positionDrop[0]].columns[positionDrop[1]].elements[
+                positionDrop[2]
+              ]
+            //
+            state.sections[positionDrop[0]].columns[positionDrop[1]].elements[
+              positionDrop[2]
+            ] = temp
+
+            break
+          case 'field':
+            temp =
+              state.sections[position[0]].columns[position[1]].elements[
+                position[2]
+              ].fields[position[3]]
+            state.sections[position[0]] = state.sections[positionDrop[0]]
+            state.sections[positionDrop[0]] = temp
+
+            break
+          default:
+            break
+        }
+      }
+
+      console.log('state update from drag & drop', state)
     }
   },
   getters: {

@@ -22,11 +22,17 @@ export default defineComponent({
     List,
     Item
   },
-  data(): {
-    selectPropertiesId: Position
-  } {
+  data() {
     return {
-      selectPropertiesId: [-1, -1, -1, -1]
+      selectPropertiesId: [-1, -1, -1, -1],
+      dragItem: {
+        type: '',
+        position: [-1, -1, -1, -1]
+      },
+      dropItem: {
+        type: '',
+        position: [-1, -1, -1, -1]
+      }
     }
   },
   computed: {
@@ -49,7 +55,6 @@ export default defineComponent({
           : ' error ' +
             'rounded text-left hover:bg-slate-300 p-1 mt-1 ml-2 w-full '
     },
-  
     selectorPosition(): string {
       //@ts-ingore
       return (
@@ -61,13 +66,33 @@ export default defineComponent({
     }
   },
   methods: {
-    ...mapMutations(['onSelectUI']),
+    ...mapMutations(['onSelectUI', 'onDragChangePosition']),
     onSelect(position: Position, type: string) {
-      console.log()
       this.onSelectUI({
         position,
         type
       })
+    },
+    onDragStart(type: string, position: Position) {
+      this.dragItem = { type, position }
+      console.log('dragItem ->', this.dragItem)
+    },
+    onDragEnter(type: string, position: Position) {
+      // setTimeout(() => {
+      //   this.dropItem = { type, position }
+      //   console.log('dragItem enter ->', this.dragItem)
+      // }, 1000)
+    },
+    onDrop(type: string, position: Position) {
+      this.dropItem = { type, position }
+      console.log('drop ->', this.dropItem)
+      this.onDragChangePosition({
+        dragOnItem: this.dragItem,
+        dropEnterItem: this.dropItem
+      })
+    },
+    onDragOver() {
+      console.log('yes, it`s over')
     }
   }
 })
@@ -84,6 +109,12 @@ export default defineComponent({
               v-bind:cls="'ml-2 my-1'"
               v-bind:key="sid.toString()"
               v-bind:id="'section_' + sid"
+              v-bind:position="[sid, -1, -1, -1]"
+              v-bind:type="'section'"
+              @on-drag-start="onDragStart"
+              @on-drop="onDrop"
+              @on-drag-enter="onDragEnter"
+              @on-drag-over="onDragOver"
             >
               <Accordion
                 v-for="(column, cid) in section.columns"
@@ -91,6 +122,7 @@ export default defineComponent({
                 v-bind:cls="'ml-2 my-1'"
                 v-bind:key="cid.toString()"
                 v-bind:id="'column_' + sid + '_' + cid"
+                v-bind:position="[sid, -1, -1, -1]"
               >
                 <Accordion
                   v-for="(element, eid) in column.elements"
@@ -99,6 +131,7 @@ export default defineComponent({
                   v-bind:key="eid.toString()"
                   @on-select="onSelect([sid, cid, eid, -1], 'element')"
                   v-bind:id="'column_' + sid + '_' + cid"
+                  v-bind:position="[sid, -1, -1, -1]"
                 >
                   <Item
                     v-for="(field, fid) in element.fields"

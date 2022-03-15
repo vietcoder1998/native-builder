@@ -2,6 +2,7 @@
 import { defineComponent, PropType, ref } from 'vue'
 import IconVue from './Icon.vue'
 import { AngleDown } from '../../assets/icons'
+import { SelectorType } from '../../typing/index'
 
 export default defineComponent({
   name: 'accordion',
@@ -14,7 +15,8 @@ export default defineComponent({
     id: String,
     cls: String,
     isShow: Boolean,
-    position: Array as PropType<number[]>
+    position: Array as PropType<number[]>,
+    type: String as PropType<SelectorType>
   },
   data(): { open: boolean; icon: string } {
     return {
@@ -23,11 +25,8 @@ export default defineComponent({
     }
   },
   methods: {
-    onDragStart(item: any) {
-      console.log(item)
-    },
-    onDrop(item: any) {
-      console.log(item)
+    dragEnter() {
+      console.log('drag enter')
     }
   },
   watch: {
@@ -35,7 +34,13 @@ export default defineComponent({
       this.open = n
     }
   },
-  emits: ['onSelect']
+  emits: [
+    'onSelect',
+    'on-drag-start',
+    'on-drop',
+    'on-drag-enter',
+    'on-drag-over'
+  ]
 })
 </script>
 <template>
@@ -59,8 +64,11 @@ export default defineComponent({
         </button>
         <label
           class="border rounded absolute right-2"
-          @dragstart="onDragStart(id)"
-          @dragenter="onDrop(id)"
+          @dragstart="$emit('on-drag-start', type, position)"
+          @drop="$emit('on-drop', type, position)"
+          @dragenter.prevent
+          @dragover.prevent
+          draggable="true"
         >
           <app-icon icon="sort" class="w-6 h-6" @click="open = !open" />
         </label>
